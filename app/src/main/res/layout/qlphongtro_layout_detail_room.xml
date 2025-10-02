@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36dp"
+            android:textStyle="bold"
+            android:text="Phòng:"/>
+
+        <TextView
+            android:id="@+id/txtPhong_detailRoom"
+            android:layout_width="wrap_content"
+            android:textSize="36dp"
+            android:paddingLeft="6dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="102"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView_detailRoom"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
+        tools:listitem="@layout/qlphongtro_item_person_inroom" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_QuayLai_detailRoom"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Quay lại"/>
+        <Button
+            android:id="@+id/btn_ThemNguoi_detailRoom"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Thêm"/>
+        <Button
+            android:id="@+id/btn_XemChiTiet_detailRoom"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Chi tiết"/>
+    </LinearLayout>
+
+</LinearLayout>

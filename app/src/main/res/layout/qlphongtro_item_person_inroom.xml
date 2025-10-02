@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFE5E5"
+    android:paddingTop="4dp"
+    android:paddingBottom="12dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txtPhong_itemPersonInRoom"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="Nguyễn Thanh Thúy"/>
+
+        <TextView
+            android:id="@+id/txtSex_itemPersonInRoom"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:text="Nữ"/>
+
+        <TextView
+            android:id="@+id/txtCCCD_itemPersonInRoom"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="036205007463"/>
+
+        <ImageView
+            android:id="@+id/iconXoaNguoi_itemPersonInRoom"
+            android:layout_width="40dp"
+            android:layout_height="22dp"
+            android:src="@drawable/trash" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/txtNgaySinh_itemPersonInRoom"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="05/08/2005"/>
+
+        <TextView
+            android:id="@+id/txtDiaChi_itemPersonInRoom"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nam Định"/>
+    </LinearLayout>
+
+
+</LinearLayout>

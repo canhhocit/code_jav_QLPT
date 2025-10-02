@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.LoginCustomer">
+        <activity
+            android:name=".Manager_Home.activity_manager"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".QLkhachthue_trang.qlkhachthue_activity_chucnang"
+            android:exported="false" />
+        <activity
+            android:name=".QLkhachthue_trang.qlkhachthue_activity_dstt"
+            android:exported="false" />
+        <activity
+            android:name=".QLhopdong_y.hopdong_activity_chucnang"
+            android:exported="false" />
+        <activity
+            android:name=".QLhopdong_y.hopdong_activity_home"
+            android:exported="false" />
+        <activity
+            android:name=".Login.login_activity_dangky"
+            android:exported="false" />
+        <activity
+            android:name=".Login.login_activity_quenmk"
+            android:exported="false" />
+        <activity
+            android:name=".Login.login_activity_login"
+            android:exported="false"/>
+        <activity android:name=".QLbaocao_canh.baocao_activity_homebc"
+            android:exported="false"/>
+        <activity android:name=".QLphong_tam.qlphong_activity_home"
+            android:exported="false"/>
+        <activity android:name=".QLthutien_nguyen.statusRoom"
+            android:exported="false"/>
+
+    </application>
+
+</manifest>

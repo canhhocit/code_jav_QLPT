@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context=".QLkhachthue_trang.qlkhachthue_activity_chucnang">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple">
+
+
+            <ImageView
+                android:id="@+id/image_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:src="@drawable/back" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/purple"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/image_pro5"
+                android:layout_width="211dp"
+                android:layout_height="134dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="96dp"
+                android:src="@drawable/pro5" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="Họ và tên:"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/khachthue_edt_hoten"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Lê Thị Quỳnh Trang"
+                android:textSize="23dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Ngày sinh:"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="dd/mm/yyy">
+
+                <EditText
+                    android:id="@+id/khachthue_edt_ngaysinh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:textAlignment="center"
+                    android:padding="12dp"
+                    android:drawableStart="@drawable/calender"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="Số phòng:"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/khachthue_edt_phong"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint=""
+                android:textSize="23dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="3dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="Ngày kí HD:"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/khachthue_edt_ngayhd"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint=""
+                android:textSize="23dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Giới tính:"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/khachthue_rdogroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+
+                android:id="@+id/khachthue_radioNam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nam"
+                android:layout_marginRight="40dp"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/khachthue_radioNu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nữ"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/khachthue_btnSua"
+                android:layout_width="9dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sửa" />
+
+            <Button
+                android:id="@+id/khachthue_btnXoa"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Xóa" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <Button
+            android:id="@+id/khachthue_btnThem"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Thêm" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

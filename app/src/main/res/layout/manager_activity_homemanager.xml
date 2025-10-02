@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:padding="10dp"
+    tools:context=".Manager_Home.activity_manager">
+
+    <Button
+        android:id="@+id/manager_btnphongtro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phòng" />
+
+    <Button
+        android:id="@+id/manager_btnkhach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Khách" />
+
+    <Button
+        android:id="@+id/manager_btnhopdong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hợp đồng" />
+
+    <Button
+        android:id="@+id/manager_btnthutien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thu tiền" />
+
+    <Button
+        android:id="@+id/manager_btnbaocao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Báo cáo" />
+</LinearLayout>

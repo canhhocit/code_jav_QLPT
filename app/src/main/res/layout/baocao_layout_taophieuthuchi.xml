@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#ECEFF1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tạo phiếu thu/chi"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="#37474F"
+        android:textSize="22sp"
+
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/edt_tenthuchi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:inputType="text"
+        android:textColor="#37474F"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:hint="Tên khoản thu/chi"
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        android:drawableLeft="@drawable/khoanchi"
+        />
+
+    <EditText
+        android:id="@+id/edt_sotien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="#37474F"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:hint="Số tiền"
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        android:drawableStart="@drawable/money"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loại:"
+            android:textColor="#455A64"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="12dp" />
+
+        <RadioGroup
+            android:id="@+id/rdogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdo_thu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Thu"
+                android:textColor="#37474F"/>
+
+            <RadioButton
+                android:id="@+id/rdo_chi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginStart="20dp"
+                android:text="Chi"
+                android:textColor="#37474F"/>
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Chọn ngày">
+
+        <EditText
+            android:id="@+id/edtNgay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:textColor="#37474F"
+            android:focusable="false"
+            android:textAlignment="center"
+            android:padding="12dp"
+            android:drawableStart="@drawable/calender"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnquaylai"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Quay lai"
+            android:background="#455A64"
+            android:layout_marginLeft="20dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:padding="12dp"
+            />
+        <Button
+            android:id="@+id/btnxacnhan"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:text="Xác nhận"
+            android:background="#455A64"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:padding="12dp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
