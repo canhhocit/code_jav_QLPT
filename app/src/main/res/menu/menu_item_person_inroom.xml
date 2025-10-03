@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_edit_personroom"
+        android:title="Sửa thông tin" />
+    <item
+        android:id="@+id/menu_delete_personroom"
+        android:title="Xóa thông tin" />
+
+    <item
+        android:id="@+id/menu_detail_personroom"
+        android:title="Xem chi tiết" />
+</menu>

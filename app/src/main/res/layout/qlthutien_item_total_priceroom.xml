@@ -29,7 +29,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="3,500"
-        android:gravity="end"
+        android:gravity="center"
         android:textSize="16sp" />
 
     <TextView
