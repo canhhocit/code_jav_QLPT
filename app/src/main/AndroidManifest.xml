@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginCustomer">
         <activity
+            android:name=".Account.account_activity"
+            android:exported="false" />
+        <activity
             android:name=".Manager_Home.activity_manager"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,14 +43,16 @@
             android:exported="false" />
         <activity
             android:name=".Login.login_activity_login"
-            android:exported="false"/>
-        <activity android:name=".QLbaocao_canh.baocao_activity_homebc"
-            android:exported="false"/>
-        <activity android:name=".QLphong_tam.qlphong_activity_home"
-            android:exported="false"/>
-        <activity android:name=".QLthutien_nguyen.statusRoom"
-            android:exported="false"/>
-
+            android:exported="false" />
+        <activity
+            android:name=".QLbaocao_canh.baocao_activity_homebc"
+            android:exported="false" />
+        <activity
+            android:name=".QLphong_tam.qlphong_activity_home"
+            android:exported="false" />
+        <activity
+            android:name=".QLthutien_nguyen.statusRoom"
+            android:exported="false" />
     </application>
 
 </manifest>
