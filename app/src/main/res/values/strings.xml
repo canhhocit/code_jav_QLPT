@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Login&amp;Customer</string>
     <string name="xemDetail"><u>Xem</u></string>
+    <string name="billRoom_xemchitiet"><u>Xem chi tiết</u></string>
 </resources>
