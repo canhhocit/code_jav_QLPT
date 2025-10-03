@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
 
@@ -273,18 +274,38 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:text="Tiền dịch vụ khác"
-                android:textStyle="bold" />
-
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tiền phòng" />
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="12dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Tiền dịch vụ khác"
+                    android:textStyle="bold"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txt_otherService_billRoom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textSize="18dp"
+                    android:paddingRight="10dp"
+                    android:text="200,000 đ" />
+
+                <ImageView
+                    android:id="@+id/img_expandMoney_billRoom"
+                    android:layout_width="12dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/img_arrow" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -303,27 +324,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingBottom="8dp"
                 android:weightSum="4">
 
                 <TextView
                     android:layout_height="wrap_content"
-                    android:text=" "
+                    android:text="Dịch vụ"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
                     android:text="Số sử dụng"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
                     android:layout_height="wrap_content"
                     android:text="Giá"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
                     android:layout_height="wrap_content"
                     android:text="Thành tiền"/>
 
@@ -332,8 +363,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_totalPrice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"/>
+                android:layout_height="340dp"
+                android:overScrollMode="never"
+                tools:listitem="@layout/qlthutien_item_total_priceroom" />
+
+
 
 
             <TextView
