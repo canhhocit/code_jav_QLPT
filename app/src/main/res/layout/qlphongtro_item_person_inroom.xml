@@ -30,13 +30,13 @@
             android:text="Nữ"/>
 
         <TextView
-            android:id="@+id/txtCCCD_itemPersonInRoom"
+            android:id="@+id/txtSDT_itemPersonInRoom"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:text="036205007463"/>
+            android:text="0123456789"/>
 
         <ImageView
             android:id="@+id/iconXoaNguoi_itemPersonInRoom"
