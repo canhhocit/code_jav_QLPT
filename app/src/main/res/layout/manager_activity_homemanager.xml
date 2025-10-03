@@ -1,42 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-
+    android:fillViewport="true"
     android:padding="10dp"
     tools:context=".Manager_Home.activity_manager">
 
-    <Button
-        android:id="@+id/manager_btnphongtro"
+    <LinearLayout
+        android:id="@+id/mainmanager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Phòng" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/manager_btnkhach"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Khách" />
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xin chào, Admin!"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textColor="#37474F" />
 
-    <Button
-        android:id="@+id/manager_btnhopdong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hợp đồng" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/decrip"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="#607D8B"
+            android:paddingBottom="10dp" />
 
-    <Button
-        android:id="@+id/manager_btnthutien"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thu tiền" />
+        <GridLayout
+            android:id="@+id/gridDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:alignmentMode="alignMargins"
+            android:rowOrderPreserved="false"
+            android:useDefaultMargins="true">
 
-    <Button
-        android:id="@+id/manager_btnbaocao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Báo cáo" />
-</LinearLayout>
+            <!-- 1 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardPhong"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgPhong"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/room_manager_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quản lý Phòng"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 2 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardKhachThue"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgKhachThue"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/manager_customer_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Khách Thuê"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardThuTien"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgThuTien"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/manager_cashmoney_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thu Tiền"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 4 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardHopDong"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgHopDong"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/manager_contract_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hợp Đồng"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--5 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardBaoCao"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgBaoCao"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/manager_baocao_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Báo Cáo-Thống Kê"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!-- 6 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardTaiKhoan"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgTaiKhoan"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/manager_account_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tài Khoản"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- 7 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardLogout"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgLogout"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/manager_logout_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đăng xuất"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!--8 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardThoat"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgThoat"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/manager_shutdown_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thoát"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+    </LinearLayout>
+</ScrollView>

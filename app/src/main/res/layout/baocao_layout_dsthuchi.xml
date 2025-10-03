@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0dp" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="#E1E6E9">
@@ -18,13 +19,65 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="#3EB2C1"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:textSize="17dp"
+            android:text="Tên" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="7dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+
+            android:text="Số tiền" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="0dp"
+            android:textSize="17dp"
+            android:layout_marginLeft="7dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+
+            android:text="Loại" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginLeft="7dp"
+            android:text="Ngày" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/baocao_listv_dsthuchi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
+
         android:divider="#68C532"
         android:dividerHeight="1dp"
-        android:background="#C8B3B3" />
+        android:background="#C8B3B3"
+        tools:listitem="@layout/baocao_layout_item_thuchi"/>
 
 </LinearLayout>
