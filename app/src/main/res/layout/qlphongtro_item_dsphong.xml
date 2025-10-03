@@ -31,7 +31,7 @@
     <TextView
         android:id="@+id/txtGiaPhong_itemdsphong"
     android:layout_width="0dp"
-    android:layout_weight="1.5"
+    android:layout_weight="1.9"
     android:textSize="16sp"
     android:textStyle="bold"
     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
     <TextView
         android:id="@+id/txtXemChiTiet_itemdsphong"
         android:layout_width="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="#81FF00"
@@ -53,7 +53,7 @@
         android:id="@+id/iconXoaphong_itemdsphong"
         android:layout_width="40dp"
         android:layout_height="22dp"
-        android:src="@drawable/trash" />
+        android:src="@drawable/img_threeDot" />
 
 
 </LinearLayout>
