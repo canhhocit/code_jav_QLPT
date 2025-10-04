@@ -26,6 +26,7 @@ public class qlphong_activity_home extends AppCompatActivity {
     PhongTroDAO dao;
     PhongTroAdapter adapter;
     List<PhongTro> listPhong;
+    PhongTro phongDangChon = null;
 
     private static final int REQUEST_ADD = 100;
     private static final int REQUEST_UPDATE = 101;
@@ -49,9 +50,9 @@ public class qlphong_activity_home extends AppCompatActivity {
         adapter = new PhongTroAdapter(this, listPhong);
         listView.setAdapter(adapter);
 
-
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Toast.makeText(qlphong_activity_home.this, "đã bấm", Toast.LENGTH_SHORT).show();
+            phongDangChon = listPhong.get(position);
+            Toast.makeText(this, "Đã chọn phòng: " + phongDangChon.getTenphong(), Toast.LENGTH_SHORT).show();
         });
 
         // 🔍 Tìm kiếm
@@ -69,25 +70,18 @@ public class qlphong_activity_home extends AppCompatActivity {
 
         // ✏️ Sửa phòng
         btnUpdate.setOnClickListener(v -> {
+            if (phongDangChon == null) {
+                Toast.makeText(this, "Vui lòng chọn phòng để sửa!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent intent = new Intent(this, UpdatePhongActivity.class);
+            intent.putExtra("idPhong", phongDangChon.getIdphong());
+            intent.putExtra("tenPhong", phongDangChon.getTenphong());
+            intent.putExtra("soNguoi", phongDangChon.getSonguoi());
+            intent.putExtra("gia", phongDangChon.getGia());
             startActivityForResult(intent, REQUEST_UPDATE);
         });
-
-
-
-
-//        listView.setOnItemClickListener((parent, view, position, id) -> {
-//            PhongTro selectedPhong = listPhong.get(position);
-//            Toast.makeText(qlphong_activity_home.this, "đã bấm", Toast.LENGTH_SHORT).show();
-//            view.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-//            Intent intent = new Intent(qlphong_activity_home.this, UpdatePhongActivity.class);
-//            intent.putExtra("idPhong", selectedPhong.getIdphong());
-//            intent.putExtra("tenPhong", selectedPhong.getTenphong());
-//            intent.putExtra("soNguoi", selectedPhong.getSonguoi());
-//            intent.putExtra("gia", selectedPhong.getGia());
-//            startActivity(intent);
-//        });
-
     }
 
     // 📌 Nhận kết quả trả về từ AddPhongActivity hoặc UpdatePhongActivity
@@ -121,9 +115,27 @@ public class qlphong_activity_home extends AppCompatActivity {
                 }
             }
             else if (requestCode == REQUEST_UPDATE) {
-                // xử lý update...
+                //xử lý update
+                int idPhong = data.getIntExtra("idPhong", -1);
+                String tenPhong = data.getStringExtra("tenPhong");
+                double giaPhong = data.getDoubleExtra("gia", 0);
+
+                // Cập nhật lại trong danh sách
+                for (PhongTro p : listPhong) {
+                    if (p.getIdphong() == idPhong) {
+                        p.setTenphong(tenPhong);
+                        p.setGia(giaPhong);
+                        break;
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
+
         }
     }
+    public void setPhongDangChon(PhongTro pt) {
+        this.phongDangChon = pt;
+    }
+
 
 }

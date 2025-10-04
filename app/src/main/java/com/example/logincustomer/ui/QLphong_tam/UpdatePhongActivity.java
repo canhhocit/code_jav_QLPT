@@ -1,5 +1,6 @@
 package com.example.logincustomer.ui.QLphong_tam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import com.example.logincustomer.R;
 public class UpdatePhongActivity extends AppCompatActivity {
 
     EditText edtTenPhong, edtSoNguoi, edtGia;
-    Button btnLuu;
+    Button btnLuu,btnhuy;
     PhongTroDAO phongTroDAO;
     int idPhong;
 
@@ -27,6 +28,8 @@ public class UpdatePhongActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qlphongtro_dialog_suaphong);
+
+        btnhuy = findViewById(R.id.btnHuy_suaphong);
 
         edtTenPhong = findViewById(R.id.edt_TenPhong_suaphong);
         edtGia = findViewById(R.id.edt_giaPhong_suaphong);
@@ -37,28 +40,34 @@ public class UpdatePhongActivity extends AppCompatActivity {
         // Nhận dữ liệu từ Intent
         idPhong = getIntent().getIntExtra("idPhong", -1);
         edtTenPhong.setText(getIntent().getStringExtra("tenPhong"));
-        edtSoNguoi.setText(String.valueOf(getIntent().getIntExtra("soNguoi", 0)));
         edtGia.setText(String.valueOf(getIntent().getDoubleExtra("gia", 0)));
+
+        btnhuy.setOnClickListener(v -> {
+            finish();
+        });
 
         btnLuu.setOnClickListener(v -> {
             String ten = edtTenPhong.getText().toString().trim();
-            String soNguoiStr = edtSoNguoi.getText().toString().trim();
             String giaStr = edtGia.getText().toString().trim();
 
-            if (ten.isEmpty() || soNguoiStr.isEmpty() || giaStr.isEmpty()) {
+            if (ten.isEmpty() || giaStr.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            int soNguoi = Integer.parseInt(soNguoiStr);
             double gia = Double.parseDouble(giaStr);
-
-            PhongTro phong = new PhongTro(idPhong, ten, soNguoi, gia, 0);
+            PhongTro phong = new PhongTro(idPhong, ten, 0, gia, 0);
             int result = phongTroDAO.updatePhongTro(phong);
 
             if (result > 0) {
                 Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
-                finish(); // Quay lại danh sách
+                // Gửi dữ liệu về để cập nhật danh sách
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("idPhong", idPhong);
+                resultIntent.putExtra("tenPhong", ten);
+                resultIntent.putExtra("gia", gia);
+                setResult(RESULT_OK, resultIntent);
+                finish();
             } else {
                 Toast.makeText(this, "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
             }

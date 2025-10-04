@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.logincustomer.R;
 
-public class TaoHoaDonActivity extends AppCompatActivity {
+public class Guide extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.qlthutien_layout_total_priceroom);
+        setContentView(R.layout.qlthutien_layout_guide);
 
     }
 }

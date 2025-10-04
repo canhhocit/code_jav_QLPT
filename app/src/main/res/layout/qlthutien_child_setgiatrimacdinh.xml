@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edt_Name_OtherService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên dịch vụ"
+        android:inputType="textPersonName"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/edt_Price_OtherService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giá dịch vụ"
+        android:inputType="number"
+        android:padding="8dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_back_OtherService"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Quay lại"/>
+
+        <Button
+            android:id="@+id/btn_update_OtherService"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Cập nhật"/>
+
+    </LinearLayout>
+</LinearLayout>

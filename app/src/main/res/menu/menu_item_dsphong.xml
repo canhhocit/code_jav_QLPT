@@ -7,6 +7,9 @@
         android:id="@+id/menu_edit"
         android:title="Sửa hóa đơn" />
     <item
+        android:id="@+id/menu_xem"
+        android:title="Xem hóa đơn" />
+    <item
         android:id="@+id/menu_deletephong"
         android:title="Xóa phòng" />
 </menu>

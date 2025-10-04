@@ -57,7 +57,19 @@
             android:name=".ui.QLphong_tam.UpdatePhongActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.QLphong_tam.DetailInRoom"
+            android:exported="false" />
+        <activity
             android:name=".ui.QLthutien_nguyen.statusRoom"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QLthutien_nguyen.TaoHoaDonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QLthutien_nguyen.SetValueDefault"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QLthutien_nguyen.Guide"
             android:exported="false" />
     </application>
 

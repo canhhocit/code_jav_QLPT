@@ -27,6 +27,7 @@ public class PhongTroAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private HoaDonDAO hoaDonDAO;
     private PhongTroDAO phongTroDAO;
+    private int selectedPosition = -1;
 
     public PhongTroAdapter(Context context, List<PhongTro> list) {
         this.context = context;
@@ -63,6 +64,22 @@ public class PhongTroAdapter extends BaseAdapter {
         txtSoNguoi.setText(String.valueOf(pt.getSonguoi()));
         txtGia.setText(String.valueOf(pt.getGia()));
 
+        // Nếu là dòng được chọn thì tô màu
+        if (i == selectedPosition) {
+            convertView.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
+        } else {
+            convertView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+        }
+
+        convertView.setOnClickListener(v -> {
+            selectedPosition = i; // Lưu dòng được chọn
+            notifyDataSetChanged(); // Cập nhật lại màu hiển thị
+
+            if (context instanceof qlphong_activity_home) {
+                ((qlphong_activity_home) context).setPhongDangChon(pt);
+            }
+        });
+
         // Giữ lâu để xóa phòng
         convertView.setOnLongClickListener(v -> {
             new androidx.appcompat.app.AlertDialog.Builder(context)
@@ -87,13 +104,10 @@ public class PhongTroAdapter extends BaseAdapter {
 
         // 🟡 Khi nhấn "Xem chi tiết"
         txtXemChiTiet.setOnClickListener(v -> {
-            if (hoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
-                Intent intent = new Intent(context, BillRoomActivity.class);
+                Intent intent = new Intent(context, DetailInRoom.class);
                 intent.putExtra("idPhong", pt.getIdphong());
                 context.startActivity(intent);
-            } else {
-                Toast.makeText(context, "Phòng này chưa có hóa đơn để xem!", Toast.LENGTH_SHORT).show();
-            }
+
         });
 
         // 🟣 Khi nhấn vào biểu tượng "..."
@@ -119,6 +133,16 @@ public class PhongTroAdapter extends BaseAdapter {
                         context.startActivity(intent);
                     } else {
                         Toast.makeText(context, "Phòng này chưa có hóa đơn để sửa!", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                } else if (itemId == R.id.menu_xem) {
+                    //  xem hóa đơn (nếu có)
+                    if (hoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
+                        Intent intent = new Intent(context, TaoHoaDonActivity.class);
+                        intent.putExtra("idPhong", pt.getIdphong());
+                        context.startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "Phòng này chưa có hóa đơn!", Toast.LENGTH_SHORT).show();
                     }
                     return true;
 

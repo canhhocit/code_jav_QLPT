@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFE5E5"
-    android:paddingTop="4dp"
+    android:paddingTop="8dp"
     android:paddingBottom="12dp"
-    android:focusableInTouchMode="false"
     android:gravity="center"
     android:weightSum="5"
-    android:descendantFocusability="blocksDescendants">
+    android:clickable="false"
+    android:focusable="false"
+    android:descendantFocusability="afterDescendants">
+
     <TextView
         android:id="@+id/txtPhong_itemdsphong"
         android:layout_width="0dp"

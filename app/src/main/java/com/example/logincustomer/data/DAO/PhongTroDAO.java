@@ -33,12 +33,13 @@ public class PhongTroDAO {
     // 🔹 Cập nhật phòng
     public int updatePhongTro(PhongTro phong) {
         ContentValues values = new ContentValues();
-        values.put("tenPhong", phong.getTenphong());
-        values.put("giaPhong", phong.getGia());
-        values.put("soNguoi", phong.getSonguoi());
+        values.put("tenphong", phong.getTenphong()); // đúng tên cột
+        values.put("gia", phong.getGia());           // đúng tên cột
+        values.put("songuoi", phong.getSonguoi());  // đúng tên cột
 
         return db.update("PhongTro", values, "idphong = ?", new String[]{String.valueOf(phong.getIdphong())});
     }
+
 
     // 🔹 Xóa phòng theo id
     public int deletePhongTro(int idphong) {
@@ -83,7 +84,6 @@ public class PhongTroDAO {
         return list;
     }
 
-    // Thêm vào class PhongTroDAO
 // Kiểm tra phòng tồn tại (so sánh không phân biệt hoa thường)
     public boolean isPhongExists(String tenPhong) {
         if (tenPhong == null) return false;
@@ -107,5 +107,16 @@ public class PhongTroDAO {
         c.close();
         return exists;
     }
+    // 🔹 Hàm đếm số người trong phòng
+    public int countNguoiTrongPhong(int idPhong) {
+        int count = 0;
+        Cursor c = db.rawQuery("SELECT COUNT(*) FROM KhachThue WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
+        if (c.moveToFirst()) {
+            count = c.getInt(0);
+        }
+        c.close();
+        return count;
+    }
+
 
 }
