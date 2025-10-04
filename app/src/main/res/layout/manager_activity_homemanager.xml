@@ -225,6 +225,66 @@
 
             <!-- 7 -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardDefault"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgDefault"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/img_setDefaultValue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thiết lập mặc định"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!--8 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mng_cardGuide"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/manager_imgGuide"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/img_guide" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hướng dẫn"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/mng_cardLogout"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
