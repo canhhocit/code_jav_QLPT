@@ -3,6 +3,7 @@ package com.example.logincustomer.Model;
 public class khachthue {
     private int idkhach;
     private String hoten;
+    private String gioitinh;
     private String ngaysinh;
     private String sdt;
     private String diachi;
@@ -10,18 +11,19 @@ public class khachthue {
 
     public khachthue() {
     }
-
-    public khachthue(int idkhach, String hoten, String ngaysinh, String sdt, String diachi, int idphong) {
+    public khachthue(int idkhach, String hoten, String gioitinh, String ngaysinh, String sdt, String diachi, int idphong) {
         this.idkhach = idkhach;
         this.hoten = hoten;
+        this.gioitinh = gioitinh;
         this.ngaysinh = ngaysinh;
         this.sdt = sdt;
         this.diachi = diachi;
         this.idphong = idphong;
     }
 
-    public khachthue(String hoten, String ngaysinh, String sdt, String diachi, int idphong) {
+    public khachthue(String hoten, String gioitinh, String ngaysinh, String sdt, String diachi, int idphong) {
         this.hoten = hoten;
+        this.gioitinh = gioitinh;
         this.ngaysinh = ngaysinh;
         this.sdt = sdt;
         this.diachi = diachi;
@@ -76,4 +78,11 @@ public class khachthue {
         this.idphong = idphong;
     }
 
+    public String getGioitinh() {
+        return gioitinh;
+    }
+
+    public void setGioitinh(String gioitinh) {
+        this.gioitinh = gioitinh;
+    }
 }
