@@ -5,5 +5,5 @@
         android:title="Tính hóa đơn" />
     <item
         android:id="@+id/menu_edit"
-        android:title="Xem hóa đơn" />
+        android:title="Sửa hóa đơn" />
 </menu>
