@@ -1,5 +1,6 @@
 package com.example.logincustomer.QLphong_tam;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.logincustomer.DAO.HoaDonDAO;
+import com.example.logincustomer.DAO.PhongTroDAO;
 import com.example.logincustomer.Model.PhongTro;
 import com.example.logincustomer.QLthutien_nguyen.BillRoomActivity;
 import com.example.logincustomer.QLthutien_nguyen.TaoHoaDonActivity;
@@ -23,13 +25,15 @@ public class PhongTroAdapter extends BaseAdapter {
     private Context context;
     private List<PhongTro> list;
     private LayoutInflater inflater;
+    private HoaDonDAO hoaDonDAO;
+    private PhongTroDAO phongTroDAO;
 
-    HoaDonDAO hoaDonDAO;
     public PhongTroAdapter(Context context, List<PhongTro> list) {
         this.context = context;
         this.list = list;
         this.inflater = LayoutInflater.from(context);
         hoaDonDAO = new HoaDonDAO(context);
+        phongTroDAO = new PhongTroDAO(context);
     }
 
     @Override
@@ -41,8 +45,6 @@ public class PhongTroAdapter extends BaseAdapter {
     @Override
     public long getItemId(int i) { return list.get(i).getIdphong(); }
 
-
-
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -53,7 +55,7 @@ public class PhongTroAdapter extends BaseAdapter {
         TextView txtSoNguoi = convertView.findViewById(R.id.txtSoNguoi_itemdsphong);
         TextView txtGia = convertView.findViewById(R.id.txtGiaPhong_itemdsphong);
         TextView txtXemChiTiet = convertView.findViewById(R.id.txtXemChiTiet_itemdsphong);
-        ImageView iconMenu = convertView.findViewById(R.id.iconXoaphong_itemdsphong);
+        ImageView iconMenu = convertView.findViewById(R.id.iconMoreOption_itemdsphong);
 
         PhongTro pt = list.get(i);
 
@@ -61,30 +63,56 @@ public class PhongTroAdapter extends BaseAdapter {
         txtSoNguoi.setText(String.valueOf(pt.getSonguoi()));
         txtGia.setText(String.valueOf(pt.getGia()));
 
-        // Khi nhấn "xem"
-        txtXemChiTiet.setOnClickListener(v -> {
-            Intent intent = new Intent(context, BillRoomActivity.class);
-            intent.putExtra("idPhong", pt.getIdphong());
-            context.startActivity(intent);
+        // Giữ lâu để xóa phòng
+        convertView.setOnLongClickListener(v -> {
+            new androidx.appcompat.app.AlertDialog.Builder(context)
+                    .setTitle("Xóa phòng")
+                    .setMessage("Bạn có chắc chắn muốn xóa phòng \"" + pt.getTenphong() + "\" không?")
+                    .setPositiveButton("Xóa", (dialog, which) -> {
+                        // Gọi DAO để xóa
+                        com.example.logincustomer.DAO.PhongTroDAO phongTroDAO = new com.example.logincustomer.DAO.PhongTroDAO(context);
+                        int result = phongTroDAO.deletePhongTro(pt.getIdphong());
+                        if (result > 0) {
+                            list.remove(i);
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Đã xóa phòng!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Lỗi khi xóa phòng!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Hủy", null)
+                    .show();
+            return true;
         });
 
-        // Khi nhấn "..."
+        // 🟡 Khi nhấn "Xem chi tiết"
+        txtXemChiTiet.setOnClickListener(v -> {
+            if (hoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
+                Intent intent = new Intent(context, BillRoomActivity.class);
+                intent.putExtra("idPhong", pt.getIdphong());
+                context.startActivity(intent);
+            } else {
+                Toast.makeText(context, "Phòng này chưa có hóa đơn để xem!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 🟣 Khi nhấn vào biểu tượng "..."
         iconMenu.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(context, v);
             popup.getMenuInflater().inflate(R.menu.menu_item_dsphong, popup.getMenu());
 
             popup.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.menu_add) {
-                    // Mở activity tạo hóa đơn
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.menu_add) {
+                    // ➕ Tạo hóa đơn mới
                     Intent intent = new Intent(context, TaoHoaDonActivity.class);
                     intent.putExtra("idPhong", pt.getIdphong());
                     context.startActivity(intent);
                     return true;
 
-                } else if (item.getItemId() == R.id.menu_edit) {
-                    // Kiểm tra có hóa đơn chưa
-                    // Nếu có → mở activity sửa hóa đơn
-                    // Nếu chưa → thông báo
+                } else if (itemId == R.id.menu_edit) {
+                    // ✏️ Sửa hóa đơn (nếu có)
                     if (hoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
                         Intent intent = new Intent(context, TaoHoaDonActivity.class);
                         intent.putExtra("idPhong", pt.getIdphong());
@@ -93,7 +121,27 @@ public class PhongTroAdapter extends BaseAdapter {
                         Toast.makeText(context, "Phòng này chưa có hóa đơn để sửa!", Toast.LENGTH_SHORT).show();
                     }
                     return true;
+
+                } else if (itemId == R.id.menu_deletephong) {
+                    // 🗑️ Xóa phòng
+                    new AlertDialog.Builder(context)
+                            .setTitle("Xóa phòng")
+                            .setMessage("Bạn có chắc chắn muốn xóa phòng \"" + pt.getTenphong() + "\" không?")
+                            .setPositiveButton("Xóa", (dialog, which) -> {
+                                int result = phongTroDAO.deletePhongTro(pt.getIdphong());
+                                if (result > 0) {
+                                    list.remove(i);
+                                    notifyDataSetChanged();
+                                    Toast.makeText(context, "Đã xóa phòng!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(context, "Lỗi khi xóa phòng!", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("Hủy", null)
+                            .show();
+                    return true;
                 }
+
                 return false;
             });
 
@@ -102,10 +150,8 @@ public class PhongTroAdapter extends BaseAdapter {
 
         return convertView;
     }
-
     public void updateList(List<PhongTro> newList) {
         this.list = newList;
         notifyDataSetChanged();
     }
 }
-

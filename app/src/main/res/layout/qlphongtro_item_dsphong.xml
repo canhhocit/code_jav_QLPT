@@ -5,13 +5,16 @@
     android:background="#FFE5E5"
     android:paddingTop="4dp"
     android:paddingBottom="12dp"
+    android:focusableInTouchMode="false"
     android:gravity="center"
-    android:weightSum="5">
+    android:weightSum="5"
+    android:descendantFocusability="blocksDescendants">
     <TextView
         android:id="@+id/txtPhong_itemdsphong"
         android:layout_width="0dp"
         android:layout_weight="0.8"
         android:textSize="16sp"
+        android:focusableInTouchMode="false"
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:text="102"/>
@@ -20,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:textSize="16sp"
+        android:focusableInTouchMode="false"
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -29,6 +33,7 @@
     android:layout_width="0dp"
     android:layout_weight="1.9"
     android:textSize="16sp"
+        android:focusableInTouchMode="false"
     android:textStyle="bold"
     android:layout_height="wrap_content"
         android:gravity="center"
@@ -40,12 +45,14 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="#81FF00"
+        android:focusableInTouchMode="false"
     android:layout_height="wrap_content"
         android:gravity="center"
     android:text="xem"/>
     <ImageView
-        android:id="@+id/iconXoaphong_itemdsphong"
+        android:id="@+id/iconMoreOption_itemdsphong"
         android:layout_width="40dp"
         android:layout_height="22dp"
+        android:focusableInTouchMode="false"
         android:src="@drawable/img_threedot" />
 </LinearLayout>

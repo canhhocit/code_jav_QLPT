@@ -20,7 +20,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "tenphong TEXT, " +
                 "songuoi INTEGER, " +
                 "gia REAL, " +
-                "trangthai TEXT, " +
                 "idhopdong INTEGER, " +
                 "FOREIGN KEY (idhopdong) REFERENCES HopDong(idhopdong))");
 
