@@ -90,6 +90,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "tendichvu TEXT, " +
                 "giatien REAL, " +
                 "FOREIGN KEY (idchitiethoadon) REFERENCES ChiTietHoaDon(idchitiethoadon))");
+        db.execSQL("INSERT INTO PhongTro (tenphong, songuoi, gia, trangthai, idhopdong) " +
+                "VALUES ('P101', 2, 1500000, 'Trống', NULL)");
+        db.execSQL("INSERT INTO PhongTro (tenphong, songuoi, gia, trangthai, idhopdong) " +
+                "VALUES ('P102', 3, 2000000, 'Đang thuê', NULL)");
+        db.execSQL("INSERT INTO PhongTro (tenphong, songuoi, gia, trangthai, idhopdong) " +
+                "VALUES ('P103', 1, 1200000, 'Trống', NULL)");
+        db.execSQL("INSERT INTO KhachThue (hoten, gioitinh, ngaysinh, sdt, diachi, idphong) " +
+                "VALUES ('Nguyễn Văn A', 'Nam', '1998-05-10', '0901234567', 'Hà Nội', 1)");
+        db.execSQL("INSERT INTO KhachThue (hoten, gioitinh, ngaysinh, sdt, diachi, idphong) " +
+                "VALUES ('Trần Thị B', 'Nữ', '2000-03-22', '0912345678', 'Đà Nẵng', 2)");
+
     }
 
     @Override
