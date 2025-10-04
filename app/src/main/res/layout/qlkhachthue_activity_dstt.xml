@@ -6,7 +6,7 @@
     android:background="@color/purple"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QLkhachthue_trang.qlkhachthue_activity_dstt">
+    tools:context=".ui.QLkhachthue_trang.qlkhachthue_activity_dstt">
 
     <ImageView
         android:id="@+id/imageView2"

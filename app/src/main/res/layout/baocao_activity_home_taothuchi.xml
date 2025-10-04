@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".QLbaocao_canh.baocao_activity_homebc"
+    tools:context=".ui.QLbaocao_canh.baocao_activity_homebc"
     android:background="#E1E6E9">
 
     <TabHost

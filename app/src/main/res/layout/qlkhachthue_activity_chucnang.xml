@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context=".QLkhachthue_trang.qlkhachthue_activity_chucnang">
+    tools:context=".ui.QLkhachthue_trang.qlkhachthue_activity_chucnang">
 
 
         <LinearLayout

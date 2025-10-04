@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="25dp"
-    tools:context=".Login.login_activity_dangky">
+    tools:context=".ui.Login.login_activity_dangky">
 
     <TextView
         android:id="@+id/login_tv0"
