@@ -12,8 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.logincustomer.DAO.PhongTroDAO;
-import com.example.logincustomer.Model.PhongTro;
+import com.example.logincustomer.data.DAO.PhongTroDAO;
+import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.R;
 
 public class UpdatePhongActivity extends AppCompatActivity {
