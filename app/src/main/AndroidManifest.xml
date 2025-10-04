@@ -51,6 +51,12 @@
             android:name=".QLphong_tam.qlphong_activity_home"
             android:exported="false" />
         <activity
+            android:name=".QLphong_tam.AddPhongActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QLphong_tam.UpdatePhongActivity"
+            android:exported="false" />
+        <activity
             android:name=".QLthutien_nguyen.statusRoom"
             android:exported="false" />
     </application>
