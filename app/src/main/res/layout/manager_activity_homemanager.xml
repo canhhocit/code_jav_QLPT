@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:padding="10dp"
-    tools:context=".Manager_Home.activity_manager">
+    tools:context=".ui.Manager_Home.activity_manager">
 
     <LinearLayout
         android:id="@+id/mainmanager"

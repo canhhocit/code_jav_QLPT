@@ -8,7 +8,7 @@
     android:background="@drawable/hinhnen"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".QLhopdong_y.hopdong_activity_chucnang">
+    tools:context=".ui.QLhopdong_y.hopdong_activity_chucnang">
 
 
     <TextView

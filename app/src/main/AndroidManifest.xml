@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginCustomer">
         <activity
-            android:name=".Account.account_activity"
+            android:name=".ui.Account.account_activity"
             android:exported="false" />
         <activity
-            android:name=".Manager_Home.activity_manager"
+            android:name=".ui.Manager_Home.activity_manager"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,40 +24,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".QLkhachthue_trang.qlkhachthue_activity_chucnang"
+            android:name=".ui.QLkhachthue_trang.qlkhachthue_activity_chucnang"
             android:exported="false" />
         <activity
-            android:name=".QLkhachthue_trang.qlkhachthue_activity_dstt"
+            android:name=".ui.QLkhachthue_trang.qlkhachthue_activity_dstt"
             android:exported="false" />
         <activity
-            android:name=".QLhopdong_y.hopdong_activity_chucnang"
+            android:name=".ui.QLhopdong_y.hopdong_activity_chucnang"
             android:exported="false" />
         <activity
-            android:name=".QLhopdong_y.hopdong_activity_home"
+            android:name=".ui.QLhopdong_y.hopdong_activity_home"
             android:exported="false" />
         <activity
-            android:name=".Login.login_activity_dangky"
+            android:name=".ui.Login.login_activity_dangky"
             android:exported="false" />
         <activity
-            android:name=".Login.login_activity_quenmk"
+            android:name=".ui.Login.login_activity_quenmk"
             android:exported="false" />
         <activity
-            android:name=".Login.login_activity_login"
+            android:name=".ui.Login.login_activity_login"
             android:exported="false" />
         <activity
-            android:name=".QLbaocao_canh.baocao_activity_homebc"
+            android:name=".ui.QLbaocao_canh.baocao_activity_homebc"
             android:exported="false" />
         <activity
-            android:name=".QLphong_tam.qlphong_activity_home"
+            android:name=".ui.QLphong_tam.qlphong_activity_home"
             android:exported="false" />
         <activity
-            android:name=".QLphong_tam.AddPhongActivity"
+            android:name=".ui.QLphong_tam.AddPhongActivity"
             android:exported="false" />
         <activity
-            android:name=".QLphong_tam.UpdatePhongActivity"
+            android:name=".ui.QLphong_tam.UpdatePhongActivity"
             android:exported="false" />
         <activity
-            android:name=".QLthutien_nguyen.statusRoom"
+            android:name=".ui.QLthutien_nguyen.statusRoom"
             android:exported="false" />
     </application>
 

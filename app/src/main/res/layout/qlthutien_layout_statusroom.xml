@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="8dp"
     android:background="@drawable/bg_border_green_circle"
-    tools:context=".QLthutien_nguyen.statusRoom">
+    tools:context=".ui.QLthutien_nguyen.statusRoom">
 
         <TextView
             android:id="@+id/textView"

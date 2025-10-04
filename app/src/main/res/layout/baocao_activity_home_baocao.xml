@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ECEFF1"
-    tools:context=".QLbaocao_canh.baocao_activity_homebc"
+    tools:context=".ui.QLbaocao_canh.baocao_activity_homebc"
     android:padding="5dp">
 
     <TextView
