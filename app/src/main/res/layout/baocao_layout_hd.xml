@@ -3,65 +3,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="#ECEFF1"
-    android:padding="10dp">
+    android:padding="8dp"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Danh sách khách thuê"
+        android:text="Danh sách hợp đồng"
         android:layout_marginTop="8dp"
         android:textSize="30dp"
         android:textStyle="bold"
         android:textColor="@color/graygreen"
         android:textAlignment="center"/>
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E1D6EF"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:paddingStart="10dp"
-        android:weightSum="6"
-       >
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:background="#828E81"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Phòng"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_marginLeft="5dp"
-            android:text="Họ tên" />
-
+            android:gravity="center"
+            android:text="Ngày ký"
+            android:textSize="18sp"
+            android:textStyle="bold" />
         <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="Giới tính" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Ngày sinh" />
-
-        <TextView
-            android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Phòng" />
+            android:text="Hạn hợp đồng"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <ListView
-        android:id="@+id/baocao_lv_khach"
+        android:id="@+id/baocao_hopdong_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:divider="#B0BEC5"
+        android:layout_height="550dp"
+        android:layout_marginTop="20dp"
+        android:divider="@color/darkgrey"
         android:dividerHeight="1dp"
-        android:paddingTop="8dp"
-        tools:listitem="@layout/qlkhachthue_itemlistview"/>
+        tools:listitem="@layout/baocao_layout_hd_listitem"
+        >
+    </ListView>
+
 </LinearLayout>

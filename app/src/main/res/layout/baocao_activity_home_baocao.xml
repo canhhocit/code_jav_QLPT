@@ -50,8 +50,9 @@
                     android:id="@+id/tab_DT"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="#FFFFFF">
+                    android:background="#FFFFFF"
+                    android:orientation="vertical">
+
                     <include layout="@layout/baocao_layout_dt" />
                 </LinearLayout>
 
@@ -71,6 +72,14 @@
                     android:orientation="vertical"
                     android:background="#FFFFFF">
                     <include layout="@layout/baocao_layout_khach" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/tab_HD"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF">
+                    <include layout="@layout/baocao_layout_hd" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
