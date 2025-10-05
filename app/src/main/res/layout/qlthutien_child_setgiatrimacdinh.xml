@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="300dp"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tên dịch vụ"
+        android:textSize="20dp"
         android:inputType="textPersonName"
         android:padding="8dp" />
 
@@ -18,25 +19,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Giá dịch vụ"
+        android:textSize="20dp"
         android:inputType="number"
         android:padding="8dp" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_back_OtherService"
             android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Quay lại"/>
+            android:text="Quay lại"
+            android:textSize="19dp" />
+
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/btn_update_OtherService"
             android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Cập nhật"/>
+            android:text="Cập nhật"
+            android:textSize="19dp" />
 
     </LinearLayout>
 </LinearLayout>

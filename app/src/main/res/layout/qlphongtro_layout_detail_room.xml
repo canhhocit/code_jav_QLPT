@@ -29,7 +29,7 @@
     <ListView
         android:id="@+id/listView_detailRoom"
         android:layout_width="match_parent"
-        android:layout_height="398dp"
+        android:layout_height="wrap_content"
         tools:listitem="@layout/qlphongtro_item_person_inroom" />
 
     <LinearLayout
