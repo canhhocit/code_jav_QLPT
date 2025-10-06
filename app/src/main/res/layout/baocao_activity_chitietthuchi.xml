@@ -91,20 +91,24 @@
 
         </RadioGroup>
     </LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="dd/mm/yyy">
 
         <EditText
             android:id="@+id/baocao_edt_ngaythuchi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:clickable="true"
-            android:layout_marginTop="18dp"
-            android:textColor="#37474F"
             android:focusable="false"
             android:textAlignment="center"
             android:padding="12dp"
             android:drawableStart="@drawable/calender"
-            android:hint="Ngay"
-            android:enabled="false"/>
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/baocao_thuchi_btnsua"

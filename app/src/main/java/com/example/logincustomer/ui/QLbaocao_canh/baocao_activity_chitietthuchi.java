@@ -1,5 +1,6 @@
 package com.example.logincustomer.ui.QLbaocao_canh;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.R;
+
+import java.util.Calendar;
 
 public class baocao_activity_chitietthuchi extends AppCompatActivity {
     private TextView tvtitle;
@@ -35,12 +38,12 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
         });
         anhxaid();
         back_dsthuchi();
-        checklinear();
+        checkbtn_getdata();
 
     }
 
 
-    private void checklinear() {
+    private void checkbtn_getdata() {
         Intent intent=getIntent();
         int check = intent.getIntExtra("check",0);
         if(check==1){
@@ -70,6 +73,22 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
         btnSua = findViewById(R.id.baocao_thuchi_btnsua);
         btnThem.setVisibility(View.INVISIBLE);
         btnSua.setVisibility(View.INVISIBLE);
+        edtNgayThuChi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int y = calendar.get(Calendar.YEAR);
+                int m = calendar.get(Calendar.MONTH);
+                int d = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(baocao_activity_chitietthuchi.this,
+                        (view, year1, month1, dayOfMonth) ->
+                                edtNgayThuChi.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
+                        y, m, d
+                );
+                dialog.show();
+            }
+        });
 
     }
 }

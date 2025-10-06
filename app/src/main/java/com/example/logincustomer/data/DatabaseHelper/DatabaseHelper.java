@@ -50,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "tenthuchi TEXT, " +
                 "sotien REAL, " +
                 "loai TEXT, " +
-                "ngaythuchi TEXT)");
+                "ngaythuchi Date)");
 
         // Bảng Tài khoản
         db.execSQL("CREATE TABLE TaiKhoan (" +

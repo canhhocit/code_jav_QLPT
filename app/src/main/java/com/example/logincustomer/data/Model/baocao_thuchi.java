@@ -18,6 +18,13 @@ public class baocao_thuchi {
         this.ngaythuchi = ngaythuchi;
     }
 
+    public baocao_thuchi(String tenthuchi, int sotienthuchi, String ngaythuchi, String loaithuchi) {
+        this.tenthuchi = tenthuchi;
+        this.sotienthuchi = sotienthuchi;
+        this.ngaythuchi = ngaythuchi;
+        this.loaithuchi = loaithuchi;
+    }
+
     public int getIdthuchi() {
         return idthuchi;
     }
