@@ -2,9 +2,11 @@ package com.example.logincustomer.ui.QLphong_tam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,6 +29,7 @@ public class qlphong_activity_home extends AppCompatActivity {
     PhongTroAdapter adapter;
     List<PhongTro> listPhong;
     PhongTro phongDangChon = null;
+    TextView tvtitle;
 
     private static final int REQUEST_ADD = 100;
     private static final int REQUEST_UPDATE = 101;
@@ -41,6 +44,13 @@ public class qlphong_activity_home extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAddRoom_phongtro);
         btnUpdate = findViewById(R.id.btnUpdateRoom_phongtro);
         listView = findViewById(R.id.listview_dsphong_phongtro);
+        tvtitle = findViewById(R.id.qlphongtro_dsphong_tvTitle);
+        tvtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         dao = new PhongTroDAO(this);
         listPhong = dao.getAllPhongTro();
@@ -142,6 +152,18 @@ public class qlphong_activity_home extends AppCompatActivity {
     }
     public void setPhongDangChon(PhongTro pt) {
         this.phongDangChon = pt;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        for (PhongTro p : dao.getAllPhongTro()) {
+            dao.updateSoNguoiPhong(p.getIdphong());
+        }
+
+        listPhong.clear();
+        listPhong.addAll(dao.getAllPhongTro());
+        adapter.notifyDataSetChanged();
     }
 
 

@@ -27,6 +27,7 @@ public class khachthueDAO {
         vlu.put("sdt",kt.getSdt());
         vlu.put("diachi",kt.getDiachi());
         vlu.put("idphong", kt.getIdphong());
+        db.insert("KhachThue",null,vlu);
     }
     // update
     public void updateKhachThue(khachthue kt) {
