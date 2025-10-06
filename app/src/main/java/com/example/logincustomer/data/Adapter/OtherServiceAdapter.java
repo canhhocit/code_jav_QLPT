@@ -1,4 +1,4 @@
-package com.example.logincustomer.ui.QLthutien_nguyen;
+package com.example.logincustomer.data.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;

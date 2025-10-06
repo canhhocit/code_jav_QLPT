@@ -1,4 +1,4 @@
-package com.example.logincustomer.ui.QLphong_tam;
+package com.example.logincustomer.data.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,7 +15,8 @@ import android.widget.Toast;
 import com.example.logincustomer.data.DAO.PhongTroDAO;
 import com.example.logincustomer.data.DAO.HoaDonDAO;
 import com.example.logincustomer.data.Model.PhongTro;
-import com.example.logincustomer.ui.QLthutien_nguyen.BillRoomActivity;
+import com.example.logincustomer.ui.QLphong_tam.DetailInRoom;
+import com.example.logincustomer.ui.QLphong_tam.qlphong_activity_home;
 import com.example.logincustomer.ui.QLthutien_nguyen.TaoHoaDonActivity;
 import com.example.logincustomer.R;
 
