@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_thuchi_them"
+        android:title="Thêm danh sách thu/chi" />
+    <item
+        android:id="@+id/menu_thuchi_sua"
+        android:title="Sửa danh sách"/>
+    <item
+        android:id="@+id/menu_thuchi_xoa1"
+        android:title="Xóa 1 mục"/>
+    <item
+        android:id="@+id/menu_thuchi_xoaall"
+        android:title="Xóa tất cả danh sách"/>
+    <item
+        android:id="@+id/menu_thuchi_chedoloc"
+        android:title="Chế độ lọc và sắp xếp"/>
+
+</menu>

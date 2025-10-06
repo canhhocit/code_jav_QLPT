@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="15dp"
     tools:context=".ui.QLbaocao_canh.baocao_activity_homedsthuchi"
     android:background="#E1E6E9">
 
@@ -29,26 +29,131 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/baocao_dsthuchi_tvmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:drawableStart="@drawable/menu" />
+
         <EditText
-            android:id="@+id/khachthue_edt_timkiem"
+            android:id="@+id/baocao_dsthuchi_edt_timkiem"
             android:layout_width="260dp"
             android:layout_height="42dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="75dp"
             android:background="@drawable/white_bg"
             android:drawableEnd="@drawable/search_icon"
             android:ems="10"
-            android:hint="Tìm kiếm..."
+            android:hint="Tìm theo tên VD: Dọn vs"
             android:inputType="text"
             android:padding="12dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/black"
             android:textSize="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_baocao_dsthuchi_loc_sapxep"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text="Loại: " />
+
+        <RadioGroup
+            android:id="@+id/baocao_dsthuchi_rdogr_locthuchi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <RadioButton
+                android:id="@+id/baocao_dsthuchi_rdothu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="Thu" />
+
+            <RadioButton
+                android:id="@+id/baocao_dsthuchi_rdochi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="Chi" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:text="Sắp xếp:" />
+
+        <RadioGroup
+            android:id="@+id/baocao_dsthuchi_rdogr_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/baocao_dsthuchi_rdo_moneyASC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="↑ Số tiền" />
+
+            <RadioButton
+                android:id="@+id/baocao_dsthuchi_rdo_moneyDSC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="↓ Số tiền" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/baocao_dsthuchi_rdogr_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <RadioButton
+                android:id="@+id/baocao_dsthuchi_rdo_dateASC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="↑ Ngày" />
+
+            <RadioButton
+                android:id="@+id/baocao_dsthuchi_rdo_dateDSC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="↓ Ngày" />
+        </RadioGroup>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="#3EB2C1"
         android:orientation="horizontal"
         android:weightSum="6">
@@ -59,8 +164,9 @@
             android:textStyle="bold"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
+            android:textColor="@color/black"
             android:textSize="17dp"
-            android:text="Tên" />
+            android:text="Tên mục" />
 
         <TextView
             android:id="@+id/textView14"
@@ -69,6 +175,7 @@
             android:textStyle="bold"
             android:layout_marginLeft="7dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_weight="1.5"
 
             android:text="Số tiền" />
@@ -79,6 +186,7 @@
             android:textSize="17dp"
             android:layout_marginLeft="7dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_weight="1"
             android:textStyle="bold"
 
@@ -90,6 +198,7 @@
             android:textStyle="bold"
             android:textSize="17dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_weight="2"
             android:layout_marginLeft="7dp"
             android:text="Ngày" />
@@ -98,21 +207,12 @@
     <ListView
         android:id="@+id/baocao_listv_dsthuchi"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="match_parent"
         android:divider="#68C532"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
         android:dividerHeight="1dp"
         android:background="#C8B3B3"
         tools:listitem="@layout/baocao_layout_itemds_thuchi"/>
-
-    <ImageButton
-        android:id="@+id/baocao_thuchi_imgthem"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:scaleType="centerInside"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="end"
-        android:layout_marginEnd="30dp"
-        android:src="@drawable/add_img_thuchi" />
 
 </LinearLayout>

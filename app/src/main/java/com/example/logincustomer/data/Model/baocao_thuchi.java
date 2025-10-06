@@ -3,14 +3,14 @@ package com.example.logincustomer.data.Model;
 public class baocao_thuchi {
     private int idthuchi;
     private String tenthuchi;
-    private int sotienthuchi;
+    private double sotienthuchi;
     private String loaithuchi;
     private String ngaythuchi;
 
     public baocao_thuchi() {
     }
 
-    public baocao_thuchi(int idthuchi, String tenthuchi, int sotienthuchi, String loaithuchi, String ngaythuchi) {
+    public baocao_thuchi(int idthuchi, String tenthuchi, double sotienthuchi, String loaithuchi, String ngaythuchi) {
         this.idthuchi = idthuchi;
         this.tenthuchi = tenthuchi;
         this.sotienthuchi = sotienthuchi;
@@ -18,7 +18,7 @@ public class baocao_thuchi {
         this.ngaythuchi = ngaythuchi;
     }
 
-    public baocao_thuchi(String tenthuchi, int sotienthuchi, String ngaythuchi, String loaithuchi) {
+    public baocao_thuchi(String tenthuchi, double sotienthuchi, String ngaythuchi, String loaithuchi) {
         this.tenthuchi = tenthuchi;
         this.sotienthuchi = sotienthuchi;
         this.ngaythuchi = ngaythuchi;
@@ -41,7 +41,7 @@ public class baocao_thuchi {
         this.tenthuchi = tenthuchi;
     }
 
-    public int getSotienthuchi() {
+    public double getSotienthuchi() {
         return sotienthuchi;
     }
 

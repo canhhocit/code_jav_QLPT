@@ -104,6 +104,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="false"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:padding="12dp"
             android:drawableStart="@drawable/calender"

@@ -1,6 +1,7 @@
 package com.example.logincustomer.ui.QLkhachthue_trang;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,6 +27,7 @@ import com.example.logincustomer.data.DAO.PhongTroDAO;
 import com.example.logincustomer.data.DAO.khachthueDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.data.Model.khachthue;
+import com.example.logincustomer.ui.QLbaocao_canh.baocao_activity_homedsthuchi;
 
 import java.util.Calendar;
 
@@ -57,15 +60,27 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
       btnXoa.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              Intent intent = getIntent();
-              int idkhach = intent.getIntExtra("idkhach", -1);
-              if (idkhach != -1) {
-                  khachDAO.deleteKhacThue(idkhach);
-                  Toast.makeText(qlkhachthue_activity_chucnang.this, "Đã xóa khách thuê!", Toast.LENGTH_SHORT).show();
-                  finish();
-              } else {
-                  Toast.makeText(qlkhachthue_activity_chucnang.this, "Lỗi: không tìm thấy khách!", Toast.LENGTH_SHORT).show();
-              }
+              AlertDialog.Builder builder = new AlertDialog.Builder(qlkhachthue_activity_chucnang.this);
+              builder.setTitle("Lưu ý");
+              builder.setIcon(R.drawable.warning_img);
+              builder.setMessage("Xóa người này?");
+              builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                      Intent intent = getIntent();
+                      int idkhach = intent.getIntExtra("idkhach", -1);
+                      if (idkhach != -1) {
+                          khachDAO.deleteKhacThue(idkhach);
+                          Toast.makeText(qlkhachthue_activity_chucnang.this, "Đã xóa khách thuê!", Toast.LENGTH_SHORT).show();
+                          finish();
+                      } else {
+                          Toast.makeText(qlkhachthue_activity_chucnang.this, "Lỗi: không tìm thấy khách!", Toast.LENGTH_SHORT).show();
+                      }
+                  }
+              });
+              builder.setNegativeButton("Hủy",null);
+              builder.show();
+
           }
       });
 
@@ -87,7 +102,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                 khachDAO.updateKhachThue(kt);
                 Toast.makeText(qlkhachthue_activity_chucnang.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
 
-                finish(); // return dstt
+                finish(); // back dstt
             }
         });
     }
@@ -138,6 +153,9 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getdatafromText()==null){
+                    return;
+                }
                 khachDAO.insertKhachThue(getdatafromText());
                 Toast.makeText(qlkhachthue_activity_chucnang.this, "Thêm khách thuê thành công!", Toast.LENGTH_SHORT).show();
                 finish();
