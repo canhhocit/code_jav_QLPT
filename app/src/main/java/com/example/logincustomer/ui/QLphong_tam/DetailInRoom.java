@@ -21,7 +21,7 @@ import java.util.List;
 public class DetailInRoom extends AppCompatActivity {
 
     private ListView listView;
-    private Button btnThem;
+    private Button btnThem, btnBack;
     private TextView txtTenPhong;
     private khachthueDAO khachDAO;
     private PhongTroDAO phongDAO;
@@ -36,12 +36,12 @@ public class DetailInRoom extends AppCompatActivity {
         txtTenPhong = findViewById(R.id.txtPhong_detailRoom);
         listView = findViewById(R.id.listView_detailRoom);
         btnThem = findViewById(R.id.btn_ThemNguoi_detailRoom);
+        btnBack = findViewById(R.id.btn_QuayLai_detailRoom);
 
-        // nhận đúng key (đã fix từ trước)
         idPhong = getIntent().getIntExtra("idPhong", -1);
 
-        PhongTroDAO phongDAO = new PhongTroDAO(this);
-        khachthueDAO khachDAO = new khachthueDAO(this);
+        phongDAO = new PhongTroDAO(this);
+        khachDAO = new khachthueDAO(this);
 
         // set tên phòng
         PhongTro phong = phongDAO.getPhongById(idPhong);
@@ -58,8 +58,14 @@ public class DetailInRoom extends AppCompatActivity {
 
         btnThem.setOnClickListener(v -> {
             Intent intent = new Intent(this, qlkhachthue_activity_chucnang.class);
+            intent.putExtra("check", 1);
             intent.putExtra("idPhong", idPhong);
+            intent.putExtra("tenphong", phong.getTenphong());
             startActivity(intent);
+        });
+
+        btnBack.setOnClickListener(v -> {
+            finish();
         });
     }
 }
