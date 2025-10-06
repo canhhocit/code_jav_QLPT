@@ -108,7 +108,6 @@ public class PhongTroAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, DetailInRoom.class);
                 intent.putExtra("idPhong", pt.getIdphong());
                 context.startActivity(intent);
-
         });
 
         // 🟣 Khi nhấn vào biểu tượng "..."

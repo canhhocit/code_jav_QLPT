@@ -109,5 +109,22 @@ public class khachthueDAO {
         cur.close();
         return id;
     }
+    public List<khachthue> getKhachTheoPhong(int idPhong) {
+        List<khachthue> list = new ArrayList<>();
+        Cursor cur = db.rawQuery("SELECT * FROM KhachThue WHERE idphong = ?", new String[]{ String.valueOf(idPhong) });
+        while (cur.moveToNext()) {
+            list.add(new khachthue(
+                    cur.getInt(0),
+                    cur.getString(1),
+                    cur.getString(2),
+                    cur.getString(3),
+                    cur.getString(4),
+                    cur.getString(5),
+                    cur.getInt(6)
+            ));
+        }
+        cur.close();
+        return list;
+    }
 
 }

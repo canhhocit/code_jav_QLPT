@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
 import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.khachthue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,5 +128,20 @@ public class PhongTroDAO {
 
         return db.update("PhongTro", values, "idphong = ?", new String[]{String.valueOf(idPhong)});
     }
-
+    public PhongTro getPhongById(int idPhong) {
+        PhongTro p = null;
+        Cursor c = db.rawQuery("SELECT * FROM PhongTro WHERE idphong = ?", new String[]{ String.valueOf(idPhong) });
+        if (c != null && c.moveToFirst()) {
+            // Sử dụng constructor giống như getAllPhongTro để tránh gọi setter sai tên
+            p = new PhongTro(
+                    c.getInt(0),      // idphong
+                    c.getString(1),   // tenphong
+                    c.getInt(2),      // songuoi
+                    c.getDouble(3),   // gia
+                    c.getInt(4)       // idhopdong
+            );
+        }
+        if (c != null) c.close();
+        return p;
+    }
 }
