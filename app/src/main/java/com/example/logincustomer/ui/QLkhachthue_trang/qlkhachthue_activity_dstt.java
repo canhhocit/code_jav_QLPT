@@ -84,7 +84,7 @@ public class qlkhachthue_activity_dstt extends AppCompatActivity {
                 }else{
                     list = khachDAO.getfindbyname(keyw);
                 }
-                ktadapter = new khachthueAdapter(qlkhachthue_activity_dstt.this,list);
+                ktadapter = new khachthueAdapter(qlkhachthue_activity_dstt.this,list,khachDAO);
                 lvkhach.setAdapter(ktadapter);
             }
         });
@@ -114,7 +114,7 @@ public class qlkhachthue_activity_dstt extends AppCompatActivity {
     private void listdshienthi() {
         khachDAO= new khachthueDAO(qlkhachthue_activity_dstt.this);
         List<khachthue> listKhach = khachDAO.getAllKhachThue();
-        ktadapter = new khachthueAdapter(qlkhachthue_activity_dstt.this,listKhach);
+        ktadapter = new khachthueAdapter(qlkhachthue_activity_dstt.this,listKhach,khachDAO);
         lvkhach.setAdapter(ktadapter);
     }
 
@@ -122,8 +122,7 @@ public class qlkhachthue_activity_dstt extends AppCompatActivity {
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(qlkhachthue_activity_dstt.this, activity_manager.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

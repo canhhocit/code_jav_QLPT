@@ -96,8 +96,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(qlkhachthue_activity_chucnang.this,qlkhachthue_activity_dstt.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

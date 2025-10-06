@@ -45,8 +45,13 @@
             android:name=".ui.Login.login_activity_login"
             android:exported="false" />
         <activity
-            android:name=".ui.QLbaocao_canh.baocao_activity_homebc"
+            android:name=".ui.QLbaocao_canh.baocao_activity_homeBC"
             android:exported="false" />
+        <activity android:name=".ui.QLbaocao_canh.baocao_activity_homedsthuchi"
+            android:exported="false"/>
+        <activity android:name=".ui.QLbaocao_canh.baocao_activity_chitietthuchi"
+            android:exported="false"/>
+
         <activity
             android:name=".ui.QLphong_tam.qlphong_activity_home"
             android:exported="false" />

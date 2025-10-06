@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maindsthuchi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
+    tools:context=".ui.QLbaocao_canh.baocao_activity_homedsthuchi"
     android:background="#E1E6E9">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/baocao_dsthuchi_tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Danh sách thu/chi"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textColor="#867189"
-        android:textSize="22sp"
-        android:layout_marginTop="12dp"
+        android:textSize="29dp"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/arrow_back"
         android:layout_marginBottom="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/khachthue_edt_timkiem"
+            android:layout_width="260dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="100dp"
+            android:background="@drawable/white_bg"
+            android:drawableEnd="@drawable/search_icon"
+            android:ems="10"
+            android:hint="Tìm kiếm..."
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:background="#3EB2C1"
         android:orientation="horizontal"
         android:weightSum="6">
@@ -72,12 +98,21 @@
     <ListView
         android:id="@+id/baocao_listv_dsthuchi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-
+        android:layout_height="430dp"
+        android:layout_marginTop="8dp"
         android:divider="#68C532"
         android:dividerHeight="1dp"
         android:background="#C8B3B3"
-        tools:listitem="@layout/baocao_layout_item_thuchi"/>
+        tools:listitem="@layout/baocao_layout_itemds_thuchi"/>
+
+    <ImageButton
+        android:id="@+id/baocao_thuchi_imgthem"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/add_img_thuchi" />
 
 </LinearLayout>

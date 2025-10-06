@@ -7,19 +7,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ECEFF1"
-    tools:context=".ui.QLbaocao_canh.baocao_activity_homebc"
+    tools:context=".ui.QLbaocao_canh.baocao_activity_homeBC"
     android:padding="5dp">
 
     <TextView
         android:id="@+id/baocao_tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:text="Báo cáo"
         android:textAlignment="center"
-        android:textSize="26sp"
+        android:textSize="29dp"
         android:textStyle="bold"
+        android:drawableStart="@drawable/arrow_back"
         android:textColor="#37474F" />
 
     <TabHost

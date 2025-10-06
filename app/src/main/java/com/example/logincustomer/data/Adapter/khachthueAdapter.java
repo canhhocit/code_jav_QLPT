@@ -14,29 +14,30 @@
     import java.util.List;
 
     public class khachthueAdapter extends BaseAdapter {
+
         private Context context;
-        private List<khachthue> list;
+        private List<khachthue> listkhachthue;
         private khachthueDAO ktDAO;
 
-        public khachthueAdapter(Context context, List<khachthue> list) {
+        public khachthueAdapter(Context context, List<khachthue> listkhachthue, khachthueDAO ktDAO) {
             this.context = context;
-            this.list = list;
-            this.ktDAO = new khachthueDAO(context);
+            this.listkhachthue = listkhachthue;
+            this.ktDAO = ktDAO;
         }
 
         @Override
         public int getCount() {
-            return list.size();
+            return listkhachthue.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return list.get(position);
+            return listkhachthue.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return list.get(position).getIdkhach();
+            return listkhachthue.get(position).getIdkhach();
         }
 
         @Override
@@ -46,7 +47,7 @@
                 convertView = inflater.inflate(R.layout.qlkhachthue_itemlistview, parent, false);
             }
 
-            khachthue khach = list.get(position);
+            khachthue khach = listkhachthue.get(position);
 
             TextView tvHoTen = convertView.findViewById(R.id.khachthue_tv_hotenlv);
             TextView tvGioiTinh = convertView.findViewById(R.id.khachthue_tv_gioitinglv);

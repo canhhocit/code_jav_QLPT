@@ -49,7 +49,7 @@ public class PhongTroDAO {
     // 🔹 Lấy toàn bộ danh sách phòng
     public List<PhongTro> getAllPhongTro() {
         List<PhongTro> list = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT * FROM PhongTro", null);
+        Cursor c = db.rawQuery("SELECT * FROM PhongTro order by tenphong asc", null);
         if (c.moveToFirst()) {
             do {
                 list.add(new PhongTro(
