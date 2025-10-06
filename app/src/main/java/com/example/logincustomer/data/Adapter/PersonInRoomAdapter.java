@@ -57,6 +57,9 @@ public class PersonInRoomAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.txtTenKhach = convertView.findViewById(R.id.txtName_itemPersonInRoom);
             holder.txtSdt = convertView.findViewById(R.id.txtsdt_itemPersonInRoom);
+            holder.txtGioiTinh = convertView.findViewById(R.id.txtSex_itemPersonInRoom);
+            holder.txtNgaySinh = convertView.findViewById(R.id.txtNgaySinh_itemPersonInRoom);
+            holder.txtDiaChi = convertView.findViewById(R.id.txtDiaChi_itemPersonInRoom);
             holder.iconMenu = convertView.findViewById(R.id.iconMoreOption_itemPersonInRoom);
             convertView.setTag(holder);
         } else {
@@ -66,6 +69,9 @@ public class PersonInRoomAdapter extends BaseAdapter {
         khachthue khach = list.get(position);
         holder.txtTenKhach.setText(khach.getHoten());
         holder.txtSdt.setText(khach.getSdt());
+        holder.txtGioiTinh.setText(khach.getGioitinh());
+        holder.txtNgaySinh.setText(khach.getNgaysinh());
+        holder.txtDiaChi.setText(khach.getDiachi());
 
         // 🟣 Khi nhấn vào biểu tượng "..."
         holder.iconMenu.setOnClickListener(v -> {
@@ -78,7 +84,15 @@ public class PersonInRoomAdapter extends BaseAdapter {
                 if (itemId == R.id.menu_edit_personroom) {
                     // ✏️ Sửa thông tin khách thuê
                     Intent intent = new Intent(context, qlkhachthue_activity_chucnang.class);
+                    intent.putExtra("check", 2);
                     intent.putExtra("idkhach", khach.getIdkhach());
+                    intent.putExtra("hoten", khach.getHoten());
+                    intent.putExtra("gioitinh", khach.getGioitinh());
+                    intent.putExtra("ngaysinh", khach.getNgaysinh());
+                    intent.putExtra("sdt", khach.getSdt());
+                    intent.putExtra("diachi", khach.getDiachi());
+                    intent.putExtra("idphong", khach.getIdphong());
+
                     context.startActivity(intent);
                     return true;
 
@@ -96,20 +110,17 @@ public class PersonInRoomAdapter extends BaseAdapter {
                             .setNegativeButton("Hủy", null)
                             .show();
                     return true;
-
                 } else {
                     return false;
                 }
             });
-
             popup.show();
         });
-
         return convertView;
     }
-
     private static class ViewHolder {
-        TextView txtTenKhach, txtSdt;
+        TextView txtTenKhach, txtSdt, txtGioiTinh, txtNgaySinh, txtDiaChi;
         ImageView iconMenu;
     }
+
 }

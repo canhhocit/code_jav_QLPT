@@ -21,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.R;
+import com.example.logincustomer.data.Adapter.PersonInRoomAdapter;
 import com.example.logincustomer.data.DAO.PhongTroDAO;
 import com.example.logincustomer.data.DAO.khachthueDAO;
 import com.example.logincustomer.data.Model.PhongTro;
@@ -34,6 +35,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
     private RadioGroup rdgGioiTinh;
     private Button btnSua, btnXoa, btnThem;
     private khachthueDAO khachDAO;
+    private PersonInRoomAdapter personInRoomAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                 kt.setIdkhach(idkhach);
                 khachDAO.updateKhachThue(kt);
                 Toast.makeText(qlkhachthue_activity_chucnang.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
-
+                personInRoomAdapter.notifyDataSetChanged();
                 finish(); // return dstt
             }
         });
@@ -104,6 +106,13 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
     private void nhandulieu() {
         Intent intent = getIntent();
         int check = intent.getIntExtra("check", 0);
+
+        // 👇 nhận tên phòng được gửi sang (nếu có)
+        String tenPhong = intent.getStringExtra("tenphong");
+        if (tenPhong != null) {
+            edtPhong.setText(tenPhong);
+        }
+
         if (check == 1) {
             btnThem.setVisibility(View.VISIBLE);
         } else if (check == 2) {
@@ -121,10 +130,11 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             edtNgaySinh.setText(ngaysinh);
             edtSDT.setText(sdt);
             edtDiaChi.setText(diachi);
-            // lay ten phong tu id
+
+            // nếu check=2, ưu tiên lấy tên phòng từ id phòng
             khachDAO = new khachthueDAO(this);
-            String tenphong = khachDAO.getTenphongbyID(idphong);
-            edtPhong.setText(tenphong);
+            String tenphongDB = khachDAO.getTenphongbyID(idphong);
+            edtPhong.setText(tenphongDB);
 
             if ("Nam".equalsIgnoreCase(gioitinh)) {
                 ((RadioButton) findViewById(R.id.khachthue_radioNam)).setChecked(true);
@@ -133,13 +143,13 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             }
         }
     }
-
     private void them() {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 khachDAO.insertKhachThue(getdatafromText());
                 Toast.makeText(qlkhachthue_activity_chucnang.this, "Thêm khách thuê thành công!", Toast.LENGTH_SHORT).show();
+                personInRoomAdapter.notifyDataSetChanged();
                 finish();
             }
         });
@@ -173,9 +183,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         int idphong = khachDAO.getIDbyTenphong(phong);
         return new khachthue(hoTen, gioiTinh, ngaySinh, sdt, diaChi, idphong);
     }
-
-
-
 
     private void anhXaID() {
         imageBack = findViewById(R.id.image_back);
