@@ -49,8 +49,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         Sua();
         Xoa();
         back_list();
-
-
     }
 
     private void Xoa() {
@@ -131,8 +129,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             } else if ("Nữ".equalsIgnoreCase(gioitinh)) {
                 ((RadioButton) findViewById(R.id.khachthue_radioNu)).setChecked(true);
             }
-
-
         }
     }
 
@@ -145,7 +141,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                 finish();
             }
         });
-
     }
     private khachthue getdatafromText() {
         String hoTen = edtHoTen.getText().toString().trim();
