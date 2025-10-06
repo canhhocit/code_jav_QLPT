@@ -118,5 +118,14 @@ public class PhongTroDAO {
         return count;
     }
 
+    // Cập nhật số người trong phòng
+    public int updateSoNguoiPhong(int idPhong) {
+        int soNguoi = countNguoiTrongPhong(idPhong);
+
+        ContentValues values = new ContentValues();
+        values.put("songuoi", soNguoi);
+
+        return db.update("PhongTro", values, "idphong = ?", new String[]{String.valueOf(idPhong)});
+    }
 
 }

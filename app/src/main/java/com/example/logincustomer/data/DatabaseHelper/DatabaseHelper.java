@@ -63,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE HoaDon (" +
                 "idhoadon INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "idphong INTEGER, " +
-                "ngaytaohdon TEXT, " +
+                "ngaytaohdon DATE, " +
                 "ghichu TEXT, " +
                 "image TEXT, " +
                 "tongtien REAL, " +
@@ -96,7 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "giadien REAL, " +
                 "gianuoc REAL)");
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

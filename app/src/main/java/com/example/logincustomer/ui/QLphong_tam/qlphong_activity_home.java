@@ -47,6 +47,13 @@ public class qlphong_activity_home extends AppCompatActivity {
         if (listPhong == null) {
             listPhong = new ArrayList<>();
         }
+
+        // Cập nhật số người cho từng phòng (đồng bộ trước khi hiển thị)
+        listPhong = dao.getAllPhongTro();
+        for (PhongTro p : listPhong) {
+            dao.updateSoNguoiPhong(p.getIdphong());
+        }
+
         adapter = new PhongTroAdapter(this, listPhong);
         listView.setAdapter(adapter);
 

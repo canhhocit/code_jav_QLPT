@@ -67,6 +67,7 @@ public class UpdatePhongActivity extends AppCompatActivity {
                 resultIntent.putExtra("tenPhong", ten);
                 resultIntent.putExtra("gia", gia);
                 setResult(RESULT_OK, resultIntent);
+
                 finish();
             } else {
                 Toast.makeText(this, "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
