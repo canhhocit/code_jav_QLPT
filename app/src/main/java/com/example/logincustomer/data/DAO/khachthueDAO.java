@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
+import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.data.Model.khachthue;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class khachthueDAO {
         vlu.put("sdt",kt.getSdt());
         vlu.put("diachi",kt.getDiachi());
         vlu.put("idphong", kt.getIdphong());
-        db.insert("KhachThue", null, vlu);
     }
     // update
     public void updateKhachThue(khachthue kt) {
@@ -60,11 +60,9 @@ public class khachthueDAO {
                     cur.getInt(6)
             ));
         }
-
         cur.close();
         return list;
     }
-
 
     //find
     public List<khachthue> getfindbyname(String name){
