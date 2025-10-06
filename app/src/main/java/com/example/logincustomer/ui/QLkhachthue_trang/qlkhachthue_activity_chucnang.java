@@ -122,7 +122,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         Intent intent = getIntent();
         int check = intent.getIntExtra("check", 0);
 
-        // 👇 nhận tên phòng được gửi sang (nếu có)
         String tenPhong = intent.getStringExtra("tenphong");
         if (tenPhong != null) {
             edtPhong.setText(tenPhong);
