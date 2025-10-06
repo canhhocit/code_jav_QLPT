@@ -38,7 +38,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
     private RadioGroup rdgGioiTinh;
     private Button btnSua, btnXoa, btnThem;
     private khachthueDAO khachDAO;
-    private PersonInRoomAdapter personInRoomAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +102,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                 kt.setIdkhach(idkhach);
                 khachDAO.updateKhachThue(kt);
                 Toast.makeText(qlkhachthue_activity_chucnang.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
-                personInRoomAdapter.notifyDataSetChanged();
                 finish(); // return dstt
             }
         });
@@ -145,7 +143,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             edtSDT.setText(sdt);
             edtDiaChi.setText(diachi);
 
-            // nếu check=2, ưu tiên lấy tên phòng từ id phòng
+
             khachDAO = new khachthueDAO(this);
             String tenphongDB = khachDAO.getTenphongbyID(idphong);
             edtPhong.setText(tenphongDB);
@@ -166,7 +164,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                 }
                 khachDAO.insertKhachThue(getdatafromText());
                 Toast.makeText(qlkhachthue_activity_chucnang.this, "Thêm khách thuê thành công!", Toast.LENGTH_SHORT).show();
-                personInRoomAdapter.notifyDataSetChanged();
                 finish();
             }
         });

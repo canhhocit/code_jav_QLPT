@@ -68,4 +68,12 @@ public class DetailInRoom extends AppCompatActivity {
             finish();
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<khachthue> listKhach = khachDAO.getKhachTheoPhong(idPhong);
+        adapter = new PersonInRoomAdapter(this, listKhach);
+        listView.setAdapter(adapter);
+    }
 }
