@@ -89,7 +89,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "tendichvu TEXT, " +
                 "giatien REAL, " +
                 "FOREIGN KEY (idchitiethoadon) REFERENCES ChiTietHoaDon(idchitiethoadon))");
+
+        // Bảng giá mặc định (lưu giá điện & nước)
+        db.execSQL("CREATE TABLE GiaMacDinh (" +
+                "id INTEGER PRIMARY KEY CHECK (id = 1), " +
+                "giadien REAL, " +
+                "gianuoc REAL)");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -101,6 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS KhachThue");
         db.execSQL("DROP TABLE IF EXISTS PhongTro");
         db.execSQL("DROP TABLE IF EXISTS TaiKhoan");
+        db.execSQL("DROP TABLE IF EXISTS GiaMacDinh");
         onCreate(db);
     }
 }
