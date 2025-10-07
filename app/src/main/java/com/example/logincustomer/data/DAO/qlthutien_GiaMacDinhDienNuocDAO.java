@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
 
-public class GiaMacDinhDAO {
+public class qlthutien_GiaMacDinhDienNuocDAO {
     private SQLiteDatabase db;
 
-    public GiaMacDinhDAO(Context context) {
+    public qlthutien_GiaMacDinhDienNuocDAO(Context context) {
         DatabaseHelper helper = new DatabaseHelper(context);
         db = helper.getWritableDatabase();
         ensureRecordExists();
@@ -22,8 +22,8 @@ public class GiaMacDinhDAO {
         if (c.moveToFirst() && c.getInt(0) == 0) {
             ContentValues values = new ContentValues();
             values.put("id", 1);
-            values.put("giadien", 0);
-            values.put("gianuoc", 0);
+            values.put("giadien", 3500);
+            values.put("gianuoc", 20000);
             db.insert("GiaMacDinh", null, values);
         }
         c.close();

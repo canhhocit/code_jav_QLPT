@@ -2,25 +2,19 @@ package com.example.logincustomer.ui.QLphong_tam;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.logincustomer.data.DAO.PhongTroDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.R;
 
 public class AddPhongActivity extends AppCompatActivity {
     Button huy, luu;
     EditText tenphong, giaphong;
-    private PhongTroDAO phongTroDAO; // thêm
+    private qlphongtro_PhongTroDAO qlphongtroPhongTroDAO; // thêm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +27,7 @@ public class AddPhongActivity extends AppCompatActivity {
         giaphong = findViewById(R.id.edtGiaPhong_themphong);
 
         // khởi tạo DAO
-        phongTroDAO = new PhongTroDAO(this);
+        qlphongtroPhongTroDAO = new qlphongtro_PhongTroDAO(this);
 
         huy.setOnClickListener(v -> finish());
 
@@ -47,7 +41,7 @@ public class AddPhongActivity extends AppCompatActivity {
             }
 
             // CHECK TRÙNG TÊN PHÒNG
-            if (phongTroDAO.isPhongExists(ten)) {
+            if (qlphongtroPhongTroDAO.isPhongExists(ten)) {
                 Toast.makeText(this, "Tên phòng đã tồn tại. Vui lòng chọn tên khác.", Toast.LENGTH_SHORT).show();
                 return;
             }

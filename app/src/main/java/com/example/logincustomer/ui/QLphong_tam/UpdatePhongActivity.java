@@ -2,18 +2,13 @@ package com.example.logincustomer.ui.QLphong_tam;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.logincustomer.data.DAO.PhongTroDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.R;
 
@@ -21,7 +16,7 @@ public class UpdatePhongActivity extends AppCompatActivity {
 
     EditText edtTenPhong, edtSoNguoi, edtGia;
     Button btnLuu,btnhuy;
-    PhongTroDAO phongTroDAO;
+    qlphongtro_PhongTroDAO qlphongtroPhongTroDAO;
     int idPhong;
 
     @Override
@@ -35,7 +30,7 @@ public class UpdatePhongActivity extends AppCompatActivity {
         edtGia = findViewById(R.id.edt_giaPhong_suaphong);
         btnLuu = findViewById(R.id.btnLuu_suaphong);
 
-        phongTroDAO = new PhongTroDAO(this);
+        qlphongtroPhongTroDAO = new qlphongtro_PhongTroDAO(this);
 
         // Nhận dữ liệu từ Intent
         idPhong = getIntent().getIntExtra("idPhong", -1);
@@ -57,7 +52,7 @@ public class UpdatePhongActivity extends AppCompatActivity {
 
             double gia = Double.parseDouble(giaStr);
             PhongTro phong = new PhongTro(idPhong, ten, 0, gia, 0);
-            int result = phongTroDAO.updatePhongTro(phong);
+            int result = qlphongtroPhongTroDAO.updatePhongTro(phong);
 
             if (result > 0) {
                 Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();

@@ -1,6 +1,5 @@
 package com.example.logincustomer.data.Adapter;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.DAO.PhongTroDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 
 import java.util.List;
@@ -17,9 +16,9 @@ import java.util.List;
 public class baocao_phongAdapter extends BaseAdapter {
     private Context context;
     private List<PhongTro> listphongtro;
-    private PhongTroDAO ptDAO;
+    private qlphongtro_PhongTroDAO ptDAO;
 
-    public baocao_phongAdapter(Context context, List<PhongTro> listphongtro, PhongTroDAO ptDAO) {
+    public baocao_phongAdapter(Context context, List<PhongTro> listphongtro, qlphongtro_PhongTroDAO ptDAO) {
         this.context = context;
         this.listphongtro = listphongtro;
         this.ptDAO = ptDAO;

@@ -10,10 +10,10 @@ import com.example.logincustomer.data.Model.HoaDon;
 
 import java.util.ArrayList;
 
-public class HoaDonDAO {
+public class qlthutien_HoaDonDAO {
     private SQLiteDatabase db;
 
-    public HoaDonDAO(Context context) {
+    public qlthutien_HoaDonDAO(Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
     }

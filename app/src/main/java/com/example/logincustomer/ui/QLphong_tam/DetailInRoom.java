@@ -2,16 +2,15 @@ package com.example.logincustomer.ui.QLphong_tam;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.Adapter.PersonInRoomAdapter;
+import com.example.logincustomer.data.Adapter.qlphongtro_PersonInRoomAdapter;
 import com.example.logincustomer.data.DAO.khachthueDAO;
-import com.example.logincustomer.data.DAO.PhongTroDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.khachthue;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucnang;
@@ -24,8 +23,8 @@ public class DetailInRoom extends AppCompatActivity {
     private Button btnThem, btnBack;
     private TextView txtTenPhong;
     private khachthueDAO khachDAO;
-    private PhongTroDAO phongDAO;
-    private PersonInRoomAdapter adapter;
+    private qlphongtro_PhongTroDAO phongDAO;
+    private qlphongtro_PersonInRoomAdapter adapter;
     private int idPhong;
 
     @Override
@@ -40,7 +39,7 @@ public class DetailInRoom extends AppCompatActivity {
 
         idPhong = getIntent().getIntExtra("idPhong", -1);
 
-        phongDAO = new PhongTroDAO(this);
+        phongDAO = new qlphongtro_PhongTroDAO(this);
         khachDAO = new khachthueDAO(this);
 
         // set tên phòng
@@ -53,7 +52,7 @@ public class DetailInRoom extends AppCompatActivity {
 
         // lấy danh sách khách chỉ của phòng này
         List<khachthue> listKhach = khachDAO.getKhachTheoPhong(idPhong);
-        adapter = new PersonInRoomAdapter(this, listKhach);
+        adapter = new qlphongtro_PersonInRoomAdapter(this, listKhach);
         listView.setAdapter(adapter);
 
         btnThem.setOnClickListener(v -> {
@@ -73,7 +72,7 @@ public class DetailInRoom extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         List<khachthue> listKhach = khachDAO.getKhachTheoPhong(idPhong);
-        adapter = new PersonInRoomAdapter(this, listKhach);
+        adapter = new qlphongtro_PersonInRoomAdapter(this, listKhach);
         listView.setAdapter(adapter);
     }
 }

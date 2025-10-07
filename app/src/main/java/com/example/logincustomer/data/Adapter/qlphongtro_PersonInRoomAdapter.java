@@ -2,10 +2,8 @@ package com.example.logincustomer.data.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -22,13 +20,13 @@ import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucn
 
 import java.util.List;
 
-public class PersonInRoomAdapter extends BaseAdapter {
+public class qlphongtro_PersonInRoomAdapter extends BaseAdapter {
 
     private Context context;
     private List<khachthue> list;
     private khachthueDAO dao;
 
-    public PersonInRoomAdapter(Context context, List<khachthue> list) {
+    public qlphongtro_PersonInRoomAdapter(Context context, List<khachthue> list) {
         this.context = context;
         this.list = list;
         this.dao = new khachthueDAO(context);

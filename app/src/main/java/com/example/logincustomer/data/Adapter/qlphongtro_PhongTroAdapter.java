@@ -12,8 +12,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.logincustomer.data.DAO.PhongTroDAO;
-import com.example.logincustomer.data.DAO.HoaDonDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
+import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.ui.QLphong_tam.DetailInRoom;
 import com.example.logincustomer.ui.QLphong_tam.qlphong_activity_home;
@@ -22,20 +22,20 @@ import com.example.logincustomer.R;
 
 import java.util.List;
 
-public class PhongTroAdapter extends BaseAdapter {
+public class qlphongtro_PhongTroAdapter extends BaseAdapter {
     private Context context;
     private List<PhongTro> list;
     private LayoutInflater inflater;
-    private HoaDonDAO hoaDonDAO;
-    private PhongTroDAO phongTroDAO;
+    private qlthutien_HoaDonDAO qlthutienHoaDonDAO;
+    private qlphongtro_PhongTroDAO qlphongtroPhongTroDAO;
     private int selectedPosition = -1;
 
-    public PhongTroAdapter(Context context, List<PhongTro> list) {
+    public qlphongtro_PhongTroAdapter(Context context, List<PhongTro> list) {
         this.context = context;
         this.list = list;
         this.inflater = LayoutInflater.from(context);
-        hoaDonDAO = new HoaDonDAO(context);
-        phongTroDAO = new PhongTroDAO(context);
+        qlthutienHoaDonDAO = new qlthutien_HoaDonDAO(context);
+        qlphongtroPhongTroDAO = new qlphongtro_PhongTroDAO(context);
     }
 
     @Override
@@ -88,8 +88,8 @@ public class PhongTroAdapter extends BaseAdapter {
                     .setMessage("Bạn có chắc chắn muốn xóa phòng \"" + pt.getTenphong() + "\" không?")
                     .setPositiveButton("Xóa", (dialog, which) -> {
                         // Gọi DAO để xóa
-                        phongTroDAO = new PhongTroDAO(context);
-                        int result = phongTroDAO.deletePhongTro(pt.getIdphong());
+                        qlphongtroPhongTroDAO = new qlphongtro_PhongTroDAO(context);
+                        int result = qlphongtroPhongTroDAO.deletePhongTro(pt.getIdphong());
                         if (result > 0) {
                             list.remove(i);
                             notifyDataSetChanged();
@@ -122,12 +122,14 @@ public class PhongTroAdapter extends BaseAdapter {
                     // ➕ Tạo hóa đơn mới
                     Intent intent = new Intent(context, TaoHoaDonActivity.class);
                     intent.putExtra("idPhong", pt.getIdphong());
+                    intent.putExtra("giaphong", pt.getGia());
+                    intent.putExtra("tenphong", pt.getTenphong());
                     context.startActivity(intent);
                     return true;
 
                 } else if (itemId == R.id.menu_edit) {
                     // ✏️ Sửa hóa đơn (nếu có)
-                    if (hoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
+                    if (qlthutienHoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
                         Intent intent = new Intent(context, TaoHoaDonActivity.class);
                         intent.putExtra("idPhong", pt.getIdphong());
                         context.startActivity(intent);
@@ -137,7 +139,7 @@ public class PhongTroAdapter extends BaseAdapter {
                     return true;
                 } else if (itemId == R.id.menu_xem) {
                     //  xem hóa đơn (nếu có)
-                    if (hoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
+                    if (qlthutienHoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
                         Intent intent = new Intent(context, TaoHoaDonActivity.class);
                         intent.putExtra("idPhong", pt.getIdphong());
                         context.startActivity(intent);
@@ -152,7 +154,7 @@ public class PhongTroAdapter extends BaseAdapter {
                             .setTitle("Xóa phòng")
                             .setMessage("Bạn có chắc chắn muốn xóa phòng \"" + pt.getTenphong() + "\" không?")
                             .setPositiveButton("Xóa", (dialog, which) -> {
-                                int result = phongTroDAO.deletePhongTro(pt.getIdphong());
+                                int result = qlphongtroPhongTroDAO.deletePhongTro(pt.getIdphong());
                                 if (result > 0) {
                                     list.remove(i);
                                     notifyDataSetChanged();
@@ -165,13 +167,10 @@ public class PhongTroAdapter extends BaseAdapter {
                             .show();
                     return true;
                 }
-
                 return false;
             });
-
             popup.show();
         });
-
         return convertView;
     }
     public void updateList(List<PhongTro> newList) {

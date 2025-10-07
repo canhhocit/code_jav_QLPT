@@ -7,15 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
 import com.example.logincustomer.data.Model.PhongTro;
-import com.example.logincustomer.data.Model.khachthue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhongTroDAO {
+public class qlphongtro_PhongTroDAO {
     private SQLiteDatabase db;
 
-    public PhongTroDAO(Context context) {
+    public qlphongtro_PhongTroDAO(Context context) {
         DatabaseHelper helper = new DatabaseHelper(context);
         db = helper.getWritableDatabase();
     }

@@ -16,13 +16,26 @@
             android:background="@drawable/bg_border_green_circle"
             android:padding="12dp"
             android:layout_marginBottom="16dp">
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="101"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:text="Phòng "/>
+                <TextView
+                    android:id="@+id/tvTenPhong"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="101"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,14 +43,22 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"/>
-            <EditText
-                android:id="@+id/edt_date_totalPrice"
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="27/09/2025"
-                android:drawableEnd="@android:drawable/ic_menu_my_calendar"
-                android:clickable="true"
-                android:layout_marginBottom="12dp"/>
+                android:layout_weight="1"
+                >
+                <EditText
+                    android:id="@+id/edt_date_totalPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="dd/mm/yyy"
+                    android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+                    android:clickable="true"
+                    android:layout_marginBottom="12dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -234,33 +255,7 @@
                         android:background="#E0E0E0"/>
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="12dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:text="Tiền dịch vụ khác"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txt_otherService_billRoom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textSize="18dp"
-                    android:paddingRight="10dp"
-                    android:text="200,000 đ" />
-                <ImageView
-                    android:id="@+id/img_expandMoney_billRoom"
-                    android:layout_width="12dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/img_arrow" />
-            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -312,13 +307,79 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_totalPrice"
                 android:layout_width="match_parent"
-                android:layout_height="340dp"
+                android:layout_height="wrap_content"
                 android:overScrollMode="never"
                 tools:listitem="@layout/qlthutien_item_total_priceroom" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingLeft="8dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="Tiền phòng"/>
+                <TextView
+                    android:id="@+id/txt_tienPhong_totalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:text="2000000"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                android:id="@+id/layout_otherService_totalPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:paddingBottom="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="Tiền dịch vụ khác" />
+                <TextView
+                    android:id="@+id/txt_otherService_totalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:paddingRight="10dp"
+                    android:text="200,000" />
+                <ImageView
+                    android:id="@+id/img_expand_OtherService_totalPrice"
+                    android:layout_width="12dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/img_arrow" />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_OtherService_totalPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/txt_sumPrice_totalPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="12dp"
                 android:text="Tổng tiền: 0"
                 android:textSize="20dp"
                 android:textStyle="bold"

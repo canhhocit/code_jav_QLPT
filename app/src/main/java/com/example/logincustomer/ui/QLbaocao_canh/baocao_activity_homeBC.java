@@ -17,11 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.baocao_phongAdapter;
 import com.example.logincustomer.data.Adapter.khachthueAdapter;
-import com.example.logincustomer.data.DAO.PhongTroDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.DAO.khachthueDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.data.Model.khachthue;
-import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_dstt;
 import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
     //Hop dong
     private ListView lv_Hopdong;
-    private PhongTroDAO ptDAO;
+    private qlphongtro_PhongTroDAO ptDAO;
     private baocao_phongAdapter ptAdapter;
 
 
@@ -74,7 +73,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
 
     private void listviewphong() {
-        ptDAO = new PhongTroDAO(baocao_activity_homeBC.this);
+        ptDAO = new qlphongtro_PhongTroDAO(baocao_activity_homeBC.this);
         List<PhongTro> listPT = ptDAO.getAllPhongTro();
         ptAdapter =new baocao_phongAdapter(baocao_activity_homeBC.this,listPT,ptDAO);
         lv_Phong.setAdapter(ptAdapter);

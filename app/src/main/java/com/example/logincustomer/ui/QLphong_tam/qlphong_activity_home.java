@@ -12,8 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.logincustomer.data.Adapter.PhongTroAdapter;
-import com.example.logincustomer.data.DAO.PhongTroDAO;
+import com.example.logincustomer.data.Adapter.qlphongtro_PhongTroAdapter;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.R;
 
@@ -25,8 +25,8 @@ public class qlphong_activity_home extends AppCompatActivity {
     EditText edtSearch;
     Button btnSearch, btnAdd, btnUpdate;
     ListView listView;
-    PhongTroDAO dao;
-    PhongTroAdapter adapter;
+    qlphongtro_PhongTroDAO dao;
+    qlphongtro_PhongTroAdapter adapter;
     List<PhongTro> listPhong;
     PhongTro phongDangChon = null;
     TextView tvtitle;
@@ -52,7 +52,7 @@ public class qlphong_activity_home extends AppCompatActivity {
             }
         });
 
-        dao = new PhongTroDAO(this);
+        dao = new qlphongtro_PhongTroDAO(this);
         listPhong = dao.getAllPhongTro();
         if (listPhong == null) {
             listPhong = new ArrayList<>();
@@ -64,7 +64,7 @@ public class qlphong_activity_home extends AppCompatActivity {
             dao.updateSoNguoiPhong(p.getIdphong());
         }
 
-        adapter = new PhongTroAdapter(this, listPhong);
+        adapter = new qlphongtro_PhongTroAdapter(this, listPhong);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {

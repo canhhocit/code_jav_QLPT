@@ -16,7 +16,7 @@ import com.example.logincustomer.data.Model.DichVuCon;
 
 import java.util.ArrayList;
 
-public class OtherServiceAdapter extends RecyclerView.Adapter<OtherServiceAdapter.ViewHolder> {
+public class qlthutien_OtherServiceAdapter extends RecyclerView.Adapter<qlthutien_OtherServiceAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<DichVuCon> list;
@@ -27,7 +27,7 @@ public class OtherServiceAdapter extends RecyclerView.Adapter<OtherServiceAdapte
         void onDelete(DichVuCon service);
     }
 
-    public OtherServiceAdapter(Context context, ArrayList<DichVuCon> list, OnItemClickListener listener) {
+    public qlthutien_OtherServiceAdapter(Context context, ArrayList<DichVuCon> list, OnItemClickListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
@@ -57,9 +57,7 @@ public class OtherServiceAdapter extends RecyclerView.Adapter<OtherServiceAdapte
                     .setNegativeButton("Huỷ", (dialog, which) -> dialog.dismiss())
                     .show();
         });
-
     }
-
     @Override
     public int getItemCount() {
         return list.size();

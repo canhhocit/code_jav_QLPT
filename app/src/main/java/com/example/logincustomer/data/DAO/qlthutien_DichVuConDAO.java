@@ -10,10 +10,10 @@ import com.example.logincustomer.data.Model.DichVuCon;
 
 import java.util.ArrayList;
 
-public class DichVuConDAO {
+public class qlthutien_DichVuConDAO {
     private SQLiteDatabase db;
 
-    public DichVuConDAO(Context context) {
+    public qlthutien_DichVuConDAO(Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
     }
