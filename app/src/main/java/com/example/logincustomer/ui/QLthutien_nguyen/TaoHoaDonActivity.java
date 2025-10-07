@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,10 +35,10 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
     // views cho "Tiền dịch vụ khác"
     private TextView txtOtherServiceTotal;
-    private ImageView imgExpandOther;
+    private ImageView imgExpandOther, imgBack;
     private RecyclerView recyclerOtherService;
     private boolean isOtherExpanded = false;
-
+    private Button btnTaoHoaDon;
     private RecyclerView recyclerView;
     private TotalPriceAdapter adapter;
     private ArrayList<DichVuCon> listDichVu;
@@ -63,7 +64,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
         double giaphong = getIntent().getDoubleExtra("giaphong", 0);
         // giữ nguyên kiểu hiển thị hiện tại (nếu muốn format đẹp: df.format(giaphong) + " đ")
-        txtGiaPhong.setText(String.valueOf(giaphong));
+
+        txtGiaPhong.setText(df.format(giaphong));
         txtTenPhong.setText(String.valueOf(getIntent().getStringExtra("tenphong")));
 
         // Lấy giá điện nước từ database (nếu có)
@@ -90,7 +92,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         recyclerOtherService.setVisibility(View.GONE); // mặc định ẩn
 
         // hiển thị tổng dịch vụ khác (đã format)
-        txtOtherServiceTotal.setText(df.format(totalOtherServices) + " đ");
+        txtOtherServiceTotal.setText(df.format(totalOtherServices));//+đ
 
         // hành vi mở/đóng khi bấm mũi tên hoặc bấm vào tổng tiền
         View.OnClickListener toggleOther = v -> toggleOtherServices();
@@ -110,21 +112,12 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         edtOldWater.addTextChangedListener(watcher);
         edtNewWater.addTextChangedListener(watcher);
 
-        // click chọn ngày
-        edtdate.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int y = calendar.get(Calendar.YEAR);
-            int m = calendar.get(Calendar.MONTH);
-            int d = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog dialog = new DatePickerDialog(
-                    TaoHoaDonActivity.this,
-                    (view, year1, month1, dayOfMonth) -> edtdate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
-                    y, m, d
-            );
-            dialog.show();
+        imgBack.setOnClickListener(v -> {
+            finish();
         });
 
+        // click chọn ngày
+        chooseDate();
         // tính lần đầu (gồm cả dịch vụ khác)
         tinhToan();
     }
@@ -135,7 +128,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             imgExpandOther.animate().rotation(0).setDuration(200).start();
         } else {
             recyclerOtherService.setVisibility(View.VISIBLE);
-            imgExpandOther.animate().rotation(90).setDuration(200).start(); // xoay chỉ minh hoạ
+            imgExpandOther.animate().rotation(180).setDuration(200).start(); // xoay chỉ minh hoạ
         }
         isOtherExpanded = !isOtherExpanded;
     }
@@ -210,6 +203,21 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
     private void nhandulieuIntent(){ }
 
+    private void chooseDate(){
+        edtdate.setOnClickListener(v -> {
+            Calendar calendar = Calendar.getInstance();
+            int y = calendar.get(Calendar.YEAR);
+            int m = calendar.get(Calendar.MONTH);
+            int d = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dialog = new DatePickerDialog(
+                    TaoHoaDonActivity.this,
+                    (view, year1, month1, dayOfMonth) -> edtdate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
+                    y, m, d
+            );
+            dialog.show();
+        });
+    }
     private void anhxaid(){
         // Ánh xạ view
         edtOldElectric = findViewById(R.id.edt_oldElectric_totalPrice);
@@ -222,7 +230,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_totalPrice);
         txtGiaPhong = findViewById(R.id.txt_tienPhong_totalPrice);
         txtTenPhong = findViewById(R.id.tvTenPhong);
-
+        btnTaoHoaDon = findViewById(R.id.btn_createBill_totalPrice);
+        imgBack = findViewById(R.id.img_arrowback_totalPriceroom);
         // ánh xạ cho phần dịch vụ khác (row riêng của bạn)
         txtOtherServiceTotal = findViewById(R.id.txt_otherService_totalPrice);
         imgExpandOther = findViewById(R.id.img_expand_OtherService_totalPrice);
