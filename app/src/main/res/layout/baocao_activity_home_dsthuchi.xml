@@ -44,7 +44,7 @@
             android:background="@drawable/white_bg"
             android:drawableEnd="@drawable/search_icon"
             android:ems="10"
-            android:hint="Tìm theo tên VD: Dọn vs"
+            android:hint="Nhập tên/ngày..."
             android:inputType="text"
             android:padding="12dp"
             android:textColor="@color/black"
@@ -212,7 +212,6 @@
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:dividerHeight="1dp"
-        android:background="#C8B3B3"
         tools:listitem="@layout/baocao_layout_itemds_thuchi"/>
 
 </LinearLayout>

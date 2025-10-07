@@ -48,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE ThuChi (" +
                 "idthuchi INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "tenthuchi TEXT, " +
-                "sotien REAL, " +
+                "sotien real, " +
                 "loai TEXT, " +
                 "ngaythuchi Date)");
 
