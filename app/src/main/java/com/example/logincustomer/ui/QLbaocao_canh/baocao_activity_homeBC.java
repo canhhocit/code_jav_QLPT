@@ -2,9 +2,11 @@ package com.example.logincustomer.ui.QLbaocao_canh;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -21,7 +23,6 @@ import com.example.logincustomer.data.DAO.PhongTroDAO;
 import com.example.logincustomer.data.DAO.khachthueDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.data.Model.khachthue;
-import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_dstt;
 import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         anhxaID();
         back_manager();
         //tab doanh thu
-        gotoThuchi();
+        gotoThuchi_startMenu();
         //tab phong
         listviewphong();
         //tab khach
@@ -86,15 +87,32 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         ktadapter = new khachthueAdapter(baocao_activity_homeBC.this,listKhach,khachDAO);
         lv_Khach.setAdapter(ktadapter);
     }
-    private void gotoThuchi() {
+    private void gotoThuchi_startMenu() {
         btnThuChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(baocao_activity_homeBC.this, baocao_activity_homedsthuchi.class);
-                startActivity(intent);
+                PopupMenu popupMenu = new PopupMenu(baocao_activity_homeBC.this, btnThuChi);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_option_btnthuchi, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int itemId = item.getItemId();
+                        if (itemId == R.id.menu_btnthuchi_them){
+                            Intent intent = new Intent(baocao_activity_homeBC.this, baocao_activity_chitietthuchi.class);
+                            intent.putExtra("check",1);
+                            startActivity(intent);
+                            return true;
+                        }else if(itemId==R.id.menu_btnthuchi_ds){
+                            Intent intent = new Intent(baocao_activity_homeBC.this, baocao_activity_homedsthuchi.class);
+                            startActivity(intent);
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
-
     }
     private void back_manager() {
         tvTitle_baocao.setOnClickListener(new View.OnClickListener() {

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,8 +19,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.DAO.baocao_thuchiDAO;
 import com.example.logincustomer.data.Model.baocao_thuchi;
-import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucnang;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class baocao_activity_chitietthuchi extends AppCompatActivity {
@@ -43,7 +42,7 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
         });
         anhxaid();
         back_dsthuchi();
-        checkbtn_getdata();
+        checkbtn();
         thuchiDAO = new baocao_thuchiDAO(baocao_activity_chitietthuchi.this);
         them();
         sua();
@@ -57,9 +56,10 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
         double sotien = intent.getDoubleExtra("sotien", 0);
         String ngay = intent.getStringExtra("ngaythuchi");
         String loai = intent.getStringExtra("loai");
-
+        DecimalFormat df = new DecimalFormat("#,###.##");
+        String tienHT = df.format(sotien);
+        edtSoTien.setText(tienHT);
         edtTenThuChi.setText(ten);
-        edtSoTien.setText(String.valueOf(sotien));
         edtNgayThuChi.setText(ngay);
         if (loai != null) {
             if (loai.equalsIgnoreCase("Thu")) {
@@ -76,8 +76,8 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
                     return;
                 }
                 baocao_thuchi thuchi = getdatafromText();
-                thuchi.setIdthuchi(idthuchi); 
-
+                if(checkexists(thuchi)==1) return;
+                thuchi.setIdthuchi(idthuchi);
                 int result = thuchiDAO.updateThuchi(thuchi);
                 if (result > 0) {
                     Toast.makeText(baocao_activity_chitietthuchi.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
@@ -98,6 +98,8 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
                 if(getdatafromText()==null){
                     return;
                 }
+                baocao_thuchi thuchi = getdatafromText();
+                if(checkexists(thuchi)==1) return;
                 thuchiDAO.insertThuchi(getdatafromText());
                 Toast.makeText(baocao_activity_chitietthuchi.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                 finish();
@@ -127,15 +129,37 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
                     .show();
             return null;
         }
-        double sotien = Double.parseDouble(sotienStr);
+        sotienStr = sotienStr.replace(".", "");
+        double sotien;
+        try {
+            sotien = Double.parseDouble(sotienStr);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Số tiền không hợp lệ!", Toast.LENGTH_SHORT).show();
+            return null;
+        }
         return new baocao_thuchi(ten,sotien,ngay,loai);
     }
 
-    private void checkbtn_getdata() {
+    private int checkexists(baocao_thuchi thuchi){
+        int check = thuchiDAO.checkexists(thuchi);
+        if(check >0){
+            new androidx.appcompat.app.AlertDialog.Builder(baocao_activity_chitietthuchi.this)
+                    .setTitle("Chú ý")
+                    .setIcon(R.drawable.warning_img)
+                    .setMessage("Thông tin của khoản này đã tồn tại!")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return 1;
+        }
+        return 0;
+    }
+
+    private void checkbtn() {
         Intent intent=getIntent();
         int check = intent.getIntExtra("check",0);
         if(check==1){
             btnThem.setVisibility(View.VISIBLE);
+
         }else if(check ==2){
             btnSua.setVisibility(View.VISIBLE);
         }

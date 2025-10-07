@@ -45,7 +45,7 @@ public class baocao_thuchi {
         return sotienthuchi;
     }
 
-    public void setSotienthuchi(int sotienthuchi) {
+    public void setSotienthuchi(double sotienthuchi) {
         this.sotienthuchi = sotienthuchi;
     }
 
