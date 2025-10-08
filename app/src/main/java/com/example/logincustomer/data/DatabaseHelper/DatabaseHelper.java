@@ -64,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "idhoadon INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "idphong INTEGER, " +
                 "ngaytaohdon DATE, " +
+                "trangthai INTERGER DEFAULT 0, " +
                 "ghichu TEXT, " +
                 "image TEXT, " +
                 "tongtien REAL, " +
@@ -88,7 +89,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "idchitiethoadon INTEGER, " +
                 "tendichvu TEXT, " +
                 "giatien REAL, " +
-                "trangthai INTERGER DEFAULT 0, " +
                 "FOREIGN KEY (idchitiethoadon) REFERENCES ChiTietHoaDon(idchitiethoadon))");
 
         // Bảng giá mặc định (lưu giá điện & nước)
