@@ -88,6 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "idchitiethoadon INTEGER, " +
                 "tendichvu TEXT, " +
                 "giatien REAL, " +
+                "trangthai INTERGER DEFAULT 0, " +
                 "FOREIGN KEY (idchitiethoadon) REFERENCES ChiTietHoaDon(idchitiethoadon))");
 
         // Bảng giá mặc định (lưu giá điện & nước)
