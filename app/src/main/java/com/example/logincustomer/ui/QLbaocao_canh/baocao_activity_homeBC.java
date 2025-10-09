@@ -39,11 +39,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     // Phong
     private ListView lv_Phong;
 
-    //Khach
-    private ListView lv_Khach;
-    private qlkhachthue_khachthueDAO khachDAO;
-    private qlkhachthueAdapter ktadapter;
-
     //Hop dong
     private ListView lv_Hopdong;
     private qlphongtro_PhongTroDAO ptDAO;
@@ -66,8 +61,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         gotoThuchi_startMenu();
         //tab phong
         listviewphong();
-        //tab khach
-        listviewkhach();
+
         //tab hop dong
     }
 
@@ -81,12 +75,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         lv_Phong.setAdapter(ptAdapter);
     }
 
-    private void listviewkhach() {
-        khachDAO= new qlkhachthue_khachthueDAO(baocao_activity_homeBC.this);
-        List<khachthue> listKhach = khachDAO.getAllKhachThue();
-        ktadapter = new qlkhachthueAdapter(baocao_activity_homeBC.this,listKhach,khachDAO);
-        lv_Khach.setAdapter(ktadapter);
-    }
+
     private void gotoThuchi_startMenu() {
         btnThuChi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,11 +128,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         tab2.setContent(R.id.tab_phong);
         tabHost.addTab(tab2);
 
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("tab3");
-        tab3.setIndicator("Khách thuê");
-        tab3.setContent(R.id.tab_khach);
-        tabHost.addTab(tab3);
-
         TabHost.TabSpec tab4 = tabHost.newTabSpec("tab4");
         tab4.setIndicator("Hợp đồng");
         tab4.setContent(R.id.tab_HD);
@@ -159,8 +143,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         // Tab Phòng
         lv_Phong = findViewById(R.id.baocao_phong_listview);
 
-        // Tab Khách
-        lv_Khach = findViewById(R.id.baocao_khach_listview);
 
         // Tab Hợp đồng
         lv_Hopdong = findViewById(R.id.baocao_hopdong_listview);
@@ -169,7 +151,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        listviewkhach();
         listviewphong();
     }
 }
