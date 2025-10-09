@@ -51,6 +51,21 @@ public class qlhopdong_hopdongDAO {
         cursor.close();
         return id;
     }
+    public int getIdHDbytenphong(String tenphong) {
+        int id = -1;
+        String sql = "SELECT h.idhopdong " +
+                "FROM HopDong h " +
+                "JOIN PhongTro p ON h.idphong = p.idphong " +
+                "WHERE p.tenphong = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{tenphong});
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(0);
+        }
+        cursor.close();
+        return id;
+    }
+
+
     public hopdong getInf_HDbyIDphong(int idp){
         hopdong hd=null ;
         Cursor cursor = db.rawQuery("select * from hopdong where idphong =?",new String[]{String.valueOf(idp)});
@@ -149,6 +164,17 @@ public class qlhopdong_hopdongDAO {
         }
         cursor.close();
         return ifRoom;
+    }
+    public hopdong getinfHDbyIdHD(int id){
+        Cursor cursor = db.rawQuery("select cccd, ngaykyhopdong,idphong,idkhach from HopDong where idhopdong=?",
+                new String[]{String.valueOf(id)});
+        hopdong hd = null;
+        if(cursor.moveToFirst()){
+            hd = new hopdong(cursor.getString(0),cursor.getString(1),
+                    cursor.getInt(2),cursor.getInt(3));
+        }
+        cursor.close();
+        return hd;
     }
 
 

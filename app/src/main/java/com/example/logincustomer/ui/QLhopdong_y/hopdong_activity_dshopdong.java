@@ -71,7 +71,12 @@ public class hopdong_activity_dshopdong extends AppCompatActivity {
     private void listControl() {
         lvHopDong.setOnItemClickListener((parent, view, position, id) -> {
             hopdong_display hd = (hopdong_display) parent.getItemAtPosition(position);
-
+            int idhd = hdDAO.getIdHDbytenphong(hd.getTenphong());
+            Intent intent = new Intent(hopdong_activity_dshopdong.this, hopdong_activity_chucnang.class);
+            intent.putExtra("check",3);
+            intent.putExtra("idhd",idhd);
+            intent.putExtra("tenp",hd.getTenphong());
+            startActivity(intent);
         });
     }
 

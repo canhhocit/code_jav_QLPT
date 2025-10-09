@@ -33,7 +33,7 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
     private Button btnThem, btnSua, btnXoa;
     private qlhopdong_hopdongDAO hdDAO;
     private Context context = hopdong_activity_chucnang.this;
-    private String tenkhach;
+    private String tenkhach,tenphong;
     private int check;
     private int idkhach,idphong,idhopdong;
 
@@ -106,6 +106,20 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
             edtHoten.setText(khach.getTenkhach()); edtNgaysinh.setText(khach.getNgaysinh()); edtSdt.setText(khach.getSdt());
             edtCccd.setText(hd.getCccd()); edtNgayky.setText(hd.getNgayky()); edtPhong.setText(room.getTenphong());
 
+        }
+        else if(check==3){
+            btnSua.setVisibility(View.VISIBLE);btnXoa.setVisibility(View.VISIBLE);
+            idhopdong = getIntent().getIntExtra("idhd",-1);
+            tenphong = getIntent().getStringExtra("tenp");
+            edtPhong.setText(tenphong);
+            hopdong HD = hdDAO.getinfHDbyIdHD(idhopdong); edtCccd.setText(HD.getCccd());edtNgayky.setText(HD.getNgayky());
+            if (HD == null) {
+                Toast.makeText(this, "Không tìm thấy thông tin hợp đồng!", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            hopdong_ifKhach khach = hdDAO.getinfKhachbyID(HD.getIdkhach());
+            edtHoten.setText(khach.getTenkhach()); edtNgaysinh.setText(khach.getNgaysinh()); edtSdt.setText(khach.getSdt());
         }
 
     }
