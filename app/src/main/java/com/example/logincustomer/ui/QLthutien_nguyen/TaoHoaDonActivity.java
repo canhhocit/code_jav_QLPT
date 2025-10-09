@@ -42,7 +42,7 @@ import java.util.Calendar;
 
 public class TaoHoaDonActivity extends AppCompatActivity {
 
-    private EditText edtOldElectric, edtNewElectric, edtOldWater, edtNewWater, edtdate;
+    private EditText edtOldElectric, edtNewElectric, edtOldWater, edtNewWater, edtdate, edtnote;
     private TextView txtTongTien, txtGiaPhong, txtTenPhong;
 
     // views cho "Tiền dịch vụ khác"
@@ -145,6 +145,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         picture();
 
         btnTaoHoaDon.setOnClickListener(v -> {
+
             showDialog();
         });
     }
@@ -280,24 +281,25 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     }
     private void anhxaid() {
         // Ánh xạ view
+        imgBack = findViewById(R.id.img_arrowback_totalPriceroom);
+        txtTenPhong = findViewById(R.id.tvTenPhong);
+        edtdate = findViewById(R.id.edt_date_totalPrice);
+
         edtOldElectric = findViewById(R.id.edt_oldElectric_totalPrice);
         edtNewElectric = findViewById(R.id.edt_newElectric_totalPrice);
         edtOldWater = findViewById(R.id.edt_oldWater_totalPrice);
         edtNewWater = findViewById(R.id.edt_newWater_totalPrice);
 
-        txtTongTien = findViewById(R.id.txt_sumPrice_totalPrice);
-        edtdate = findViewById(R.id.edt_date_totalPrice);
+        edtnote = findViewById(R.id.edt_note_totalPrice);
         recyclerView = findViewById(R.id.recycler_totalPrice);
         txtGiaPhong = findViewById(R.id.txt_tienPhong_totalPrice);
-        txtTenPhong = findViewById(R.id.tvTenPhong);
+        txtTongTien = findViewById(R.id.txt_sumPrice_totalPrice);
         btnTaoHoaDon = findViewById(R.id.btn_createBill_totalPrice);
-        imgBack = findViewById(R.id.img_arrowback_totalPriceroom);
 
         iconDienCu = findViewById(R.id.imga_oldElectric_totalPrice);
         imgDienCu = findViewById(R.id.imgb_oldElectric_totalPrice);
         iconDienMoi = findViewById(R.id.imga_newElectric_totalPrice);
         imgDienMoi = findViewById(R.id.imgb_newElectric_totalPrice);
-
         iconNuocCu = findViewById(R.id.imga_oldWater_totalPrice);
         imgNuocCu = findViewById(R.id.imgb_oldWater_totalPrice);
         iconNuocMoi = findViewById(R.id.imga_newWater_totalPrice);
