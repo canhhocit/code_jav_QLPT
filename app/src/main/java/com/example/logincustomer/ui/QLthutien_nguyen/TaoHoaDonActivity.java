@@ -308,7 +308,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         imgExpandOther = findViewById(R.id.img_expand_OtherService_totalPrice);
         recyclerOtherService = findViewById(R.id.recycler_OtherService_totalPrice);
     }
-
     private void picture() {
         cameraLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -339,8 +338,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
         eventButtonCamera();
     }
-
-
     private void eventButtonCamera(){
         // --- Khi nhấn vào hình điện: mở camera ---
         iconDienCu.setOnClickListener(v -> {
@@ -363,7 +360,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             openCamera();
         });
 
-
         // --- Khi nhấn vào hình nước: mở thư viện ---
         imgDienCu.setOnClickListener(v -> {
             currentImageView = imgDienCu;
@@ -384,13 +380,11 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             currentImageView = imgNuocMoi;
             openGallery();
         });
-
     }
     private void openCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraLauncher.launch(intent);
     }
-
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galleryLauncher.launch(intent);

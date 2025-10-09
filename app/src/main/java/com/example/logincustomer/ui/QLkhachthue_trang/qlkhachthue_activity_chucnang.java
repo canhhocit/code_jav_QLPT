@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.khachthue;
 import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_chucnang;
 
@@ -263,6 +264,9 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
             dialog.show();
 
+        });
+        imageBack.setOnClickListener(v -> {
+            finish();
         });
     }
 }
