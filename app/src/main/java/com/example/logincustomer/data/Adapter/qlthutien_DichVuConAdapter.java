@@ -13,11 +13,11 @@ import com.example.logincustomer.data.Model.DichVuCon;
 
 import java.util.List;
 
-public class DichVuConAdapter extends RecyclerView.Adapter<DichVuConAdapter.ViewHolder> {
+public class qlthutien_DichVuConAdapter extends RecyclerView.Adapter<qlthutien_DichVuConAdapter.ViewHolder> {
 
     private List<DichVuCon> list;
 
-    public DichVuConAdapter(List<DichVuCon> list) {
+    public qlthutien_DichVuConAdapter(List<DichVuCon> list) {
         this.list = list;
     }
 

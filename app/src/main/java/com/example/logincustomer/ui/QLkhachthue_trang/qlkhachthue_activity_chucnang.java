@@ -75,10 +75,8 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
               });
               builder.setNegativeButton("Hủy",null);
               builder.show();
-
           }
       });
-
     }
 
     private void Sua() {
@@ -267,5 +265,4 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
 
         });
     }
-
 }

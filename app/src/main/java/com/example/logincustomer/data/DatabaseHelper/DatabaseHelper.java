@@ -64,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "idhoadon INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "idphong INTEGER, " +
                 "ngaytaohdon DATE, " +
+                "trangthai INTERGER DEFAULT 0, " +
                 "ghichu TEXT, " +
                 "image TEXT, " +
                 "tongtien REAL, " +

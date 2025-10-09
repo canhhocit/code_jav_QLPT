@@ -14,13 +14,13 @@ import com.example.logincustomer.data.Model.DichVuCon;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class TotalPriceAdapter extends RecyclerView.Adapter<TotalPriceAdapter.ViewHolder> {
+public class qlthutien_TotalPriceAdapter extends RecyclerView.Adapter<qlthutien_TotalPriceAdapter.ViewHolder> {
 
     private final ArrayList<DichVuCon> list;
     private double usedE, totalE, usedW, totalW;
     private final DecimalFormat df = new DecimalFormat("#,###");
 
-    public TotalPriceAdapter(ArrayList<DichVuCon> list) {
+    public qlthutien_TotalPriceAdapter(ArrayList<DichVuCon> list) {
         this.list = list;
     }
 

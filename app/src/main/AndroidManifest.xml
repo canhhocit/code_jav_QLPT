@@ -75,6 +75,9 @@
             android:name=".ui.QLthutien_nguyen.statusRoom"
             android:exported="false" />
         <activity
+            android:name=".ui.QLthutien_nguyen.BillRoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.QLthutien_nguyen.TaoHoaDonActivity"
             android:exported="false" />
         <activity
@@ -83,6 +86,21 @@
         <activity
             android:name=".ui.QLthutien_nguyen.Guide"
             android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
