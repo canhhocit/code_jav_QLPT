@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
 import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.hopdong_ifRoom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,5 +143,21 @@ public class qlphongtro_PhongTroDAO {
         }
         if (c != null) c.close();
         return p;
+    }
+    public List<hopdong_ifRoom> getInfPhongTro() {
+        List<hopdong_ifRoom> list = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT idphong, tenphong, songuoi, gia FROM PhongTro", null);
+        if (c.moveToFirst()) {
+            do {
+                list.add(new hopdong_ifRoom(
+                        c.getInt(0),
+                        c.getString(1),
+                        c.getInt(2),
+                        c.getDouble(3)
+                ));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return list;
     }
 }

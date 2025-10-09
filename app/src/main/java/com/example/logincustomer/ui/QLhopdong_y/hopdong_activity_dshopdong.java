@@ -17,6 +17,7 @@ import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlhopdong_dsAdapter;
 import com.example.logincustomer.data.DAO.qlhopdong_hopdongDAO;
 import com.example.logincustomer.data.Model.hopdong_display;
+import com.example.logincustomer.data.Model.hopdong_ifRoom;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class hopdong_activity_dshopdong extends AppCompatActivity {
     private qlhopdong_dsAdapter adapter;
     private qlhopdong_hopdongDAO hdDAO;
     private List<hopdong_display> listHopDong;
+    private List<hopdong_ifRoom> listPhong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

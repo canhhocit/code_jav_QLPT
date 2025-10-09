@@ -150,6 +150,4 @@ public class qlhopdong_hopdongDAO {
         cursor.close();
         return ifRoom;
     }
-
-
 }

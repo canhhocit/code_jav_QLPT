@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,9 +21,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlhopdong_showphongAdapter;
 import com.example.logincustomer.data.DAO.qlhopdong_hopdongDAO;
+import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
+import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.data.Model.hopdong_ifRoom;
 import com.example.logincustomer.ui.Manager_Home.activity_manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class hopdong_activity_showphong extends AppCompatActivity {
@@ -31,6 +35,7 @@ public class hopdong_activity_showphong extends AppCompatActivity {
     private Button btnDS;
     private qlhopdong_hopdongDAO hdDAO;
     private qlhopdong_showphongAdapter adapter;
+    qlphongtro_PhongTroDAO dao;
     private List<hopdong_ifRoom> listPhong;
     private Context context = this;
 
@@ -47,6 +52,8 @@ public class hopdong_activity_showphong extends AppCompatActivity {
         });
 
         anhxa();
+
+
         loadListView();
         btnshowdsHD();
         listcontrol();
@@ -88,8 +95,22 @@ public class hopdong_activity_showphong extends AppCompatActivity {
 
 
     private void loadListView() {
+        // 1️⃣ Tạo DAO để cập nhật số người thực tế trong từng phòng
+        dao = new qlphongtro_PhongTroDAO(context);
+
+        // 2️⃣ Lấy danh sách tất cả phòng
+        List<PhongTro> allPhong = dao.getAllPhongTro();
+        if (allPhong == null) allPhong = new ArrayList<>();
+
+        // 3️⃣ Cập nhật số người thực tế cho từng phòng
+        for (PhongTro p : allPhong) {
+            dao.updateSoNguoiPhong(p.getIdphong());
+        }
+
+        // 4️⃣ Sau khi cập nhật xong, load lại danh sách phòng để hiển thị
         listPhong = hdDAO.getInfPhongTro();
 
+        // 5️⃣ Cập nhật Adapter
         if (adapter == null) {
             adapter = new qlhopdong_showphongAdapter(context, hdDAO, listPhong);
             lvPhong.setAdapter(adapter);
