@@ -3,6 +3,7 @@ package com.example.logincustomer.ui.QLhopdong_y;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -77,15 +78,12 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
 
             hopdong_ifRoom room=hdDAO.getinfRoombyID(idphong);
             int idkhach= hdDAO.getIDkhachbyten(tenkhach);
-            Log.d("DEBUG", "tenkhach=" + tenkhach + " idkhach=" + idkhach);
             if (idkhach == -1) {
                 Toast.makeText(this, "Không tìm thấy khách thuê", Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
-
             hopdong_ifKhach khach = hdDAO.getinfKhachbyID(idkhach);
-            Log.d("DEBUG", khach.getTenkhach() + khach.getNgaysinh()+ khach.getSdt());
             if (khach == null) {
                 Toast.makeText(this, "Lỗi: không tìm thấy thông tin khách thuê", Toast.LENGTH_SHORT).show();
                 finish();
@@ -101,6 +99,7 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
             btnSua.setVisibility(View.VISIBLE);btnXoa.setVisibility(View.VISIBLE);
             idphong = getIntent().getIntExtra("idphong", -1);
             hopdong_ifRoom room =hdDAO.getinfRoombyID(idphong);
+
             hopdong hd =hdDAO.getInf_HDbyIDphong(idphong);
             idhopdong = hd.getIdhopdong();
             hopdong_ifKhach khach = hdDAO.getinfKhachbyID(hd.getIdkhach());
@@ -168,7 +167,8 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
         long result = hdDAO.insertHD(hd);
         if (result > 0) {
             Toast.makeText(this, "Thêm hợp đồng thành công!", Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(context, hopdong_activity_dshopdong.class);
+            startActivity(intent);
         } else {
             Toast.makeText(this, "Thêm hợp đồng thất bại!", Toast.LENGTH_SHORT).show();
         }
@@ -187,7 +187,8 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
         long result = hdDAO.updateHD(hd);
         if (result > 0) {
             Toast.makeText(this, "Cập nhật hợp đồng thành công!", Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(context, hopdong_activity_dshopdong.class);
+            startActivity(intent);
         } else {
             Toast.makeText(this, "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
         }
@@ -203,8 +204,10 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
 
                 int result = hdDAO.deleteHD(idhopdong);
                 if (result > 0) {
+                    hdDAO.deleteKhacThue(idkhach);
                     Toast.makeText(hopdong_activity_chucnang.this, "Đã xóa hợp đồng!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Intent intent = new Intent(context, hopdong_activity_dshopdong.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(hopdong_activity_chucnang.this, "Xóa thất bại!", Toast.LENGTH_SHORT).show();
                 }

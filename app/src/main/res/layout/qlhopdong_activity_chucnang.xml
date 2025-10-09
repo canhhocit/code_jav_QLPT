@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
+            android:textColor="@color/black"
             android:ems="10"
             android:textAlignment="center"
             android:inputType="text"
@@ -74,6 +75,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:ems="10"
+            android:textColor="@color/black"
             android:hint="nhập hoten"
             android:inputType="text" />
     </LinearLayout>
@@ -99,6 +101,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:ems="10"
             android:inputType="number" />
     </LinearLayout>
@@ -125,6 +128,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:ems="10"
+            android:textColor="@color/black"
             android:inputType="number" />
     </LinearLayout>
 
@@ -153,6 +157,7 @@
             android:focusable="false"
             android:textAlignment="center"
             android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
             android:padding="10dp"
             android:drawableStart="@drawable/calender"
             android:enabled="false"
@@ -188,6 +193,7 @@
                 android:textAlignment="center"
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
+                android:textColor="@color/black"
                 android:drawableStart="@drawable/calender"
                 />
         </com.google.android.material.textfield.TextInputLayout>

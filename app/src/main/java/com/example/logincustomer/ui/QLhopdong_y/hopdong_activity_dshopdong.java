@@ -1,7 +1,10 @@
 package com.example.logincustomer.ui.QLhopdong_y;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,7 +21,7 @@ import com.example.logincustomer.data.Model.hopdong_display;
 import java.util.List;
 
 public class hopdong_activity_dshopdong extends AppCompatActivity {
-
+    private TextView tvTitle;
     private ListView lvHopDong;
     private qlhopdong_dsAdapter adapter;
     private qlhopdong_hopdongDAO hdDAO;
@@ -44,22 +47,31 @@ public class hopdong_activity_dshopdong extends AppCompatActivity {
     private void anhXa() {
         lvHopDong = findViewById(R.id.hopdong_listphong);
         hdDAO = new qlhopdong_hopdongDAO(this);
+        tvTitle= findViewById(R.id.hopdong_home_tvhd);
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(hopdong_activity_dshopdong.this,hopdong_activity_showphong.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void listviewShow() {
         listHopDong = hdDAO.getAllHopDongDisplay();
-        adapter = new qlhopdong_dsAdapter(this, listHopDong);
-        lvHopDong.setAdapter(adapter);
+        if(adapter==null){
+            adapter = new qlhopdong_dsAdapter(this, listHopDong);
+            lvHopDong.setAdapter(adapter);
+        }else{
+            adapter.updateData(listHopDong);
+        }
+
     }
 
     private void listControl() {
         lvHopDong.setOnItemClickListener((parent, view, position, id) -> {
             hopdong_display hd = (hopdong_display) parent.getItemAtPosition(position);
-            Toast.makeText(
-                    this,
-                    "Phòng: " + hd.getTenphong() + "\nNgười ký: " + hd.getHoten() + "\nNgày ký: " + hd.getNgaykyhopdong(),
-                    Toast.LENGTH_SHORT
-            ).show();
+
         });
     }
 

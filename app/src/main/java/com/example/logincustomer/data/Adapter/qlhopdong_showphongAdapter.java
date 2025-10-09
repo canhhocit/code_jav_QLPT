@@ -62,4 +62,10 @@ public class qlhopdong_showphongAdapter extends BaseAdapter {
 
         return convertView;
     }
+    public void updateData(List<hopdong_ifRoom> newList) {
+        listP.clear();
+        listP.addAll(newList);
+        notifyDataSetChanged();
+    }
+
 }

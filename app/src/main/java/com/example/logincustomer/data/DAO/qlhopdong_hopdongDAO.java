@@ -77,6 +77,9 @@ public class qlhopdong_hopdongDAO {
         return db.delete("HopDong", "idhopdong=?",
                 new String[]{String.valueOf(id)});
     }
+    public void deleteKhacThue(int idkhach) {
+        db.delete("KhachThue", "idkhach=?", new String[]{String.valueOf(idkhach)});
+    }
     public List<hopdong_display> getAllHopDongDisplay() {
         List<hopdong_display> list = new ArrayList<>();
         String sql = "SELECT p.tenphong, k.hoten, h.ngaykyhopdong " +
@@ -98,23 +101,6 @@ public class qlhopdong_hopdongDAO {
     }
 
 
-    public List<hopdong> getAllhopdong() {
-        List<hopdong> list = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM HopDong", null);
-        if (cursor.moveToFirst()) {
-            do {
-                list.add(new hopdong(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4)
-                ));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return list;
-    }
 
     public List<hopdong_ifRoom> getInfPhongTro() {
         List<hopdong_ifRoom> list = new ArrayList<>();

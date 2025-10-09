@@ -21,6 +21,7 @@ import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlhopdong_showphongAdapter;
 import com.example.logincustomer.data.DAO.qlhopdong_hopdongDAO;
 import com.example.logincustomer.data.Model.hopdong_ifRoom;
+import com.example.logincustomer.ui.Manager_Home.activity_manager;
 
 import java.util.List;
 
@@ -58,7 +59,6 @@ public class hopdong_activity_showphong extends AppCompatActivity {
                 hopdong_ifRoom infOnlist = listPhong.get(position);
                 hopdong_ifRoom ifRoom = hdDAO.getinfRoombyID(infOnlist.getIdphong());
                 if(ifRoom.getSonguoi()==0) {
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Thông báo");
                     builder.setIcon(R.drawable.img_wrong);
@@ -67,7 +67,7 @@ public class hopdong_activity_showphong extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(context, hopdong_activity_addPerson.class);
-                            intent.putExtra("idphong", ifRoom.getIdphong());
+                            intent.putExtra("idphong", infOnlist.getIdphong());
                             intent.putExtra("tenphong", ifRoom.getTenphong());
                             startActivity(intent);
                         }
@@ -79,7 +79,7 @@ public class hopdong_activity_showphong extends AppCompatActivity {
                 else{
                     Intent intent = new Intent(context, hopdong_activity_chucnang.class);
                     intent.putExtra("check",2);
-                    intent.putExtra("idphong",ifRoom.getIdphong());
+                    intent.putExtra("idphong",infOnlist.getIdphong());
                     startActivity(intent);
                 }
             }
@@ -89,9 +89,15 @@ public class hopdong_activity_showphong extends AppCompatActivity {
 
     private void loadListView() {
         listPhong = hdDAO.getInfPhongTro();
-        adapter = new qlhopdong_showphongAdapter(context, hdDAO, listPhong);
-        lvPhong.setAdapter(adapter);
+
+        if (adapter == null) {
+            adapter = new qlhopdong_showphongAdapter(context, hdDAO, listPhong);
+            lvPhong.setAdapter(adapter);
+        } else {
+            adapter.updateData(listPhong);
+        }
     }
+
 
     private void btnshowdsHD() {
         btnDS.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +111,8 @@ public class hopdong_activity_showphong extends AppCompatActivity {
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(context, activity_manager.class);
+                startActivity(intent);
             }
         });
     }

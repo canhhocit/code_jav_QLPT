@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Model.hopdong_display;
+import com.example.logincustomer.data.Model.hopdong_ifRoom;
 
 import java.util.List;
 
@@ -67,5 +68,10 @@ public class qlhopdong_dsAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView tvPhong, tvTenKH, tvNgayKy;
+    }
+    public void updateData(List<hopdong_display> newList) {
+        listHopdong.clear();
+        listHopdong.addAll(newList);
+        notifyDataSetChanged();
     }
 }
