@@ -78,22 +78,21 @@ public class qlhopdong_hopdongDAO {
         return hd;
     }
 
-    public long updateHD(hopdong hd) {
-        ContentValues vlu = new ContentValues();
-        vlu.put("cccd", hd.getCccd());
-        vlu.put("ngaykyhopdong", hd.getNgayky());
-        vlu.put("idphong", hd.getIdphong());
-        vlu.put("idkhach", hd.getIdkhach());
-        return db.update("HopDong", vlu, "idhopdong=?",
-                new String[]{String.valueOf(hd.getIdhopdong())});
+    public int updateHD(hopdong hd) {
+        ContentValues values = new ContentValues();
+        values.put("cccd", hd.getCccd());
+        values.put("ngaykyhopdong", hd.getNgayky());
+        int result = db.update("HopDong", values, "idhopdong = ?", new String[]{String.valueOf(hd.getIdhopdong())});
+        return result;
     }
+
 
     public int deleteHD(int id) {
         return db.delete("HopDong", "idhopdong=?",
                 new String[]{String.valueOf(id)});
     }
-    public void deleteKhacThue(int idkhach) {
-        db.delete("KhachThue", "idkhach=?", new String[]{String.valueOf(idkhach)});
+    public void deleteKhachThue(int idphong) {
+        db.delete("KhachThue", "idphong=?", new String[]{String.valueOf(idphong)});
     }
     public List<hopdong_display> getAllHopDongDisplay() {
         List<hopdong_display> list = new ArrayList<>();
@@ -176,6 +175,14 @@ public class qlhopdong_hopdongDAO {
         cursor.close();
         return hd;
     }
-
+    public int getIDphongbyTen(String ten){
+        Cursor cursor = db.rawQuery("select idphong from PhongTro where tenphong =?",new String[]{ten});
+        int id=-1;
+        if(cursor.moveToFirst()){
+            id = cursor.getInt(0);
+        }
+        cursor.close();
+        return id;
+    }
 
 }

@@ -111,6 +111,7 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
             btnSua.setVisibility(View.VISIBLE);btnXoa.setVisibility(View.VISIBLE);
             idhopdong = getIntent().getIntExtra("idhd",-1);
             tenphong = getIntent().getStringExtra("tenp");
+            idphong = hdDAO.getIDphongbyTen(tenphong);
             edtPhong.setText(tenphong);
             hopdong HD = hdDAO.getinfHDbyIdHD(idhopdong); edtCccd.setText(HD.getCccd());edtNgayky.setText(HD.getNgayky());
             if (HD == null) {
@@ -199,6 +200,8 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
 
 
         long result = hdDAO.updateHD(hd);
+        Log.d("UPDATE_HD", "idhopdong = " + hd.getIdhopdong());
+
         if (result > 0) {
             Toast.makeText(this, "Cập nhật hợp đồng thành công!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(context, hopdong_activity_dshopdong.class);
@@ -218,7 +221,7 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
 
                 int result = hdDAO.deleteHD(idhopdong);
                 if (result > 0) {
-                    hdDAO.deleteKhacThue(idkhach);
+                    hdDAO.deleteKhachThue(idphong);
                     Toast.makeText(hopdong_activity_chucnang.this, "Đã xóa hợp đồng!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, hopdong_activity_dshopdong.class);
                     startActivity(intent);
