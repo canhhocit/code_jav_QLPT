@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlphongtro_PersonInRoomAdapter;
-import com.example.logincustomer.data.DAO.khachthueDAO;
+import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.khachthue;
 import com.example.logincustomer.data.Model.PhongTro;
@@ -22,7 +22,7 @@ public class DetailInRoom extends AppCompatActivity {
     private ListView listView;
     private Button btnThem, btnBack;
     private TextView txtTenPhong;
-    private khachthueDAO khachDAO;
+    private qlkhachthue_khachthueDAO khachDAO;
     private qlphongtro_PhongTroDAO phongDAO;
     private qlphongtro_PersonInRoomAdapter adapter;
     private int idPhong;
@@ -40,7 +40,7 @@ public class DetailInRoom extends AppCompatActivity {
         idPhong = getIntent().getIntExtra("idPhong", -1);
 
         phongDAO = new qlphongtro_PhongTroDAO(this);
-        khachDAO = new khachthueDAO(this);
+        khachDAO = new qlkhachthue_khachthueDAO(this);
 
         // set tên phòng
         PhongTro phong = phongDAO.getPhongById(idPhong);

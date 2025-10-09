@@ -198,6 +198,7 @@ public class baocao_activity_chitietthuchi extends AppCompatActivity {
                                 edtNgayThuChi.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
                         y, m, d
                 );
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog.show();
             }
         });

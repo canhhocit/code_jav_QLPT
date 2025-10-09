@@ -9,16 +9,17 @@
     android:foregroundGravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".ui.QLhopdong_y.hopdong_activity_home">
+    tools:context=".ui.QLhopdong_y.hopdong_activity_dshopdong">
 
     <TextView
-        android:id="@+id/txvhd"
+        android:id="@+id/hopdong_home_tvhd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="Hợp Đồng nhà"
+        android:drawableStart="@drawable/arrow_back"
         android:textColor="#36093E"
         android:textSize="25dp"
         android:textStyle="bold" />
@@ -30,32 +31,31 @@
         android:layout_marginTop="12dp"
         android:background="#C7F6C1"
         android:layout_gravity="center"
-        android:weightSum="5">
+        android:weightSum="5.8">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.3"
             android:text="Phòng"
             android:textSize="18sp"
             android:textAlignment="center"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Trạng thái"
-
+            android:layout_weight="2"
+            android:text="Người ký"
             android:textSize="18sp"
             android:textAlignment="center"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_weight="2.5"
+            android:layout_weight="2.2"
             android:text="Ngày ký"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -67,7 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        android:clipToPadding="false"
-        tools:listitem="@layout/qlhopdong_home_item_dsphong" />
+        tools:listitem="@layout/qlhopdong_layout_item_dshopdong" />
 
 </LinearLayout>

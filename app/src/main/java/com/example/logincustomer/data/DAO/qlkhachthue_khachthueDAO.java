@@ -6,15 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
-import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.data.Model.khachthue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class khachthueDAO {
+public class qlkhachthue_khachthueDAO {
     private SQLiteDatabase db;
-    public khachthueDAO(Context context){
+    public qlkhachthue_khachthueDAO(Context context){
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
     }
@@ -84,6 +83,24 @@ public class khachthueDAO {
         cur.close();
         return list;
     }
+    //check ex
+    public int checkexists(khachthue khach){
+        Cursor cursor = db.rawQuery("select * from KhachThue where hoten=? and gioitinh=? and ngaysinh=? and sdt=? and diachi=?",
+                new String[]{khach.getHoten(), khach.getGioitinh(), khach.getNgaysinh(), khach.getSdt(), khach.getDiachi()});
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+    //check nguoi trong phong
+    public int checkCountperson(int id){
+        Cursor cursor = db.rawQuery("select songuoi from PhongTro where idphong=?",new String[]{String.valueOf(id)});
+        int num =-1;
+        if(cursor.moveToFirst()){
+            num = cursor.getInt(0);
+        }
+        cursor.close();
+        return num;
+    }
     //lay ten phong tu id de show lv
     public String getTenphongbyID(int idphong){
         String tenphong=null;
@@ -92,6 +109,7 @@ public class khachthueDAO {
         cur.close();
         return tenphong;
     }
+
     //check id tu ten phong
     public boolean checkIDbyTenphong(String tenphong) {
         Cursor cur = db.rawQuery("SELECT idphong FROM PhongTro WHERE tenphong = ?", new String[]{tenphong});

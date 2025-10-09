@@ -18,9 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.baocao_phongAdapter;
-import com.example.logincustomer.data.Adapter.khachthueAdapter;
+import com.example.logincustomer.data.Adapter.qlkhachthueAdapter;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.DAO.khachthueDAO;
+import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.data.Model.khachthue;
 import com.github.mikephil.charting.charts.BarChart;
@@ -41,8 +41,8 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
     //Khach
     private ListView lv_Khach;
-    private khachthueDAO khachDAO;
-    private khachthueAdapter ktadapter;
+    private qlkhachthue_khachthueDAO khachDAO;
+    private qlkhachthueAdapter ktadapter;
 
     //Hop dong
     private ListView lv_Hopdong;
@@ -82,9 +82,9 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     }
 
     private void listviewkhach() {
-        khachDAO= new khachthueDAO(baocao_activity_homeBC.this);
+        khachDAO= new qlkhachthue_khachthueDAO(baocao_activity_homeBC.this);
         List<khachthue> listKhach = khachDAO.getAllKhachThue();
-        ktadapter = new khachthueAdapter(baocao_activity_homeBC.this,listKhach,khachDAO);
+        ktadapter = new qlkhachthueAdapter(baocao_activity_homeBC.this,listKhach,khachDAO);
         lv_Khach.setAdapter(ktadapter);
     }
     private void gotoThuchi_startMenu() {

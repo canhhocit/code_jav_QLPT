@@ -7,19 +7,19 @@
     import android.widget.BaseAdapter;
     import android.widget.TextView;
 
-    import com.example.logincustomer.data.DAO.khachthueDAO;
+    import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
     import com.example.logincustomer.data.Model.khachthue;
     import com.example.logincustomer.R;
 
     import java.util.List;
 
-    public class khachthueAdapter extends BaseAdapter {
+    public class qlkhachthueAdapter extends BaseAdapter {
 
         private Context context;
         private List<khachthue> listkhachthue;
-        private khachthueDAO ktDAO;
+        private qlkhachthue_khachthueDAO ktDAO;
 
-        public khachthueAdapter(Context context, List<khachthue> listkhachthue, khachthueDAO ktDAO) {
+        public qlkhachthueAdapter(Context context, List<khachthue> listkhachthue, qlkhachthue_khachthueDAO ktDAO) {
             this.context = context;
             this.listkhachthue = listkhachthue;
             this.ktDAO = ktDAO;

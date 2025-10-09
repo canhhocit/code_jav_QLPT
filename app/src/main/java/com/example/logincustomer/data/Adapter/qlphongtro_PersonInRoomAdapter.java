@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.DAO.khachthueDAO;
+import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.Model.khachthue;
 import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucnang;
 
@@ -24,12 +24,12 @@ public class qlphongtro_PersonInRoomAdapter extends BaseAdapter {
 
     private Context context;
     private List<khachthue> list;
-    private khachthueDAO dao;
+    private qlkhachthue_khachthueDAO dao;
 
     public qlphongtro_PersonInRoomAdapter(Context context, List<khachthue> list) {
         this.context = context;
         this.list = list;
-        this.dao = new khachthueDAO(context);
+        this.dao = new qlkhachthue_khachthueDAO(context);
     }
 
     @Override

@@ -20,8 +20,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.DAO.khachthueDAO;
+import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.Model.khachthue;
+import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_chucnang;
 
 import java.util.Calendar;
 
@@ -30,7 +31,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
     private EditText edtHoTen, edtNgaySinh, edtSDT, edtDiaChi, edtPhong;
     private RadioGroup rdgGioiTinh;
     private Button btnSua, btnXoa, btnThem;
-    private khachthueDAO khachDAO;
+    private qlkhachthue_khachthueDAO khachDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             return insets;
         });
         anhXaID();
-        khachDAO = new khachthueDAO(this);
+
         nhandulieu();
         them();
         Sua();
@@ -88,7 +89,11 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                 int idkhach=intent.getIntExtra("idkhach",-1);
                 khachthue kt = getdatafromText();
                 if (kt == null) {
-                    Toast.makeText(qlkhachthue_activity_chucnang.this, "chua co du lieu khach thue", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(qlkhachthue_activity_chucnang.this, "Lỗi, hãy chọn khách", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(khachDAO.checkexists(kt)>0){
+                    Toast.makeText(qlkhachthue_activity_chucnang.this, "Thông tin này đã tồn tại", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -137,7 +142,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             edtDiaChi.setText(diachi);
 
 
-            khachDAO = new khachthueDAO(this);
+            khachDAO = new qlkhachthue_khachthueDAO(this);
             String tenphongDB = khachDAO.getTenphongbyID(idphong);
             edtPhong.setText(tenphongDB);
 
@@ -152,10 +157,40 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getdatafromText()==null){
+                khachthue kt =getdatafromText();
+                if(kt==null){
                     return;
                 }
-                khachDAO.insertKhachThue(getdatafromText());
+                if(khachDAO.checkCountperson(kt.getIdphong())==0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(qlkhachthue_activity_chucnang.this);
+                    builder.setTitle("Thêm thất bại");
+                    builder.setIcon(R.drawable.img_wrong);
+                    builder.setMessage("Phòng này chưa được ký hợp đồng, bạn có muốn ký hợp đồng với phòng này?");
+                    builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(qlkhachthue_activity_chucnang.this, hopdong_activity_chucnang.class);
+                            intent.putExtra("idphong",kt.getIdphong());
+                            intent.putExtra("idkhach",kt.getIdkhach());
+                            intent.putExtra("check",1);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    builder.show();
+                    return;
+                }
+                if(khachDAO.checkexists(kt)>0){
+                    Toast.makeText(qlkhachthue_activity_chucnang.this, "Thông tin này đã tồn tại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                khachDAO.insertKhachThue(kt);
                 Toast.makeText(qlkhachthue_activity_chucnang.this, "Thêm khách thuê thành công!", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -207,7 +242,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         btnThem.setVisibility(View.INVISIBLE);
         btnSua.setVisibility(View.INVISIBLE);
         btnXoa.setVisibility(View.INVISIBLE);
-
+        khachDAO = new qlkhachthue_khachthueDAO(this);
         //click ngay
         edtNgaySinh.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -217,11 +252,19 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
 
             DatePickerDialog dialog = new DatePickerDialog(
                     qlkhachthue_activity_chucnang.this,
-                    (view, year1, month1, dayOfMonth) ->
-                            edtNgaySinh.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
+                    (view, year1, month1, dayOfMonth) -> {
+                        if (year1 > 2015) {
+                            Toast.makeText(this, "Năm sinh phải lớn hơn 2015!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            edtNgaySinh.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
+                        }
+                    },
                     y, m, d
             );
+            //k cho chon ngay>ngay htai
+            dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
             dialog.show();
+
         });
     }
 

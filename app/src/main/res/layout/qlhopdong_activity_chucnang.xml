@@ -38,7 +38,7 @@
             />
 
         <EditText
-            android:id="@+id/hopdong_edt_idphong"
+            android:id="@+id/hopdong_edt_phong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -75,7 +75,6 @@
             android:textAlignment="center"
             android:ems="10"
             android:hint="nhập hoten"
-            
             android:inputType="text" />
     </LinearLayout>
 
@@ -143,11 +142,7 @@
             android:layout_height="wrap_content"
             android:text="Ngày Sinh" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="dd/mm/yyy">
+
 
         <EditText
             android:id="@+id/hopdong_edt_ngaysinh"
@@ -160,8 +155,8 @@
             android:layout_marginLeft="20dp"
             android:padding="10dp"
             android:drawableStart="@drawable/calender"
+            android:enabled="false"
             />
-        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -203,12 +198,7 @@
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/hopdong_btnthem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Thêm" />
+
 
     <Button
         android:id="@+id/hopdong_btnsua"
@@ -224,4 +214,11 @@
         android:layout_height="wrap_content"
         android:text="Xóa" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/hopdong_btnthem"
+        android:layout_width="197dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Thêm" />
 </LinearLayout>

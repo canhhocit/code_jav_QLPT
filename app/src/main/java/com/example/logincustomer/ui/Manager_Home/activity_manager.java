@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.logincustomer.ui.Account.account_activity;
 import com.example.logincustomer.ui.Login.login_activity_dangky;
 import com.example.logincustomer.ui.QLbaocao_canh.baocao_activity_homeBC;
-import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_home;
+import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_showphong;
 import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_dstt;
 import com.example.logincustomer.ui.QLphong_tam.qlphong_activity_home;
 import com.example.logincustomer.ui.QLthutien_nguyen.Guide;
@@ -57,7 +57,7 @@ public class activity_manager extends AppCompatActivity {
         });
 
         imgHopDong.setOnClickListener(v -> {
-            Intent intent = new Intent(activity_manager.this, hopdong_activity_home.class);
+            Intent intent = new Intent(activity_manager.this, hopdong_activity_showphong.class);
             startActivity(intent);
         });
 

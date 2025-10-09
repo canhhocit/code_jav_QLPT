@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginCustomer">
         <activity
+            android:name=".ui.QLhopdong_y.hopdong_activity_addPerson"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QLhopdong_y.hopdong_activity_showphong"
+            android:exported="false" />
+        <activity
             android:name=".ui.Account.account_activity"
             android:exported="false" />
         <activity
@@ -33,7 +39,7 @@
             android:name=".ui.QLhopdong_y.hopdong_activity_chucnang"
             android:exported="false" />
         <activity
-            android:name=".ui.QLhopdong_y.hopdong_activity_home"
+            android:name=".ui.QLhopdong_y.hopdong_activity_dshopdong"
             android:exported="false" />
         <activity
             android:name=".ui.Login.login_activity_dangky"
@@ -47,11 +53,12 @@
         <activity
             android:name=".ui.QLbaocao_canh.baocao_activity_homeBC"
             android:exported="false" />
-        <activity android:name=".ui.QLbaocao_canh.baocao_activity_homedsthuchi"
-            android:exported="false"/>
-        <activity android:name=".ui.QLbaocao_canh.baocao_activity_chitietthuchi"
-            android:exported="false"/>
-
+        <activity
+            android:name=".ui.QLbaocao_canh.baocao_activity_homedsthuchi"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QLbaocao_canh.baocao_activity_chitietthuchi"
+            android:exported="false" />
         <activity
             android:name=".ui.QLphong_tam.qlphong_activity_home"
             android:exported="false" />
