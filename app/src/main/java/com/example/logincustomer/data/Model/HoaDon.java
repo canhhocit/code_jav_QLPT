@@ -1,52 +1,129 @@
 package com.example.logincustomer.data.Model;
 
 public class HoaDon {
-    private int Idhoadon;
-    private int Idphong;
-    private String Ngaytaohdon;
-    private boolean Trangthai = false; // false = chưa thanh toán, true = đã thanh toán
-    private String Ghichu;
-    private String Image;
-    private double Tongtien;
+    private int idhoadon;
+    private int idphong;
+    private String ngaytaohdon;
+    private boolean trangthai = false; // false = chưa thanh toán, true = đã thanh toán
+    private String ghichu;
+    private double tongtien;
 
+    // 4 ảnh điện - nước (cũ, mới)
+    private String imgDienCu;
+    private String imgDienMoi;
+    private String imgNuocCu;
+    private String imgNuocMoi;
+
+    // ===== Constructor =====
     public HoaDon() {}
 
-    // Constructor đầy đủ (bao gồm trạng thái)
     public HoaDon(int idhoadon, int idphong, String ngaytaohdon, boolean trangthai,
-                  String ghichu, String image, double tongtien) {
-        this.Idhoadon = idhoadon;
-        this.Idphong = idphong;
-        this.Ngaytaohdon = ngaytaohdon;
-        this.Trangthai = trangthai;
-        this.Ghichu = ghichu;
-        this.Image = image;
-        this.Tongtien = tongtien;
+                  String ghichu, double tongtien,
+                  String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
+        this.idhoadon = idhoadon;
+        this.idphong = idphong;
+        this.ngaytaohdon = ngaytaohdon;
+        this.trangthai = trangthai;
+        this.ghichu = ghichu;
+        this.tongtien = tongtien;
+        this.imgDienCu = imgDienCu;
+        this.imgDienMoi = imgDienMoi;
+        this.imgNuocCu = imgNuocCu;
+        this.imgNuocMoi = imgNuocMoi;
     }
 
-    // Constructor không có trạng thái (mặc định là false)
-    public HoaDon(int idhoadon, int idphong, String ngaytaohdon, String ghichu, String image, double tongtien) {
-        this(idhoadon, idphong, ngaytaohdon, false, ghichu, image, tongtien);
+    // Constructor rút gọn khi tạo mới (trạng thái mặc định là chưa thanh toán)
+    public HoaDon(int idphong, String ngaytaohdon, String ghichu, double tongtien,
+                  String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
+        this.idphong = idphong;
+        this.ngaytaohdon = ngaytaohdon;
+        this.trangthai = false;
+        this.ghichu = ghichu;
+        this.tongtien = tongtien;
+        this.imgDienCu = imgDienCu;
+        this.imgDienMoi = imgDienMoi;
+        this.imgNuocCu = imgNuocCu;
+        this.imgNuocMoi = imgNuocMoi;
     }
 
-    // Getter - Setter
-    public int getIdhoadon() { return Idhoadon; }
-    public void setIdhoadon(int idhoadon) { this.Idhoadon = idhoadon; }
+    // ===== Getter / Setter =====
+    public int getIdhoadon() {
+        return idhoadon;
+    }
 
-    public int getIdphong() { return Idphong; }
-    public void setIdphong(int idphong) { this.Idphong = idphong; }
+    public void setIdhoadon(int idhoadon) {
+        this.idhoadon = idhoadon;
+    }
 
-    public String getNgaytaohdon() { return Ngaytaohdon; }
-    public void setNgaytaohdon(String ngaytaohdon) { this.Ngaytaohdon = ngaytaohdon; }
+    public int getIdphong() {
+        return idphong;
+    }
 
-    public boolean isTrangthai() { return Trangthai; }
-    public void setTrangthai(boolean trangthai) { this.Trangthai = trangthai; }
+    public void setIdphong(int idphong) {
+        this.idphong = idphong;
+    }
 
-    public String getGhichu() { return Ghichu; }
-    public void setGhichu(String ghichu) { this.Ghichu = ghichu; }
+    public String getNgaytaohdon() {
+        return ngaytaohdon;
+    }
 
-    public String getImage() { return Image; }
-    public void setImage(String image) { this.Image = image; }
+    public void setNgaytaohdon(String ngaytaohdon) {
+        this.ngaytaohdon = ngaytaohdon;
+    }
 
-    public double getTongtien() { return Tongtien; }
-    public void setTongtien(double tongtien) { this.Tongtien = tongtien; }
+    public boolean isTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(boolean trangthai) {
+        this.trangthai = trangthai;
+    }
+
+    public String getGhichu() {
+        return ghichu;
+    }
+
+    public void setGhichu(String ghichu) {
+        this.ghichu = ghichu;
+    }
+
+    public double getTongtien() {
+        return tongtien;
+    }
+
+    public void setTongtien(double tongtien) {
+        this.tongtien = tongtien;
+    }
+
+    public String getImgDienCu() {
+        return imgDienCu;
+    }
+
+    public void setImgDienCu(String imgDienCu) {
+        this.imgDienCu = imgDienCu;
+    }
+
+    public String getImgDienMoi() {
+        return imgDienMoi;
+    }
+
+    public void setImgDienMoi(String imgDienMoi) {
+        this.imgDienMoi = imgDienMoi;
+    }
+
+    public String getImgNuocCu() {
+        return imgNuocCu;
+    }
+
+    public void setImgNuocCu(String imgNuocCu) {
+        this.imgNuocCu = imgNuocCu;
+    }
+
+    public String getImgNuocMoi() {
+        return imgNuocMoi;
+    }
+
+    public void setImgNuocMoi(String imgNuocMoi) {
+        this.imgNuocMoi = imgNuocMoi;
+    }
 }

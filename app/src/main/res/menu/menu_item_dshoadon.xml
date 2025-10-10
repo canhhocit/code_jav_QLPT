@@ -4,11 +4,12 @@
         android:id="@+id/menu_add"
         android:title="Thanh toán" />
     <item
-        android:id="@+id/menu_edit"
-        android:title="Xem hóa đơn" />
-    <item
         android:id="@+id/menu_xem"
         android:title="Sửa hóa đơn" />
+    <item
+        android:id="@+id/menu_edit"
+        android:title="Xem hóa đơn" />
+
     <item
         android:id="@+id/menu_deletephong"
         android:title="Xóa hóa đơn" />

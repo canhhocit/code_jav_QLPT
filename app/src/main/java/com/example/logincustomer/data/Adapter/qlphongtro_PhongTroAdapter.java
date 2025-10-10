@@ -28,6 +28,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private qlthutien_HoaDonDAO qlthutienHoaDonDAO;
     private qlphongtro_PhongTroDAO qlphongtroPhongTroDAO;
+
     private int selectedPosition = -1;
 
     public qlphongtro_PhongTroAdapter(Context context, List<PhongTro> list) {
@@ -115,10 +116,21 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
             PopupMenu popup = new PopupMenu(context, v);
             popup.getMenuInflater().inflate(R.menu.menu_item_dsphong, popup.getMenu());
 
+            int check = qlthutienHoaDonDAO.kiemTraTinhTrangHoaDon(pt.getIdphong());
+
             popup.setOnMenuItemClickListener(item -> {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.menu_add) {
+                    // 🔍 Kiểm tra phòng đã có hóa đơn chưa
+                    if (check == 1) {
+                        Toast.makeText(context, "Phòng này có hóa đơn chưa thanh toán, không thể tạo thêm!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    } else if (check == 2) {
+                        Toast.makeText(context, "Phòng này đã có hóa đơn tháng này, không thể tạo thêm!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+
                     // ➕ Tạo hóa đơn mới
                     Intent intent = new Intent(context, TaoHoaDonActivity.class);
                     intent.putExtra("idPhong", pt.getIdphong());
@@ -130,13 +142,20 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
 
                 } else if (itemId == R.id.menu_edit) {
                     // ✏️ Sửa hóa đơn (nếu có)
-                    if (qlthutienHoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
+                    if (check == 1) {
                         Intent intent = new Intent(context, TaoHoaDonActivity.class);
                         intent.putExtra("idPhong", pt.getIdphong());
                         context.startActivity(intent);
-                    } else {
+                    } else if (!qlthutienHoaDonDAO.coTheSuaHoaDon(pt.getIdphong())) {
+                        Toast.makeText(context, "Hóa đơn này đã thanh toán, không thể sửa!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }else{
                         Toast.makeText(context, "Phòng này chưa có hóa đơn để sửa!", Toast.LENGTH_SHORT).show();
+                        return true;
                     }
+
+
+
                     return true;
                 } else if (itemId == R.id.menu_xem) {
                     //  xem hóa đơn (nếu có)
@@ -147,8 +166,10 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                     } else {
                         Toast.makeText(context, "Phòng này chưa có hóa đơn!", Toast.LENGTH_SHORT).show();
                     }
-                    return true;
 
+
+
+                    return true;
                 } else if (itemId == R.id.menu_deletephong) {
                     // 🗑️ Xóa phòng
                     new AlertDialog.Builder(context)
