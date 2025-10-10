@@ -76,7 +76,7 @@ public class hopdong_activity_addPerson extends AppCompatActivity {
                     context,
                     (view, year1, month1, dayOfMonth) -> {
                         if (year1 > 2015) {
-                            Toast.makeText(this, "Năm sinh phải lớn hơn 2015!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Năm sinh phải nhỏ hơn 2015!", Toast.LENGTH_SHORT).show();
                         } else {
                             edtNgaysinh.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
                         }

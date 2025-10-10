@@ -11,6 +11,7 @@ import com.example.logincustomer.R;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class baocao_phongAdapter extends BaseAdapter {
@@ -49,10 +50,18 @@ public class baocao_phongAdapter extends BaseAdapter {
         TextView tenphong = convertView.findViewById(R.id.baocao_phong_tvtenphong);
         TextView songuoi = convertView.findViewById(R.id.baocao_phong_tvsonguoi);
         TextView gia = convertView.findViewById(R.id.baocao_phong_tvgiatien);
+        DecimalFormat df = new DecimalFormat("#,###.##");
+        double giaphong = pt.getGia();
+        String str ;
+        if(giaphong>1_000_000){
+            str= df.format(giaphong/1000000)+" Triệu";
+        }else{
+            str = df.format(giaphong);
+        }
 
         tenphong.setText(pt.getTenphong());
         songuoi.setText(String.valueOf(pt.getSonguoi()));
-        gia.setText(String.valueOf(pt.getGia()));
+        gia.setText(str);
         return convertView;
     }
 }
