@@ -108,6 +108,18 @@ public class qlphongtro_PersonInRoomAdapter extends BaseAdapter {
                             .setNegativeButton("Hủy", null)
                             .show();
                     return true;
+                } else if (itemId == R.id.menu_detail_personroom) {
+                    Intent intent = new Intent(context, qlkhachthue_activity_chucnang.class);
+                    intent.putExtra("check", 5);
+                    intent.putExtra("idkhach", khach.getIdkhach());
+                    intent.putExtra("hoten", khach.getHoten());
+                    intent.putExtra("gioitinh", khach.getGioitinh());
+                    intent.putExtra("ngaysinh", khach.getNgaysinh());
+                    intent.putExtra("sdt", khach.getSdt());
+                    intent.putExtra("diachi", khach.getDiachi());
+                    intent.putExtra("idphong", khach.getIdphong());
+                    context.startActivity(intent);
+                    return true;
                 } else {
                     return false;
                 }
