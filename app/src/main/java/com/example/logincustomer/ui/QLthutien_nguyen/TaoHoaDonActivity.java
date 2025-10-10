@@ -80,11 +80,14 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         setContentView(R.layout.qlthutien_layout_total_priceroom);
         anhxaid();
 
+        int songuoi = getIntent().getIntExtra("songuoi", 0);
+        int idphong = getIntent().getIntExtra("idPhong", 0);
+        String tenphong = getIntent().getStringExtra("tenphong");
         double giaphong = getIntent().getDoubleExtra("giaphong", 0);
         // giữ nguyên kiểu hiển thị hiện tại (nếu muốn format đẹp: df.format(giaphong) + " đ")
 
         txtGiaPhong.setText(df.format(giaphong));
-        txtTenPhong.setText(String.valueOf(getIntent().getStringExtra("tenphong")));
+        txtTenPhong.setText(String.valueOf(tenphong));
 
         // Lấy giá điện nước từ database (nếu có)
         layGiaMacDinhTuDatabase();
@@ -145,8 +148,18 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         picture();
 
         btnTaoHoaDon.setOnClickListener(v -> {
+            Intent intent = new Intent(TaoHoaDonActivity.this, BillRoomActivity.class);
+            intent.putExtra("Idphong",idphong);
+            intent.putExtra("Tenphong",tenphong);
+            intent.putExtra("Songuoi",songuoi);
+
+            intent.putExtra("Diencu",edtOldElectric.getText().toString());
+            intent.putExtra("Dienmoi",edtNewElectric.getText().toString());
+            intent.putExtra("Nuoccu",edtOldWater.getText().toString());
+            intent.putExtra("Nuocmoi",edtNewWater.getText().toString());
 
             showDialog();
+            startActivity(intent);
         });
     }
 
@@ -406,5 +419,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         }
     }
 
+    private void putExtra(Intent intent){
 
+    }
 }

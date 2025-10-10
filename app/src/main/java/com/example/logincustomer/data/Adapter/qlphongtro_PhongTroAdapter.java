@@ -124,6 +124,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                     intent.putExtra("idPhong", pt.getIdphong());
                     intent.putExtra("giaphong", pt.getGia());
                     intent.putExtra("tenphong", pt.getTenphong());
+                    intent.putExtra("songuoi",pt.getSonguoi());
                     context.startActivity(intent);
                     return true;
 

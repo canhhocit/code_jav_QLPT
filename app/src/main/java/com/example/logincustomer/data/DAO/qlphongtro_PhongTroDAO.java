@@ -41,7 +41,6 @@ public class qlphongtro_PhongTroDAO {
         return db.update("PhongTro", values, "idphong = ?", new String[]{String.valueOf(phong.getIdphong())});
     }
 
-
     // 🔹 Xóa phòng theo id
     public int deletePhongTro(int idphong) {
         return db.delete("PhongTro", "idphong = ?", new String[]{String.valueOf(idphong)});

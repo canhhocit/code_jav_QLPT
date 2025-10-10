@@ -19,42 +19,42 @@
             android:id="@+id/txtItemDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.6"
+            android:layout_weight="1.4"
             android:text="12/12/2023"
-            android:textSize="13dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/txtItemRoom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
+            android:layout_weight="1"
             android:text="102"
-            android:textSize="13dp" />
+            android:gravity="center"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/txtItemPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_weight="1.7"
             android:gravity="center"
             android:text="2.000.000"
-            android:textSize="13dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/imgItemStatus"
             android:layout_width="0dp"
             android:layout_height="19dp"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:src="@drawable/img_wrong"></ImageView>
 
-        <TextView
-            android:id="@+id/txtItemDetail"
+        <ImageView
+            android:id="@+id/iconMoreOption"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/xemDetail"
-            android:textColor="#50FF00" />
+            android:layout_height="22dp"
+            android:layout_weight="0.8"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/img_threedot" />
 
     </LinearLayout>
 
