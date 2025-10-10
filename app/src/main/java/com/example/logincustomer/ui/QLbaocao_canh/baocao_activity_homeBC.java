@@ -1,14 +1,17 @@
 package com.example.logincustomer.ui.QLbaocao_canh;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +20,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.R;
+import com.example.logincustomer.data.Adapter.baocao_hopdongAdapter;
 import com.example.logincustomer.data.Adapter.baocao_phongAdapter;
-import com.example.logincustomer.data.Adapter.qlkhachthueAdapter;
+import com.example.logincustomer.data.DAO.baocao_hopdongDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.Model.PhongTro;
-import com.example.logincustomer.data.Model.khachthue;
+import com.example.logincustomer.data.Model.baocao_hopdong;
+import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_chucnang;
 import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.List;
@@ -31,6 +35,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     private TabHost tabHost;
     private TextView tvTitle_baocao;
 
+    private Context context = baocao_activity_homeBC.this;
     // DT
     private BarChart barChartDT;
     private ListView lv_namDT;
@@ -38,11 +43,12 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
     // Phong
     private ListView lv_Phong;
-
+    private qlphongtro_PhongTroDAO bc_ptDAO;
+    private baocao_phongAdapter ptAdapter;
     //Hop dong
     private ListView lv_Hopdong;
-    private qlphongtro_PhongTroDAO ptDAO;
-    private baocao_phongAdapter ptAdapter;
+    private baocao_hopdongDAO bc_hdDAO;
+    private baocao_hopdongAdapter hdAdapter;
 
 
     @Override
@@ -63,15 +69,36 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         listviewphong();
 
         //tab hop dong
+        listviewHD();
+        listHDcontrol();
+    }
+
+    private void listHDcontrol() {
+        lv_Hopdong.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                baocao_hopdong bchd = (baocao_hopdong) hdAdapter.getItem(position);
+                Intent intent = new Intent(context, hopdong_activity_chucnang.class);
+                intent.putExtra("check",2);
+                intent.putExtra("idphong",bchd.getIdp());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void listviewHD() {
+        bc_hdDAO = new baocao_hopdongDAO(context);
+        List<baocao_hopdong> listHD = bc_hdDAO.getAllbc_hd();
+
+        hdAdapter = new baocao_hopdongAdapter(context,listHD,bc_hdDAO);
+        lv_Hopdong.setAdapter(hdAdapter);
     }
 
 
-
-
     private void listviewphong() {
-        ptDAO = new qlphongtro_PhongTroDAO(baocao_activity_homeBC.this);
-        List<PhongTro> listPT = ptDAO.getAllPhongTro();
-        ptAdapter =new baocao_phongAdapter(baocao_activity_homeBC.this,listPT,ptDAO);
+        bc_ptDAO = new qlphongtro_PhongTroDAO(context);
+        List<PhongTro> listPT = bc_ptDAO.getAllPhongTro();
+        ptAdapter =new baocao_phongAdapter(context,listPT, bc_ptDAO);
         lv_Phong.setAdapter(ptAdapter);
     }
 
@@ -80,19 +107,19 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         btnThuChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(baocao_activity_homeBC.this, btnThuChi);
+                PopupMenu popupMenu = new PopupMenu(context, btnThuChi);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_option_btnthuchi, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         int itemId = item.getItemId();
                         if (itemId == R.id.menu_btnthuchi_them){
-                            Intent intent = new Intent(baocao_activity_homeBC.this, baocao_activity_chitietthuchi.class);
+                            Intent intent = new Intent(context, baocao_activity_chitietthuchi.class);
                             intent.putExtra("check",1);
                             startActivity(intent);
                             return true;
                         }else if(itemId==R.id.menu_btnthuchi_ds){
-                            Intent intent = new Intent(baocao_activity_homeBC.this, baocao_activity_homedsthuchi.class);
+                            Intent intent = new Intent(context, baocao_activity_homedsthuchi.class);
                             startActivity(intent);
                             return true;
                         }
@@ -152,5 +179,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         listviewphong();
+        listviewHD();
     }
 }

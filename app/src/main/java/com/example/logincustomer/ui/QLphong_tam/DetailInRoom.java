@@ -13,6 +13,7 @@ import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.khachthue;
 import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_addPerson;
 import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucnang;
 
 import java.util.List;
@@ -56,11 +57,22 @@ public class DetailInRoom extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         btnThem.setOnClickListener(v -> {
-            Intent intent = new Intent(this, qlkhachthue_activity_chucnang.class);
-            intent.putExtra("check", 1);
-            intent.putExtra("idPhong", idPhong);
-            intent.putExtra("tenphong", phong.getTenphong());
-            startActivity(intent);
+            int songuoi = phongDAO.countNguoiTrongPhong(idPhong);
+            if(songuoi==0){
+                Intent intent = new Intent(this, hopdong_activity_addPerson.class);
+                intent.putExtra("check", 1);
+                intent.putExtra("idphong", idPhong);
+                intent.putExtra("tenphong", phong.getTenphong());
+                startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(this, qlkhachthue_activity_chucnang.class);
+                intent.putExtra("check", 1);
+                intent.putExtra("idPhong", idPhong);
+                intent.putExtra("tenphong", phong.getTenphong());
+                startActivity(intent);
+            }
+
         });
 
         btnBack.setOnClickListener(v -> {
