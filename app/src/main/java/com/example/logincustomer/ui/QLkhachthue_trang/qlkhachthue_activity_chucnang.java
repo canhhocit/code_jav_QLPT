@@ -253,7 +253,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                     qlkhachthue_activity_chucnang.this,
                     (view, year1, month1, dayOfMonth) -> {
                         if (year1 > 2015) {
-                            Toast.makeText(this, "Năm sinh phải lớn hơn 2015!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Năm sinh phải nhỏ hơn 2015!", Toast.LENGTH_SHORT).show();
                         } else {
                             edtNgaySinh.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
                         }
