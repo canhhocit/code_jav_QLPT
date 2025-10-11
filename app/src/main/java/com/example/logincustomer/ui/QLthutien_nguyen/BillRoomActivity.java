@@ -1,7 +1,11 @@
 package com.example.logincustomer.ui.QLthutien_nguyen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,11 +38,11 @@ import java.util.List;
 
 public class BillRoomActivity extends AppCompatActivity {
 
-    private ImageView imgBackBillRoom, btnDeleteBillRoom, imgStatusBillRoom, imgExpandMoneyBillRoom;
+    private ImageView imgBackBillRoom, imgStatusBillRoom, imgExpandMoneyBillRoom;
     private TextView txtRoomBillRoom, txtStatusBillRoom, txtDateBillRoom,
             txtQuantityPeopleBillRoom, txtOldWaterBillRoom, txtNewWaterBillRoom, txtPriceWaterBillRoom,
             txtSumServiceWaterBillRoom, txtOldElectricBillRoom, txtNewElectricBillRoom,txtSumServiceElectricBillRoom,
-            txtPriceElectricBillRoom, txtOtherServiceTotal, txtSumMoneyBillRoom,txtdetailEbillroom,
+            txtPriceElectricBillRoom, txtOtherServiceTotal, txtSumMoneyBillRoom,txtpriceRoom,
             txtdetailWbillroom;
     private EditText edtNoteBillRoom;
     private Button btnBackBillRoom, btnPayBillRoom;
@@ -59,6 +63,8 @@ public class BillRoomActivity extends AppCompatActivity {
     private ChiTietHoaDonDAO chiTietHoaDonDAO;
     private qlphongtro_PhongTroDAO phongTroDAO;
     private qlthutien_GiaMacDinhDienNuocDAO dienNuocDAO;
+    private boolean dathanhtoan = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,15 +73,27 @@ public class BillRoomActivity extends AppCompatActivity {
 
         anhxa();
 
+        // Lấy giá điện nước từ database (nếu có)
+        layGiaMacDinhTuDatabase();
+        // --- SETUP "Tiền dịch vụ khác" (RecyclerView con, adapter, DAO) ---
+        dichVuConDAO = new qlthutien_DichVuConDAO(this);
+        listOtherServices = dichVuConDAO.getAll(); // lấy tất cả dich vu con từ DB
+        // tính tổng các dịch vụ con
+        calculateTotalOtherServices();
+        otherAdapter = new qlthutien_DichVuConAdapter(listOtherServices);
+        recyclerOtherService.setLayoutManager(new LinearLayoutManager(this));
+        recyclerOtherService.setAdapter(otherAdapter);
+        recyclerOtherService.setVisibility(View.GONE); // mặc định ẩn
+        // hiển thị tổng dịch vụ khác (đã format)
+        txtOtherServiceTotal.setText(df.format(totalOtherServices));//+đ
 
-        txtRoomBillRoom.setText(getIntent().getStringExtra("Tenphong"));
-        txtOldWaterBillRoom.setText(String.valueOf(getIntent().getIntExtra("Nuoccu", 0)));
-        txtNewWaterBillRoom.setText(String.valueOf(getIntent().getIntExtra("Nuocmoi", 0)));
-        txtOldElectricBillRoom.setText(String.valueOf(getIntent().getIntExtra("Diencu", 0)));
-        txtNewElectricBillRoom.setText(String.valueOf(getIntent().getIntExtra("Dienmoi", 0)));
+        // hành vi mở/đóng khi bấm mũi tên hoặc bấm vào tổng tiền
+        View.OnClickListener toggleOther = v -> toggleOtherServices();
+        imgExpandMoneyBillRoom.setOnClickListener(toggleOther);
+        txtOtherServiceTotal.setOnClickListener(toggleOther);
 
         // Nhận id hoá đơn được truyền từ intent
-        idHoaDon = getIntent().getIntExtra("idhoadon", -1);
+        idHoaDon = (int)getIntent().getLongExtra("idhoadon", -1);
         if (idHoaDon == -1) {
             Toast.makeText(this, "Không tìm thấy hóa đơn!", Toast.LENGTH_SHORT).show();
             finish();
@@ -90,10 +108,45 @@ public class BillRoomActivity extends AppCompatActivity {
         hienThiHoaDon(idHoaDon);
 
         quaytrove();
+
+        btnPayBillRoom.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Xác nhận thanh toán");
+            builder.setMessage("Thanh toán?");
+
+            builder.setNegativeButton("Quay về", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Đóng activity hiện tại
+                    finish();
+                }
+            });
+
+            builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    boolean success = hoaDonDAO.updateTrangThaiHoaDon(idHoaDon, true);
+
+                    if(dathanhtoan){
+                        Toast.makeText(BillRoomActivity.this, "Hóa đơn đã thanh toán!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (success) {
+                        Toast.makeText(BillRoomActivity.this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
+                        hienThiHoaDon(idHoaDon);
+                    } else {
+                        Toast.makeText(BillRoomActivity.this, "Hủy thanh toán!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            builder.show();
+
+        });
     }
 
     private void hienThiHoaDon(int idHoaDon) {
         HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
+
         if (hd == null) {
             Toast.makeText(this, "Không tìm thấy dữ liệu hóa đơn!", Toast.LENGTH_SHORT).show();
             return;
@@ -104,10 +157,13 @@ public class BillRoomActivity extends AppCompatActivity {
         if (phong != null) {
             txtRoomBillRoom.setText("" + phong.getTenphong());
             txtQuantityPeopleBillRoom.setText("" + phong.getSonguoi());
+            txtpriceRoom.setText(String.format("%,.0f đ", phong.getGia()));
         }
 
+        checktrangthai(hd);
+
         txtDateBillRoom.setText("" + hd.getNgaytaohdon());
-        //tvTrangThai.setText(hd.isTrangthai() ? "Đã thanh toán" : "Chưa thanh toán");
+        edtNoteBillRoom.setText(""+hd.getGhichu());
         txtSumMoneyBillRoom.setText(String.format("%,.0f đ", hd.getTongtien()));
 
         // Lấy chi tiết hóa đơn (Điện & Nước)
@@ -126,7 +182,6 @@ public class BillRoomActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private void anhxa(){
         // Ánh xạ
@@ -148,7 +203,7 @@ public class BillRoomActivity extends AppCompatActivity {
         txtPriceWaterBillRoom = findViewById(R.id.txt_priceWater_billRoom);
         txtSumServiceWaterBillRoom = findViewById(R.id.txt_sumServiceWater_billRoom);
 
-        txtdetailEbillroom = findViewById(R.id.detailE_billroom);
+        txtpriceRoom = findViewById(R.id.detailE_billroom);
         txtOldElectricBillRoom = findViewById(R.id.txt_oldElectric_billRoom);
         txtNewElectricBillRoom = findViewById(R.id.txt_newElectric_billRoom);
         txtPriceElectricBillRoom = findViewById(R.id.txt_priceElectric_billRoom);
@@ -157,6 +212,7 @@ public class BillRoomActivity extends AppCompatActivity {
         txtSumMoneyBillRoom = findViewById(R.id.txt_sumMoney_billRoom);
         edtNoteBillRoom = findViewById(R.id.edt_note_billRoom);
 
+        txtpriceRoom = findViewById(R.id.txt_priceRoom_billRoom);
         btnBackBillRoom = findViewById(R.id.btn_back_billRoom);
         btnPayBillRoom = findViewById(R.id.btn_pay_billRoom);
     }
@@ -167,6 +223,57 @@ public class BillRoomActivity extends AppCompatActivity {
         btnBackBillRoom.setOnClickListener(v -> {
             finish();
         });
+    }
+    private void toggleOtherServices() {
+        if (isOtherExpanded) {
+            recyclerOtherService.setVisibility(View.GONE);
+            imgExpandMoneyBillRoom.animate().rotation(0).setDuration(200).start();
+        } else {
+            recyclerOtherService.setVisibility(View.VISIBLE);
+            imgExpandMoneyBillRoom.animate().rotation(180).setDuration(200).start(); // xoay chỉ minh hoạ
+        }
+        isOtherExpanded = !isOtherExpanded;
+    }
+
+    //nếu có thì dùng, không có thì dùng mặc định
+    private void layGiaMacDinhTuDatabase() {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT giadien, gianuoc FROM GiaMacDinh WHERE id = 1", null);
+
+        if (cursor.moveToFirst()) {
+            giaDien = cursor.getDouble(0);
+            giaNuoc = cursor.getDouble(1);
+        } else {
+            giaDien = GIA_DIEN_MACDINH;
+            giaNuoc = GIA_NUOC_MACDINH;
+        }
+
+        cursor.close();
+        db.close();
+    }
+
+    private void calculateTotalOtherServices() {
+        totalOtherServices = 0.0;
+        if (listOtherServices != null) {
+            for (DichVuCon dv : listOtherServices) {
+                totalOtherServices += dv.getGiatien();
+            }
+        }
+    }
+
+    private void checktrangthai(HoaDon hd){
+        dathanhtoan = hd.isTrangthai();
+        if (dathanhtoan) {
+            imgStatusBillRoom.setImageResource(R.drawable.img_correct);  // ảnh "đã thanh toán"
+            txtStatusBillRoom.setText("Đã thanh toán");
+            txtStatusBillRoom.setTextColor(Color.parseColor("#00AA00")); // màu xanh
+        } else {
+            imgStatusBillRoom.setImageResource(R.drawable.img_wrong);    // ảnh "chưa thanh toán"
+            txtStatusBillRoom.setText("Chưa thanh toán");
+            txtStatusBillRoom.setTextColor(Color.parseColor("#FF0000")); // màu đỏ
+        }
     }
 
 }

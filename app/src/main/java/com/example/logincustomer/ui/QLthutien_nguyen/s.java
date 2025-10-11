@@ -6,7 +6,7 @@ public class s {
 
     // trong oncreat {
     //         anhxa();
-    // ----------id  1A-----------------------------------------------------
+    // ----------id  1A----------------------------d-------------------------
     //        // Lấy giá điện nước từ database (nếu có)
     //        layGiaMacDinhTuDatabase();
     //        // --- SETUP "Tiền dịch vụ khác" (RecyclerView con, adapter, DAO) ---
@@ -28,7 +28,7 @@ public class s {
     // ---------------------------------------------------------------
     // }
     //            func
-    // ----------id  1A-----------------------------------------------------
+    // ----------id  1A--------------------------d---------------------------
 //    private void toggleOtherServices() {
 //        if (isOtherExpanded) {
 //            recyclerOtherService.setVisibility(View.GONE);
@@ -74,9 +74,15 @@ public class s {
 //    android:layout_height="28dp"
 //    android:src="@drawable/img_trash"
 //    app:tint="#FF0000" />
+    // ---------------------------------------------------------------
 }
 
 
 
 //-----------------luuq ya
 //trong giamacdinhdiennuocDAO để ý hàm getgiadien & getgianuoc
+//check số người = 0 thì k tạo hóa đơn
+
+
+
+// ---------------------------------------------------------------

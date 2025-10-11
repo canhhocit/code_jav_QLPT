@@ -234,7 +234,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
             // 7️⃣ Tạo chi tiết hóa đơn cho điện
             chiTietDien = new ChiTietHoaDon();
-            chiTietDien.setIdchitiethoadon((int) result);
+            chiTietDien.setIdhoadon((int) result);
             chiTietDien.setTendichvu("Điện");
             chiTietDien.setSodiencu(oldE);
             chiTietDien.setSodienmoi(newE);
@@ -243,7 +243,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
             // 8️⃣ Tạo chi tiết hóa đơn cho nước
             chiTietNuoc = new ChiTietHoaDon();
-            chiTietNuoc.setIdchitiethoadon((int) result);
+            chiTietNuoc.setIdhoadon((int) result);
             chiTietNuoc.setTendichvu("Nước");
             chiTietNuoc.setSonuoccu(oldW);
             chiTietNuoc.setSonuocmoi(newW);
@@ -372,10 +372,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             return 0;
         }
     }
-
-    private void nhandulieuIntent() {
-    }
-
     private void chooseDate() {
         edtdate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();

@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
 import com.example.logincustomer.data.Model.HoaDon;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class qlthutien_HoaDonDAO {
     private SQLiteDatabase db;
@@ -21,7 +24,23 @@ public class qlthutien_HoaDonDAO {
     public long insertHoaDon(HoaDon hd) {
         ContentValues values = new ContentValues();
         values.put("idphong", hd.getIdphong());
-        values.put("ngaytaohdon", hd.getNgaytaohdon());
+
+        String ngayNhap = hd.getNgaytaohdon();
+        String ngayLuu = ngayNhap;
+
+        try {
+            // dd/MM/yyyy đổi sang yyyy-MM-dd để lưu DB
+            SimpleDateFormat input = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date = input.parse(ngayNhap);
+            if (date != null) {
+                ngayLuu = dbFormat.format(date);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        values.put("ngaytaohdon", ngayLuu );
         values.put("trangthai", hd.isTrangthai() ? 1 : 0);
         values.put("ghichu", hd.getGhichu());
         values.put("tongtien", hd.getTongtien());
@@ -166,22 +185,33 @@ public class qlthutien_HoaDonDAO {
         Cursor cursor = db.rawQuery("SELECT * FROM HoaDon WHERE Idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
         if (cursor.moveToFirst()) {
             hoaDon = new HoaDon();
-            hoaDon.setIdhoadon(cursor.getInt(cursor.getColumnIndexOrThrow("Idhoadon")));
-            hoaDon.setIdphong(cursor.getInt(cursor.getColumnIndexOrThrow("Idphong")));
-            hoaDon.setNgaytaohdon(cursor.getString(cursor.getColumnIndexOrThrow("Ngaytaohdon")));
-            hoaDon.setTrangthai(cursor.getInt(cursor.getColumnIndexOrThrow("Trangthai")) == 1);
-            hoaDon.setGhichu(cursor.getString(cursor.getColumnIndexOrThrow("Ghichu")));
-            hoaDon.setTongtien(cursor.getDouble(cursor.getColumnIndexOrThrow("Tongtien")));
-            hoaDon.setImgDienCu(cursor.getString(cursor.getColumnIndexOrThrow("ImgDienCu")));
-            hoaDon.setImgDienMoi(cursor.getString(cursor.getColumnIndexOrThrow("ImgDienMoi")));
-            hoaDon.setImgNuocCu(cursor.getString(cursor.getColumnIndexOrThrow("ImgNuocCu")));
-            hoaDon.setImgNuocMoi(cursor.getString(cursor.getColumnIndexOrThrow("ImgNuocMoi")));
+            hoaDon.setIdhoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idhoadon")));
+            hoaDon.setIdphong(cursor.getInt(cursor.getColumnIndexOrThrow("idphong")));
+            hoaDon.setNgaytaohdon(cursor.getString(cursor.getColumnIndexOrThrow("ngaytaohdon")));
+            hoaDon.setTrangthai(cursor.getInt(cursor.getColumnIndexOrThrow("trangthai")) == 1);
+            hoaDon.setGhichu(cursor.getString(cursor.getColumnIndexOrThrow("ghichu")));
+            hoaDon.setTongtien(cursor.getDouble(cursor.getColumnIndexOrThrow("tongtien")));
+            hoaDon.setImgDienCu(cursor.getString(cursor.getColumnIndexOrThrow("image_diencu")));
+            hoaDon.setImgDienMoi(cursor.getString(cursor.getColumnIndexOrThrow("image_dienmoi")));
+            hoaDon.setImgNuocCu(cursor.getString(cursor.getColumnIndexOrThrow("image_nuoccu")));
+            hoaDon.setImgNuocMoi(cursor.getString(cursor.getColumnIndexOrThrow("image_nuocmoi")));
         }
 
         cursor.close();
         db.close();
         return hoaDon;
     }
+    public boolean updateTrangThaiHoaDon(int idHoaDon, boolean trangThaiMoi) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("trangthai", trangThaiMoi ? 1 : 0);
+
+        int rows = db.update("HoaDon", values, "idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
+        db.close();
+
+        return rows > 0; // true nếu có ít nhất 1 dòng được cập nhật
+    }
+
 
 
 }
