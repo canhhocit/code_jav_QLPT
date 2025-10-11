@@ -71,23 +71,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/baocao_bieudothu" />
 
-    <TextView
-        android:id="@+id/baocao_bieudothuchi_tvinf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="chi tiet thu tien"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.829"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
     <ListView
         android:id="@+id/baocao_bieudothuchi_listviewnam"
         android:layout_width="248dp"
         android:layout_height="126dp"
         android:layout_marginTop="52dp"
+        android:background="@color/lightpurple"
+        android:dividerHeight="1dp"
+        android:divider="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"

@@ -101,7 +101,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "gianuoc REAL)");
 
 
-
         db.execSQL("INSERT INTO PhongTro (tenphong, songuoi, gia) VALUES\n" +
                 "('Phòng A1', 2, 2000000),\n" +
                 "('Phòng A2', 3, 2500000),\n" +

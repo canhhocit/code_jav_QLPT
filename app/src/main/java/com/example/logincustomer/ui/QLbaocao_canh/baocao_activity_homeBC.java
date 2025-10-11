@@ -36,6 +36,8 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -100,54 +102,96 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         });
         showBarchart(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
     }
-    private void showBarchart(String year){
-        ArrayList<Double> data = new ArrayList<>();
+    private void showBarchart(String year) {
+        // 1️⃣ Mảng 12 tháng
+        double[] tongHD = new double[12];
+        double[] tongThu = new double[12];
+        double[] tongChi = new double[12];
+        double[] loiNhuan = new double[12];
+
+        // 2️⃣ Lấy dữ liệu từ DAO
+        List<baocao_doanhthu> listHD = dtDAO.getdtHDbyYear(year);
+        List<baocao_doanhthu> listThu = dtDAO.getThubyYear(year);
+        List<baocao_doanhthu> listChi = dtDAO.getChibyYear(year);
+
+        // Gán dữ liệu từng loại vào mảng
+        for (baocao_doanhthu x : listHD) {
+            int thang = x.getThang() - 1;
+            if (thang >= 0 && thang < 12) tongHD[thang] = x.getTongtienHD();
+        }
+        for (baocao_doanhthu x : listThu) {
+            int thang = x.getThang() - 1;
+            if (thang >= 0 && thang < 12) tongThu[thang] = x.getTongthu();
+        }
+        for (baocao_doanhthu x : listChi) {
+            int thang = x.getThang() - 1;
+            if (thang >= 0 && thang < 12) tongChi[thang] = x.getTongchi();
+        }
+
+        // 3️⃣ Tính lợi nhuận = Hóa đơn + Thu - Chi
         for (int i = 0; i < 12; i++) {
-            data.add(0.0);
+            loiNhuan[i] = tongHD[i] + tongThu[i] - tongChi[i];
         }
-        List<baocao_doanhthu> listBC_DT = dtDAO.getMoneybyYear(year);
-        for(baocao_doanhthu x: listBC_DT){
-            int thang=x.getThang()-1;
-            Double loinhuan= x.getLoinhuan();
-            if(thang>=0 && thang <12){
-                data.set(thang,loinhuan);
-            }
-        }
+
+        // 4️⃣ Chuyển dữ liệu sang dạng BarEntry để hiển thị
         ArrayList<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            entries.add(new BarEntry(i + 1, data.get(i).floatValue()));
+        for (int i = 0; i < 12; i++) {
+            entries.add(new BarEntry(i + 1, (float) loiNhuan[i]));
         }
+
+        // 5️⃣ Tạo DataSet cho biểu đồ
+        BarDataSet dataSet = new BarDataSet(entries, "Lợi nhuận năm " + year);
+        dataSet.setValueTextSize(10f);
+
+        // Màu nổi bật cho tháng hiện tại
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-
-        BarDataSet dataSet = new BarDataSet(entries, "Doanh thu " + year);
-
         ArrayList<Integer> colors = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            if (i + 1 == currentMonth) {
+        for (int i = 0; i < 12; i++) {
+            if (loiNhuan[i] < 0)
+                colors.add(Color.parseColor("#F44336"));
+            else if (i + 1 == currentMonth)
                 colors.add(Color.parseColor("#2196F3"));
-            } else {
-                colors.add(Color.parseColor("#FF5722"));
-            }
+            else
+                colors.add(Color.parseColor("#4CAF50"));
         }
         dataSet.setColors(colors);
+        //dinh dang hienthi
+        dataSet.setValueFormatter(new com.github.mikephil.charting.formatter.ValueFormatter(){
+            @Override
+            public String getFormattedValue(float value) {
+                String dau = value < 0 ? "-" : "";
+                float giatri = Math.abs(value);
 
+                if (giatri >= 1_000_000f) {
+                    return dau + String.format("%.1f Triệu", giatri / 1_000_000f);
+                } else if (giatri >= 1_000f) {
+                    return dau + String.format("%.0f Nghìn", giatri / 1_000f);
+                } else {
+                    return dau + String.format("%.0f", giatri);
+                }
+            }
+        });
+        // 6️⃣ Tạo BarData và cài đặt cho BarChart
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.9f);
-
-        barChartDT.getAxisLeft().setAxisMinimum(0f);
-        barChartDT.getAxisRight().setEnabled(false);
-
-        XAxis xAxis = barChartDT.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.setLabelCount(12);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
         barChartDT.setData(barData);
         barChartDT.setFitBars(true);
-        barChartDT.getDescription().setEnabled(false);
-        barChartDT.invalidate();
 
+        // 7️⃣ Cấu hình trục
+        XAxis xAxis = barChartDT.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(12);
+        xAxis.setDrawGridLines(false);
+
+        barChartDT.getAxisLeft().setAxisMinimum(-1000000f); // cho phép giá trị âm
+        barChartDT.getAxisRight().setEnabled(false);
+        barChartDT.getDescription().setEnabled(false);
+
+        // 8️⃣ Cập nhật hiển thị
+        barChartDT.invalidate();
     }
+
     //HD
     private void listHDcontrol() {
         lv_Hopdong.setOnItemClickListener(new AdapterView.OnItemClickListener() {
