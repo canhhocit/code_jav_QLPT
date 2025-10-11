@@ -33,11 +33,10 @@ import java.util.List;
 
 public class baocao_activiity_bieudothuchi extends AppCompatActivity {
     private Context context = baocao_activiity_bieudothuchi.this;
-    private TextView tvMenu, tvInfo;
+    private TextView tvMenu;
     private BarChart chartThu, chartChi;
     private ListView lvNam;
     private baocao_doanhthuDAO dtDAO;
-    private List<baocao_doanhthu> listDT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,69 +53,84 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
         menu();
         listviewYear();
     }
-
     private void listviewYear() {
-        dtDAO= new baocao_doanhthuDAO(context);
-        List<Integer> years= dtDAO.getYears();
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,years);
+        dtDAO = new baocao_doanhthuDAO(context);
+        List<Integer> years = dtDAO.getYears();
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, years);
         lvNam.setAdapter(adapter);
 
-        lvNam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String year = years.get(position)+"";
-                showBarchartChi(year);
-            }
+        // Hiển thị chart mặc định năm hiện tại
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        showBarchart(chartThu, dtDAO.getThubyYear(String.valueOf(currentYear)), "Thu", String.valueOf(currentYear));
+        showBarchart(chartChi, dtDAO.getChibyYear(String.valueOf(currentYear)), "Chi", String.valueOf(currentYear));
+
+        lvNam.setOnItemClickListener((parent, view, position, id) -> {
+            String year = years.get(position) + "";
+            showBarchart(chartThu, dtDAO.getThubyYear(year), "Thu", year);
+            showBarchart(chartChi, dtDAO.getChibyYear(year), "Chi", year);
         });
-        showBarchartChi(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
     }
-    private void showBarchartChi(String year){
+
+
+
+    private void showBarchart(BarChart chart, List<baocao_doanhthu> listBC, String loai, String year) {
+        // Khởi tạo dữ liệu 12 tháng = 0
         ArrayList<Double> data = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            data.add(0.0);
-        }
-        List<baocao_doanhthu> listBC_DT = dtDAO.getChibyYear(year);
-        for(baocao_doanhthu x: listBC_DT){
-            int thang=x.getThang()-1;
-            Double tongchi= x.getTongchi();
-            if(thang>=0 && thang <12){
-                data.set(thang,tongchi);
+        for (int i = 0; i < 12; i++){ data.add(0.0);}
+
+        // Đổ dữ liệu từ listBC vào đúng tháng
+        for (baocao_doanhthu x : listBC) {
+            int thang = x.getThang() - 1;
+            if (thang >= 0 && thang < 12) {
+                if (loai.equalsIgnoreCase("Thu")){
+                    data.set(thang, x.getTongthu());
+                }
+                else data.set(thang, x.getTongchi());
             }
         }
+
+        // Tạo BarEntry
         ArrayList<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            entries.add(new BarEntry(i + 1, data.get(i).floatValue()));
-        }
+        for (int i = 0; i < data.size(); i++) entries.add(new BarEntry(i + 1, data.get(i).floatValue()));
+
+        // Tô màu, tháng hiện tại nổi bật
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-
-        BarDataSet dataSet = new BarDataSet(entries, "Doanh thu " + year);
-
+        BarDataSet dataSet = new BarDataSet(entries, loai + " " + year);
         ArrayList<Integer> colors = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
-            if (i + 1 == currentMonth) {
-                colors.add(Color.parseColor("#2196F3"));
-            } else {
-                colors.add(Color.parseColor("#FF5722"));
-            }
+            colors.add(i + 1 == currentMonth ? Color.parseColor("#2196F3") : Color.parseColor("#FF9800"));
         }
         dataSet.setColors(colors);
+        dataSet.setValueFormatter(new com.github.mikephil.charting.formatter.ValueFormatter(){
+            @Override
+            public String getFormattedValue(float value) {
+                if(value >=100_000 && value <1000_000){
+                    return String.format("%.2f Nghìn", value / 1000f);
+                }
+                else if (value >= 1_000_000f) {
+                    return String.format("%.1f Triệu", value / 1_000_000f);
+                } else {
+                    return String.format("%.0f", value);
+                }
+            }
+        });
 
+        // Set BarData
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.9f);
 
-        chartChi.getAxisLeft().setAxisMinimum(0f);
-        chartChi.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setAxisMinimum(0f);
+        chart.getAxisRight().setEnabled(false);
 
-        XAxis xAxis = chartChi.getXAxis();
+        XAxis xAxis = chart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(12);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        chartChi.setData(barData);
-        chartChi.setFitBars(true);
-        chartChi.getDescription().setEnabled(false);
-        chartChi.invalidate();
-
+        chart.setData(barData);
+        chart.setFitBars(true);
+        chart.getDescription().setEnabled(false);
+        chart.invalidate();
     }
 
     private void menu() {
@@ -150,15 +164,14 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
         tvMenu = findViewById(R.id.baocao_bieudothuchi_tvmenu);
         chartChi = findViewById(R.id.baocao_bieudochi);
         chartThu = findViewById(R.id.baocao_bieudothu);
-        tvInfo = findViewById(R.id.baocao_bieudothuchi_tvinf);
         lvNam = findViewById(R.id.baocao_bieudothuchi_listviewnam);
-        lvNam.setVisibility(View.VISIBLE);
-        tvInfo.setVisibility(View.INVISIBLE);
+        lvNam.setVisibility(View.INVISIBLE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        showBarchartChi(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+        listviewYear();
+
     }
 }
