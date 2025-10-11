@@ -48,7 +48,7 @@ public class baocao_hopdongDAO {
 
     private int tinhHanConLai(String ngayKy, int thangHieuLuc) {
         try {
-            Date ngayKyDate= new SimpleDateFormat("dd/MM/yyy").parse(ngayKy);
+            Date ngayKyDate= new SimpleDateFormat("dd/MM/yyyy").parse(ngayKy);
 
             long timeHientai = System.currentTimeMillis();
             long hanHopDong = ngayKyDate.getTime() + (long) thangHieuLuc * 30 * 24 * 60 * 60 * 1000;

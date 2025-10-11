@@ -4,6 +4,9 @@
         android:id="@+id/menu_thuchi_them"
         android:title="Thêm khoản thu/chi" />
     <item
+        android:id="@+id/menu_thuchi_xembieudo"
+        android:title="Xem biểu đồ thu/chi" />
+    <item
         android:id="@+id/menu_thuchi_sua"
         android:title="Sửa danh sách"/>
     <item

@@ -55,7 +55,23 @@ public class baocao_thuchiDAO {
         values.put("tenthuchi", thuchi.getTenthuchi());
         values.put("sotien", thuchi.getSotienthuchi());
         values.put("loai", thuchi.getLoaithuchi());
-        values.put("ngaythuchi", thuchi.getNgaythuchi());
+
+        String ngayNhap = thuchi.getNgaythuchi();
+        String ngayLuu = ngayNhap;
+
+        try {
+            // dd/MM/yyyy đổi sang yyyy-MM-dd để lưu DB
+            SimpleDateFormat input = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date = input.parse(ngayNhap);
+            if (date != null) {
+                ngayLuu = dbFormat.format(date);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        values.put("ngaythuchi", ngayLuu);
         return db.update("ThuChi", values, "idthuchi = ?", new String[]{String.valueOf(thuchi.getIdthuchi())});
     }
 

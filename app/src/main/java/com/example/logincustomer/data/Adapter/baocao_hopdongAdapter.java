@@ -1,17 +1,21 @@
 package com.example.logincustomer.data.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.DAO.baocao_hopdongDAO;
+import com.example.logincustomer.data.DAO.qlhopdong_hopdongDAO;
 import com.example.logincustomer.data.Model.baocao_hopdong;
+import com.example.logincustomer.ui.QLbaocao_canh.baocao_activity_homedsthuchi;
 
 import java.util.List;
 
@@ -63,8 +67,24 @@ public class baocao_hopdongAdapter extends BaseAdapter {
         } else {
             tvHanConLai.setTextColor(ContextCompat.getColor(context, R.color.purple));
         }
-
-
+        if(ngay<=0){
+            androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Lưu ý");
+            builder.setIcon(R.drawable.warning_img);
+            builder.setMessage("Phòng: "+bchd_DAO.getTenphongbyID(bchd.getIdp()) +
+                    " đã hết hạn hợp đồng (ký ngày: "+bchd_DAO.getNgaykybyIDHD(bchd.getIdhopdong())+") nên hợp đồng này sẽ " +
+                    " tự động bị xóa");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    qlhopdong_hopdongDAO dao = new qlhopdong_hopdongDAO(context);
+                    dao.deleteHD(bchd.getIdhopdong());
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
+            builder.show();
+        }
         return convertView;
     }
 }

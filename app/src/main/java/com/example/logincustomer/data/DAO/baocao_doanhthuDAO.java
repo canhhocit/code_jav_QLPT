@@ -107,48 +107,40 @@ public class baocao_doanhthuDAO  {
     public List<baocao_doanhthu> getMoneybyYear(String year){
         List<baocao_doanhthu> list = new ArrayList<>();
         // yyyy-MM-dd
-        String sql = "SELECT \n" +
-                "    -- Lấy tháng và năm từ chuỗi dạng yyyy-MM-dd\n" +
-                "    SUBSTR(h.ngaytaohdon, 6, 2) AS thang,\n" +
-                "    IFNULL(SUM(h.tongtien), 0) AS tonghoadon,\n" +
-                "\n" +
-                "    (\n" +
-                "        SELECT IFNULL(SUM(sotien), 0)\n" +
-                "        FROM ThuChi\n" +
-                "        WHERE lower(loai) = 'thu'\n" +
-                "          AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2)\n" +
-                "          AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)\n" +
-                "    ) AS tongthu,\n" +
-                "    (\n" +
-                "        SELECT IFNULL(SUM(sotien), 0)\n" +
-                "        FROM ThuChi\n" +
-                "        WHERE lower(loai) = 'chi'\n" +
-                "          AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2)\n" +
-                "          AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)\n" +
-                "    ) AS tongchi,\n" +
-                "\n" +
-                "    (\n" +
-                "        IFNULL(SUM(h.tongtien), 0)\n" +
-                "        + (\n" +
-                "            SELECT IFNULL(SUM(sotien), 0)\n" +
-                "            FROM ThuChi\n" +
-                "            WHERE lower(loai) = 'thu'\n" +
-                "              AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2)\n" +
-                "              AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)\n" +
-                "        )\n" +
-                "        - (\n" +
-                "            SELECT IFNULL(SUM(sotien), 0)\n" +
-                "            FROM ThuChi\n" +
-                "            WHERE lower(loai) = 'chi'\n" +
-                "              AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2)\n" +
-                "              AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)\n" +
-                "        )\n" +
-                "    ) AS loinhuan\n" +
-                "\n" +
-                "FROM HoaDon h\n" +
-                "WHERE SUBSTR(h.ngaytaohdon, 1, 4) = ? \n" +
-                "GROUP BY thang\n" +
-                "ORDER BY CAST(thang AS INTEGER);";
+        String sql =
+                "SELECT " +
+                        "  SUBSTR(h.ngaytaohdon, 6, 2) AS thang, " +
+                        "  IFNULL(SUM(h.tongtien), 0) AS tonghoadon, " +
+
+                        "  (SELECT IFNULL(SUM(sotien), 0) " +
+                        "   FROM ThuChi " +
+                        "   WHERE loai = 'Thu' " +
+                        "     AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2) " +
+                        "     AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)) AS tongthu, " +
+
+                        "  (SELECT IFNULL(SUM(sotien), 0) " +
+                        "   FROM ThuChi " +
+                        "   WHERE loai = 'Chi' " +
+                        "     AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2) " +
+                        "     AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)) AS tongchi, " +
+
+                        "  (IFNULL(SUM(h.tongtien), 0) " +
+                        "   + (SELECT IFNULL(SUM(sotien), 0) " +
+                        "        FROM ThuChi " +
+                        "        WHERE loai = 'Thu' " +
+                        "          AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2) " +
+                        "          AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)) " +
+                        "   - (SELECT IFNULL(SUM(sotien), 0) " +
+                        "        FROM ThuChi " +
+                        "        WHERE loai = 'Chi' " +
+                        "          AND SUBSTR(ngaythuchi, 6, 2) = SUBSTR(h.ngaytaohdon, 6, 2) " +
+                        "          AND SUBSTR(ngaythuchi, 1, 4) = SUBSTR(h.ngaytaohdon, 1, 4)) " +
+                        "  ) AS loinhuan " +
+
+                        "FROM HoaDon h " +
+                        "WHERE SUBSTR(h.ngaytaohdon, 1, 4) = ? " +
+                        "GROUP BY thang " +
+                        "ORDER BY CAST(thang AS INTEGER);";
 
         Cursor cursor = db.rawQuery(sql,new String[]{year});
         if(cursor.moveToFirst()){
