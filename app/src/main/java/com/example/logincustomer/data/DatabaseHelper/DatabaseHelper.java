@@ -128,14 +128,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "('Mua bóng đèn', 100000, 'Chi', '2024-02-03'),\n" +
                 "('Thu điện nước', 300000, 'Thu', '2024-04-12'),\n" +
                 "('Sửa ống nước', 150000, 'Chi', '2024-05-12'),\n" +
-                "('Thu khác', 200000, 'thu', '2024-01-12');");
+                "('Thu khác', 200000, 'Thu', '2024-01-12');");
 
         db.execSQL("INSERT INTO ThuChi (tenthuchi, sotien, loai, ngaythuchi) VALUES\n" +
-                "('Thu tiền cọc', 500000, 'thu', '2025-01-05'),\n" +
-                "('Mua bóng đèn', 100000, 'chi', '2025-02-03'),\n" +
-                "('Thu điện nước', 300000, 'thu', '2025-04-12'),\n" +
-                "('Sửa ống nước', 150000, 'chi', '2025-05-12'),\n" +
-                "('Thu khác', 200000, 'thu', '2025-01-12');");
+                "('Thu tiền cọc', 500000, 'Thu', '2025-01-05'),\n" +
+                "('Mua bóng đèn', 100000, 'Chi', '2025-02-03'),\n" +
+                "('Thu điện nước', 300000, 'Thu', '2025-04-12'),\n" +
+                "('Sửa ống nước', 150000, 'Chi', '2025-05-12'),\n" +
+                "('Thu khác', 200000, 'Thu', '2025-01-12');");
 
         db.execSQL("INSERT INTO HoaDon (idphong, ngaytaohdon, trangthai, ghichu, tongtien) VALUES\n" +
                 "(1, '2024-04-20', 1, 'Tháng 1', 2500000),\n" +
