@@ -86,3 +86,11 @@ public class s {
 
 
 // ---------------------------------------------------------------
+//            int checkstatus = hoaDonDAO.kiemTraTinhTrangHoaDon(idphong);
+//            if (checkstatus == 1) {
+//                Toast.makeText(this, "Phòng này có hóa đơn chưa thanh toán, không thể tạo thêm!", Toast.LENGTH_SHORT).show();
+//                return;
+//            } else if (checkstatus == 2) {
+//                Toast.makeText(this, "Phòng này đã có hóa đơn tháng này, không thể tạo thêm!", Toast.LENGTH_SHORT).show();
+//                return;
+//            }

@@ -17,6 +17,7 @@ import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
 import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.ui.QLphong_tam.DetailInRoom;
 import com.example.logincustomer.ui.QLphong_tam.qlphong_activity_home;
+import com.example.logincustomer.ui.QLthutien_nguyen.BillRoomActivity;
 import com.example.logincustomer.ui.QLthutien_nguyen.TaoHoaDonActivity;
 import com.example.logincustomer.R;
 
@@ -143,9 +144,9 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                 } else if (itemId == R.id.menu_edit) {
                     // ✏️ Sửa hóa đơn (nếu có)
                     if (check == 1) {
-                        Intent intent = new Intent(context, TaoHoaDonActivity.class);
-                        intent.putExtra("idPhong", pt.getIdphong());
-                        context.startActivity(intent);
+
+
+
                     } else if (!qlthutienHoaDonDAO.coTheSuaHoaDon(pt.getIdphong())) {
                         Toast.makeText(context, "Hóa đơn này đã thanh toán, không thể sửa!", Toast.LENGTH_SHORT).show();
                         return true;
@@ -160,8 +161,9 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                 } else if (itemId == R.id.menu_xem) {
                     //  xem hóa đơn (nếu có)
                     if (qlthutienHoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
-                        Intent intent = new Intent(context, TaoHoaDonActivity.class);
-                        intent.putExtra("idPhong", pt.getIdphong());
+                        int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                        Intent intent = new Intent(context, BillRoomActivity.class);
+                        intent.putExtra("idhoadon", idhoadon);
                         context.startActivity(intent);
                     } else {
                         Toast.makeText(context, "Phòng này chưa có hóa đơn!", Toast.LENGTH_SHORT).show();

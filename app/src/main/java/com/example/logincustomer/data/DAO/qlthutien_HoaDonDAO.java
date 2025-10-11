@@ -123,6 +123,7 @@ public class qlthutien_HoaDonDAO {
     }
     // ✅ Kiểm tra phòng có hóa đơn chưa
     public boolean coHoaDonChoPhong(int idPhong) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT idhoadon FROM HoaDon WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
         boolean co = c.moveToFirst();
         c.close();
@@ -130,6 +131,7 @@ public class qlthutien_HoaDonDAO {
     }
 
     public int kiemTraTinhTrangHoaDon(int idPhong) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         // 1️⃣ Kiểm tra có hóa đơn chưa thanh toán không
         Cursor c1 = db.rawQuery(
                 "SELECT idhoadon FROM HoaDon WHERE idphong = ? AND trangthai = 0",
@@ -198,7 +200,6 @@ public class qlthutien_HoaDonDAO {
         }
 
         cursor.close();
-        db.close();
         return hoaDon;
     }
     public boolean updateTrangThaiHoaDon(int idHoaDon, boolean trangThaiMoi) {
@@ -206,12 +207,30 @@ public class qlthutien_HoaDonDAO {
         ContentValues values = new ContentValues();
         values.put("trangthai", trangThaiMoi ? 1 : 0);
 
+
         int rows = db.update("HoaDon", values, "idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
         db.close();
 
         return rows > 0; // true nếu có ít nhất 1 dòng được cập nhật
     }
 
+    public int getIdHoaDonByIdPhong(int idPhong) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        int idHoaDon = -1; // mặc định nếu không tìm thấy
+
+        Cursor cursor = db.rawQuery(
+                "SELECT idhoadon FROM HoaDon WHERE idphong = ? ORDER BY idhoadon DESC LIMIT 1",
+                new String[]{String.valueOf(idPhong)}
+        );
+
+        if (cursor.moveToFirst()) {
+            idHoaDon = cursor.getInt(0);
+        }
+
+        cursor.close();
+        db.close();
+        return idHoaDon;
+    }
 
 
 }

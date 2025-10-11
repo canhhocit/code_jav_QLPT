@@ -341,13 +341,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:text="Tiền phòng"/>
                 <TextView
                     android:id="@+id/txt_tienPhong_totalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
                     android:text="2000000"/>
 
@@ -368,7 +368,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:text="Tiền dịch vụ khác" />
                 <TextView
                     android:id="@+id/txt_otherService_totalPrice"
@@ -376,7 +376,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:textStyle="bold"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:paddingRight="10dp"
                     android:text="200,000" />
                 <ImageView

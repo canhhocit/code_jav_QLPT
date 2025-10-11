@@ -177,7 +177,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             String txsonuoccu = edtOldWater.getText().toString().trim();
             String txsonuocmoi = edtNewWater.getText().toString().trim();
 
-            if (ngayTao.isEmpty() || txsonuoccu.isEmpty() || txsonuocmoi.isEmpty() ||
+            //ngayTao.isEmpty() || cho vào if dưới
+            if ( txsonuoccu.isEmpty() || txsonuocmoi.isEmpty() ||
                     txsodiencu.isEmpty() || txsodienmoi.isEmpty()) {
                 Toast.makeText(this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 return;
@@ -278,7 +279,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     // Chuyển sang activity khác
                     Intent intent = new Intent(TaoHoaDonActivity.this, BillRoomActivity.class);
-                    intent.putExtra("idhoadon",result);
+                    intent.putExtra("idhoadon",(int)result);
                     startActivity(intent);
                 }
             });
@@ -320,7 +321,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         }
 
         cursor.close();
-        db.close();
     }
 
     private void calculateTotalOtherServices() {
@@ -444,19 +444,29 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null && currentImageView != null) {
                         Uri uri = result.getData().getData();
+
+                        // 👉 Giữ quyền truy cập lâu dài cho URI được chọn
+                        final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                        try {
+                            getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                        } catch (SecurityException e) {
+                            e.printStackTrace();
+                        }
+
                         currentImageView.setImageURI(uri);
 
                         String path = uri.toString();
-
                         if (currentImageView == imgDienCu) pathDienCu = path;
                         else if (currentImageView == imgDienMoi) pathDienMoi = path;
                         else if (currentImageView == imgNuocCu) pathNuocCu = path;
                         else if (currentImageView == imgNuocMoi) pathNuocMoi = path;
+
                         Log.d("IMAGE_PATH", "Gallery uri = " + uri);
                     } else {
                         Toast.makeText(this, "Hủy chọn ảnh", Toast.LENGTH_SHORT).show();
                     }
                 });
+
         eventButtonCamera();
     }
     private void eventButtonCamera(){
@@ -520,7 +530,11 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         }
     }
     private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("image/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         galleryLauncher.launch(intent);
     }
     @Override

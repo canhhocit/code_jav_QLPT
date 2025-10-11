@@ -5,8 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,19 +35,24 @@ import com.example.logincustomer.data.Model.ChiTietHoaDon;
 import com.example.logincustomer.data.Model.DichVuCon;
 import com.example.logincustomer.data.Model.HoaDon;
 import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.ui.Manager_Home.activity_manager;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.File;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BillRoomActivity extends AppCompatActivity {
 
-    private ImageView imgBackBillRoom, imgStatusBillRoom, imgExpandMoneyBillRoom;
+    private ImageView imgBackBillRoom, imgStatusBillRoom, imgExpandMoneyBillRoom,
+    imgNuocMoi, imgNuocCu, imgDienMoi, imgDienCu;
     private TextView txtRoomBillRoom, txtStatusBillRoom, txtDateBillRoom,
             txtQuantityPeopleBillRoom, txtOldWaterBillRoom, txtNewWaterBillRoom, txtPriceWaterBillRoom,
             txtSumServiceWaterBillRoom, txtOldElectricBillRoom, txtNewElectricBillRoom,txtSumServiceElectricBillRoom,
             txtPriceElectricBillRoom, txtOtherServiceTotal, txtSumMoneyBillRoom,txtpriceRoom,
-            txtdetailWbillroom;
+            txtdetailWbillroom, txtdetailEbillroom;
     private EditText edtNoteBillRoom;
     private Button btnBackBillRoom, btnPayBillRoom;
     // danh sách dịch vụ con (lấy từ DB)
@@ -64,7 +73,7 @@ public class BillRoomActivity extends AppCompatActivity {
     private qlphongtro_PhongTroDAO phongTroDAO;
     private qlthutien_GiaMacDinhDienNuocDAO dienNuocDAO;
     private boolean dathanhtoan = false;
-
+    private BottomSheetDialog bottomSheetDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,9 +102,9 @@ public class BillRoomActivity extends AppCompatActivity {
         txtOtherServiceTotal.setOnClickListener(toggleOther);
 
         // Nhận id hoá đơn được truyền từ intent
-        idHoaDon = (int)getIntent().getLongExtra("idhoadon", -1);
+        idHoaDon = getIntent().getIntExtra("idhoadon", -1);
         if (idHoaDon == -1) {
-            Toast.makeText(this, "Không tìm thấy hóa đơn!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không tìm thấy hóa đơn! BillroomActivity", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -125,22 +134,53 @@ public class BillRoomActivity extends AppCompatActivity {
             builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    boolean success = hoaDonDAO.updateTrangThaiHoaDon(idHoaDon, true);
+                    try {
+                        int success = hoaDonDAO.updateTrangThai(idHoaDon, true);
 
-                    if(dathanhtoan){
-                        Toast.makeText(BillRoomActivity.this, "Hóa đơn đã thanh toán!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (success) {
-                        Toast.makeText(BillRoomActivity.this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
-                        hienThiHoaDon(idHoaDon);
-                    } else {
-                        Toast.makeText(BillRoomActivity.this, "Hủy thanh toán!", Toast.LENGTH_SHORT).show();
+                        if (dathanhtoan) {
+                            Toast.makeText(BillRoomActivity.this, "Hóa đơn đã thanh toán!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (success == 1) {
+                            Toast.makeText(BillRoomActivity.this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
+                            hienThiHoaDon(idHoaDon);
+                        } else {
+                            Toast.makeText(BillRoomActivity.this, "Hủy thanh toán!", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("DEBUG", "Lỗi: " + e.getMessage());
+
                     }
                 }
             });
             builder.show();
+        });
 
+        txtdetailWbillroom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("DEBUG", "Đã nhấn vào txtdetailWbillroom");
+                HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
+                if (hd == null) {
+                    Log.e("DEBUG", "Không tìm thấy hóa đơn");
+                    return;
+                }
+                Log.d("DEBUG", "imgNuocCu = " + hd.getImgNuocCu());
+                Log.d("DEBUG", "imgNuocMoi = " + hd.getImgNuocMoi());
+
+                showBottomSheetWImages(hd);
+            }
+        });
+
+        txtdetailEbillroom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
+                showBottomSheetEImages(hd);
+            }
         });
     }
 
@@ -203,7 +243,7 @@ public class BillRoomActivity extends AppCompatActivity {
         txtPriceWaterBillRoom = findViewById(R.id.txt_priceWater_billRoom);
         txtSumServiceWaterBillRoom = findViewById(R.id.txt_sumServiceWater_billRoom);
 
-        txtpriceRoom = findViewById(R.id.detailE_billroom);
+        txtdetailEbillroom = findViewById(R.id.detailE_billroom);
         txtOldElectricBillRoom = findViewById(R.id.txt_oldElectric_billRoom);
         txtNewElectricBillRoom = findViewById(R.id.txt_newElectric_billRoom);
         txtPriceElectricBillRoom = findViewById(R.id.txt_priceElectric_billRoom);
@@ -221,7 +261,11 @@ public class BillRoomActivity extends AppCompatActivity {
             finish();
         });
         btnBackBillRoom.setOnClickListener(v -> {
+            Intent intent = new Intent(BillRoomActivity.this, activity_manager.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             finish();
+
         });
     }
     private void toggleOtherServices() {
@@ -274,6 +318,63 @@ public class BillRoomActivity extends AppCompatActivity {
             txtStatusBillRoom.setText("Chưa thanh toán");
             txtStatusBillRoom.setTextColor(Color.parseColor("#FF0000")); // màu đỏ
         }
+    }
+
+    private void showBottomSheetWImages(HoaDon hoaDon) {
+        bottomSheetDialog = new BottomSheetDialog(this);
+        View view = getLayoutInflater().inflate(R.layout.qlthutien_layout_bottomsheet, null);
+        bottomSheetDialog.setContentView(view);
+
+        imgNuocCu = view.findViewById(R.id.imganhCu);
+        imgNuocMoi = view.findViewById(R.id.imganhMoi);
+
+        // Gọi hàm load ảnh từ đường dẫn
+        loadImageFromPath(hoaDon.getImgNuocCu(), imgNuocCu);
+        loadImageFromPath(hoaDon.getImgNuocMoi(), imgNuocMoi);
+
+        bottomSheetDialog.show();
+    }
+    private void showBottomSheetEImages(HoaDon hoaDon) {
+        bottomSheetDialog = new BottomSheetDialog(this);
+        View view = getLayoutInflater().inflate(R.layout.qlthutien_layout_bottomsheet, null);
+        bottomSheetDialog.setContentView(view);
+
+        imgDienCu = view.findViewById(R.id.imganhCu);
+        imgDienMoi = view.findViewById(R.id.imganhMoi);
+
+        // Gọi hàm load ảnh từ đường dẫn
+        loadImageFromPath(hoaDon.getImgDienCu(), imgDienCu);
+        loadImageFromPath(hoaDon.getImgDienMoi(), imgDienMoi);
+
+        bottomSheetDialog.show();
+    }
+    private void loadImageFromPath(String imagePath, ImageView imageView) {
+        if (imagePath == null || imagePath.isEmpty()) {
+            imageView.setImageResource(android.R.drawable.ic_menu_report_image);
+            return;
+        }
+
+        try {
+            if (imagePath.startsWith("content://")) {
+                Uri uri = Uri.parse(imagePath);
+                try (InputStream inputStream = getContentResolver().openInputStream(uri)) {
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageView.setImageBitmap(bitmap);
+                }
+            } else {
+                // Đường dẫn file thông thường
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
+                } else {
+                    imageView.setImageResource(android.R.drawable.ic_menu_report_image);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("DEBUG", "Lỗi load ảnh: " + e.getMessage());
+            imageView.setImageResource(android.R.drawable.ic_menu_report_image);
+        }
+
     }
 
 }
