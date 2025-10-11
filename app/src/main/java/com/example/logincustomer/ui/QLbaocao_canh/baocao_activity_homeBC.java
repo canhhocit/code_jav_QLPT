@@ -2,10 +2,12 @@ package com.example.logincustomer.ui.QLbaocao_canh;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -22,13 +24,21 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.baocao_hopdongAdapter;
 import com.example.logincustomer.data.Adapter.baocao_phongAdapter;
+import com.example.logincustomer.data.DAO.baocao_doanhthuDAO;
 import com.example.logincustomer.data.DAO.baocao_hopdongDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.baocao_doanhthu;
 import com.example.logincustomer.data.Model.baocao_hopdong;
 import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_chucnang;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class baocao_activity_homeBC extends AppCompatActivity {
@@ -40,6 +50,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     private BarChart barChartDT;
     private ListView lv_namDT;
     private Button btnThuChi;
+    private baocao_doanhthuDAO dtDAO;
 
     // Phong
     private ListView lv_Phong;
@@ -65,6 +76,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         back_manager();
         //tab doanh thu
         gotoThuchi_startMenu();
+        listviewYear();
         //tab phong
         listviewphong();
 
@@ -72,7 +84,71 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         listviewHD();
         listHDcontrol();
     }
+//DT
+    private void listviewYear() {
+        dtDAO= new baocao_doanhthuDAO(context);
+        List<Integer> years= dtDAO.getYears();
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,years);
+        lv_namDT.setAdapter(adapter);
 
+        lv_namDT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String year = years.get(position)+"";
+                showBarchart(year);
+            }
+        });
+        showBarchart(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+    }
+    private void showBarchart(String year){
+        ArrayList<Double> data = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            data.add(0.0);
+        }
+        List<baocao_doanhthu> listBC_DT = dtDAO.getMoneybyYear(year);
+        for(baocao_doanhthu x: listBC_DT){
+            int thang=x.getThang()-1;
+            Double loinhuan= x.getLoinhuan();
+            if(thang>=0 && thang <12){
+                data.set(thang,loinhuan);
+            }
+        }
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            entries.add(new BarEntry(i + 1, data.get(i).floatValue()));
+        }
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+
+        BarDataSet dataSet = new BarDataSet(entries, "Doanh thu " + year);
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            if (i + 1 == currentMonth) {
+                colors.add(Color.parseColor("#2196F3"));
+            } else {
+                colors.add(Color.parseColor("#FF5722"));
+            }
+        }
+        dataSet.setColors(colors);
+
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(0.9f);
+
+        barChartDT.getAxisLeft().setAxisMinimum(0f);
+        barChartDT.getAxisRight().setEnabled(false);
+
+        XAxis xAxis = barChartDT.getXAxis();
+        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(12);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        barChartDT.setData(barData);
+        barChartDT.setFitBars(true);
+        barChartDT.getDescription().setEnabled(false);
+        barChartDT.invalidate();
+
+    }
+    //HD
     private void listHDcontrol() {
         lv_Hopdong.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -122,7 +198,12 @@ public class baocao_activity_homeBC extends AppCompatActivity {
                             Intent intent = new Intent(context, baocao_activity_homedsthuchi.class);
                             startActivity(intent);
                             return true;
-                        }
+                        }else if(itemId==R.id.menu_btnthuchi_bieudo){
+                        Intent intent = new Intent(context, baocao_activiity_bieudothuchi.class);
+                        startActivity(intent);
+                        return true;
+                    }
+
                         return false;
                     }
                 });
@@ -178,7 +259,20 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Cập nhật lại DAO để lấy dữ liệu mới
+        dtDAO = new baocao_doanhthuDAO(this);
+
+        // Làm mới danh sách năm nếu có thêm năm mới
+        List<Integer> years = dtDAO.getYears();
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, years);
+        lv_namDT.setAdapter(adapter);
+        // Hiển thị lại biểu đồ của năm hiện tại
+        String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        showBarchart(currentYear);
+
+
         listviewphong();
         listviewHD();
     }
+
 }

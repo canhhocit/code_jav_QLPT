@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_bieudothuchi_quaylai"
+        android:title="Quay lại"/>
+    <item
+        android:id="@+id/menu_bieudothuchi_xemchitiet"
+        android:title="Danh sách thu chi"/>
+    <item
+        android:id="@+id/menu_bieudothuchi_chonnam"
+        android:title="Chọn năm"/>
+</menu>
