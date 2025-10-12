@@ -83,4 +83,75 @@ public class ChiTietHoaDonDAO {
         return list;
     }
 
+    public int updateSoDienNuoc(ChiTietHoaDon chiTiet) {
+        ContentValues values = new ContentValues();
+        values.put("sodiencu", chiTiet.getSodiencu());
+        values.put("sodienmoi", chiTiet.getSodienmoi());
+        values.put("sonuoccu", chiTiet.getSonuoccu());
+        values.put("sonuocmoi", chiTiet.getSonuocmoi());
+        values.put("sosudung", chiTiet.getSosudung());
+        values.put("thanhtien", chiTiet.getThanhtien());
+
+        int rows = db.update(
+                "ChiTietHoaDon",
+                values,
+                "idhoadon = ? AND tendichvu = ?",
+                new String[]{String.valueOf(chiTiet.getIdhoadon()), chiTiet.getTendichvu()}
+        );
+
+        return rows;
+    }
+
+    public ChiTietHoaDon getChiTietHoaDonByIdHoaDonDien(int idHoaDon) {
+        db = dbHelper.getReadableDatabase();
+        ChiTietHoaDon chiTiet = null;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM ChiTietHoaDon WHERE idhoadon = ? AND tendichvu = ?",
+                new String[]{String.valueOf(idHoaDon), "Điện"}
+        );
+
+        if (cursor.moveToFirst()) {
+            chiTiet = new ChiTietHoaDon();
+            chiTiet.setIdchitiethoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idchitiethoadon")));
+            chiTiet.setIdhoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idhoadon")));
+            chiTiet.setTendichvu(cursor.getString(cursor.getColumnIndexOrThrow("tendichvu")));
+            chiTiet.setSodiencu(cursor.getInt(cursor.getColumnIndexOrThrow("sodiencu")));
+            chiTiet.setSodienmoi(cursor.getInt(cursor.getColumnIndexOrThrow("sodienmoi")));
+            chiTiet.setSonuoccu(cursor.getInt(cursor.getColumnIndexOrThrow("sonuoccu")));
+            chiTiet.setSonuocmoi(cursor.getInt(cursor.getColumnIndexOrThrow("sonuocmoi")));
+            chiTiet.setSosudung(cursor.getInt(cursor.getColumnIndexOrThrow("sosudung")));
+            chiTiet.setThanhtien(cursor.getInt(cursor.getColumnIndexOrThrow("thanhtien")));
+        }
+
+        cursor.close();
+        return chiTiet;
+    }
+
+    public ChiTietHoaDon getChiTietHoaDonByIdHoaDonNuoc(int idHoaDon) {
+        db = dbHelper.getReadableDatabase();
+        ChiTietHoaDon chiTiet = null;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM ChiTietHoaDon WHERE idhoadon = ? AND tendichvu = ?",
+                new String[]{String.valueOf(idHoaDon), "Nước"}
+        );
+
+        if (cursor.moveToFirst()) {
+            chiTiet = new ChiTietHoaDon();
+            chiTiet.setIdchitiethoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idchitiethoadon")));
+            chiTiet.setIdhoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idhoadon")));
+            chiTiet.setTendichvu(cursor.getString(cursor.getColumnIndexOrThrow("tendichvu")));
+            chiTiet.setSodiencu(cursor.getInt(cursor.getColumnIndexOrThrow("sodiencu")));
+            chiTiet.setSodienmoi(cursor.getInt(cursor.getColumnIndexOrThrow("sodienmoi")));
+            chiTiet.setSonuoccu(cursor.getInt(cursor.getColumnIndexOrThrow("sonuoccu")));
+            chiTiet.setSonuocmoi(cursor.getInt(cursor.getColumnIndexOrThrow("sonuocmoi")));
+            chiTiet.setSosudung(cursor.getInt(cursor.getColumnIndexOrThrow("sosudung")));
+            chiTiet.setThanhtien(cursor.getInt(cursor.getColumnIndexOrThrow("thanhtien")));
+        }
+
+        cursor.close();
+        return chiTiet;
+    }
+
 }

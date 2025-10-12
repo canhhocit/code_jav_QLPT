@@ -1,75 +1,103 @@
 package com.example.logincustomer.ui.QLthutien_nguyen;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.logincustomer.R;
+import com.example.logincustomer.data.Adapter.StatusRoomAdapter;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
+import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
+import com.example.logincustomer.data.Model.HoaDon;
 import com.example.logincustomer.data.Model.PhongTro;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class statusRoom extends AppCompatActivity {
-
-    private Spinner spinnerPhong;
-    private qlphongtro_PhongTroDAO phongTroDAO;
     private List<PhongTro> listPhong;
     private List<String> listTenPhong;
+    private List<HoaDon> hoaDonList;
+    private Spinner spinnerPhong;
+    private EditText edtFromDate, edtToDate;
+    private RecyclerView recyclerView;
+    private Button btnTimKiem;
+    private ImageView imgback;
+    private StatusRoomAdapter adapter;
+    private qlthutien_HoaDonDAO hoaDonDAO;
+    private qlphongtro_PhongTroDAO phongTroDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qlthutien_layout_statusroom);
+        anhxa();
 
-        spinnerPhong = findViewById(R.id.spinnerPhong);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        hoaDonDAO = new qlthutien_HoaDonDAO(this);
         phongTroDAO = new qlphongtro_PhongTroDAO(this);
 
-        // 🔹 Lấy danh sách phòng từ DB
-        listPhong = phongTroDAO.getAllPhongTro();
-        listTenPhong = new ArrayList<>();
-        listTenPhong.add("Tất cả"); // mục đầu tiên
+        hoaDonList = hoaDonDAO.getAllHoaDon(); // lấy tất cả hóa đơn ban đầu
+        adapter = new StatusRoomAdapter(this, hoaDonList);
+        recyclerView.setAdapter(adapter);
 
-        for (PhongTro p : listPhong) {
-            listTenPhong.add(p.getTenphong());
-        }
 
-        // 🔹 Tạo adapter cho Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                listTenPhong
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPhong.setAdapter(adapter);
 
-        // 🔹 Xử lý khi chọn phòng
-        spinnerPhong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selected = listTenPhong.get(position);
-                if (selected.equals("Tất cả")) {
-                    // ✅ Hiển thị tất cả dữ liệu
-                    Log.d("FILTER", "Hiển thị tất cả phòng");
-                    // Gọi hàm load toàn bộ danh sách (VD: loadAllBills();)
-                } else {
-                    // ✅ Lấy id phòng tương ứng
-                    PhongTro selectedPhong = listPhong.get(position - 1); // vì "Tất cả" ở vị trí 0
-                    int idPhong = selectedPhong.getIdphong();
-                    Log.d("FILTER", "Lọc theo phòng ID: " + idPhong + ", tên: " + selected);
-                    // Gọi hàm lọc dữ liệu theo idPhong
-                    // filterDataByRoom(idPhong);
-                }
+
+
+        // 🔹 Nút tìm kiếm
+        btnTimKiem.setOnClickListener(v -> {
+            String tuNgay = edtFromDate.getText().toString();
+            String denNgay = edtToDate.getText().toString();
+            String tenPhong = spinnerPhong.getSelectedItem().toString();
+
+            int idPhong = -1;
+            if (!tenPhong.equals("Tất cả")) {
+                PhongTro selected = listPhong.get(spinnerPhong.getSelectedItemPosition() - 1);
+                idPhong = selected.getIdphong();
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            filterHoaDon(tuNgay, denNgay, idPhong);
         });
+    }
+
+
+    // 🔹 Hàm lọc hóa đơn
+    private void filterHoaDon(String tuNgay, String denNgay, int idPhong) {
+        hoaDonList.clear();
+        hoaDonList.addAll(hoaDonDAO.getFilteredHoaDon(tuNgay, denNgay, idPhong));
+        adapter.notifyDataSetChanged();
+    }
+
+    private void anhxa() {
+        spinnerPhong = findViewById(R.id.spinnerPhong_statusRoom);
+        btnTimKiem = findViewById(R.id.btn_find_statusRoom);
+        edtFromDate = findViewById(R.id.edt_tuDate_statusRoom);
+        edtToDate = findViewById(R.id.edt_denDate_statusRoom);
+        recyclerView = findViewById(R.id.recycler_status_statusRoom);
+        imgback = findViewById(R.id.img_back_statusRoom);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        hoaDonList = hoaDonDAO.getAllHoaDon(); // lấy tất cả hóa đơn ban đầu
+        adapter = new StatusRoomAdapter(this, hoaDonList);
+        recyclerView.setAdapter(adapter);
     }
 }

@@ -92,6 +92,10 @@
             android:name=".ui.QLthutien_nguyen.TaoHoaDonActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.QLthutien_nguyen.SuaHoaDonActivity"
+            android:exported="false"/>
+
+        <activity
             android:name=".ui.QLthutien_nguyen.SetValueDefault"
             android:exported="false" />
         <activity

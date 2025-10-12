@@ -18,6 +18,7 @@ import com.example.logincustomer.data.Model.PhongTro;
 import com.example.logincustomer.ui.QLphong_tam.DetailInRoom;
 import com.example.logincustomer.ui.QLphong_tam.qlphong_activity_home;
 import com.example.logincustomer.ui.QLthutien_nguyen.BillRoomActivity;
+import com.example.logincustomer.ui.QLthutien_nguyen.SuaHoaDonActivity;
 import com.example.logincustomer.ui.QLthutien_nguyen.TaoHoaDonActivity;
 import com.example.logincustomer.R;
 
@@ -143,18 +144,19 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
 
                 } else if (itemId == R.id.menu_edit) {
                     // ✏️ Sửa hóa đơn (nếu có)
-                    if (check == 1) {
-
-
-
+                    if (check == 0) {
+                        Toast.makeText(context, "Phòng này chưa có hóa đơn để sửa!", Toast.LENGTH_SHORT).show();
+                        return true;
                     } else if (!qlthutienHoaDonDAO.coTheSuaHoaDon(pt.getIdphong())) {
                         Toast.makeText(context, "Hóa đơn này đã thanh toán, không thể sửa!", Toast.LENGTH_SHORT).show();
                         return true;
                     }else{
-                        Toast.makeText(context, "Phòng này chưa có hóa đơn để sửa!", Toast.LENGTH_SHORT).show();
-                        return true;
+                        //code sửa
+                        int idhoadon = qlthutienHoaDonDAO.getNewestHoaDonIdByPhong(pt.getIdphong());
+                        Intent intent = new Intent(context, SuaHoaDonActivity.class);
+                        intent.putExtra("idhoadon", idhoadon);
+                        context.startActivity(intent);
                     }
-
 
 
                     return true;
@@ -178,6 +180,14 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                             .setTitle("Xóa phòng")
                             .setMessage("Bạn có chắc chắn muốn xóa phòng \"" + pt.getTenphong() + "\" không?")
                             .setPositiveButton("Xóa", (dialog, which) -> {
+                                // ⚠️ Kiểm tra hóa đơn chưa thanh toán
+                                boolean hasUnpaid = qlthutienHoaDonDAO.hasUnpaidHoaDonByPhong(pt.getIdphong());
+
+                                if (hasUnpaid) {
+                                    Toast.makeText(context, "Không thể xóa! Phòng vẫn còn hóa đơn chưa thanh toán.", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+
                                 int result = qlphongtroPhongTroDAO.deletePhongTro(pt.getIdphong());
                                 if (result > 0) {
                                     list.remove(i);

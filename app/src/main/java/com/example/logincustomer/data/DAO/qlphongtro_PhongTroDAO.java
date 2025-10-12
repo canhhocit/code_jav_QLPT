@@ -143,20 +143,14 @@ public class qlphongtro_PhongTroDAO {
         if (c != null) c.close();
         return p;
     }
-    public List<hopdong_ifRoom> getInfPhongTro() {
-        List<hopdong_ifRoom> list = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT idphong, tenphong, songuoi, gia FROM PhongTro", null);
+    public String getTenPhongById(int idPhong) {
+        String tenPhong = "";
+        Cursor c = db.rawQuery("SELECT tenphong FROM PhongTro WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
         if (c.moveToFirst()) {
-            do {
-                list.add(new hopdong_ifRoom(
-                        c.getInt(0),
-                        c.getString(1),
-                        c.getInt(2),
-                        c.getDouble(3)
-                ));
-            } while (c.moveToNext());
+            tenPhong = c.getString(0);
         }
         c.close();
-        return list;
+        return tenPhong;
     }
+
 }

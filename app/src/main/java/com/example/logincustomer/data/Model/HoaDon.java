@@ -1,22 +1,16 @@
 package com.example.logincustomer.data.Model;
-
 public class HoaDon {
     private int idhoadon;
     private int idphong;
     private String ngaytaohdon;
-    private boolean trangthai = false; // false = chưa thanh toán, true = đã thanh toán
+    private boolean trangthai = false; // false = chưa
     private String ghichu;
     private double tongtien;
-
-    // 4 ảnh điện - nước (cũ, mới)
     private String imgDienCu;
     private String imgDienMoi;
     private String imgNuocCu;
     private String imgNuocMoi;
-
-    // ===== Constructor =====
     public HoaDon() {}
-
     public HoaDon(int idhoadon, int idphong, String ngaytaohdon, boolean trangthai,
                   String ghichu, double tongtien,
                   String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
@@ -31,7 +25,6 @@ public class HoaDon {
         this.imgNuocCu = imgNuocCu;
         this.imgNuocMoi = imgNuocMoi;
     }
-
     // Constructor rút gọn khi tạo mới (trạng thái mặc định là chưa thanh toán)
     public HoaDon(int idphong, String ngaytaohdon, String ghichu, double tongtien,
                   String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
@@ -45,24 +38,18 @@ public class HoaDon {
         this.imgNuocCu = imgNuocCu;
         this.imgNuocMoi = imgNuocMoi;
     }
-
-    // ===== Getter / Setter =====
     public int getIdhoadon() {
         return idhoadon;
     }
-
     public void setIdhoadon(int idhoadon) {
         this.idhoadon = idhoadon;
     }
-
     public int getIdphong() {
         return idphong;
     }
-
     public void setIdphong(int idphong) {
         this.idphong = idphong;
     }
-
     public String getNgaytaohdon() {
         return ngaytaohdon;
     }
