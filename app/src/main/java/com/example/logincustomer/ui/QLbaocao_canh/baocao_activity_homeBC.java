@@ -3,12 +3,15 @@ package com.example.logincustomer.ui.QLbaocao_canh;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TabHost;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -36,9 +40,10 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,8 +56,9 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     // DT
     private BarChart barChartDT;
     private ListView lv_namDT;
-    private Button btnThuChi;
+    private Button btnThuChi, btnFile;
     private baocao_doanhthuDAO dtDAO;
+    private String selectedYear = "";
 
     // Phong
     private ListView lv_Phong;
@@ -77,7 +83,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         anhxaID();
         back_manager();
         //tab doanh thu
-        gotoThuchi_startMenu();
+        menuThuchiandFileOption();
         listviewYear();
         //tab phong
         listviewphong();
@@ -96,10 +102,12 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         lv_namDT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String year = years.get(position)+"";
-                showBarchart(year);
+                selectedYear = years.get(position) + ""; // Lưu năm chọn
+                showBarchart(selectedYear);
             }
         });
+        // Hiển thị mặc định năm hiện tại
+        selectedYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
         showBarchart(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
     }
     private void showBarchart(String year) {
@@ -223,7 +231,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     }
 
 
-    private void gotoThuchi_startMenu() {
+    private void menuThuchiandFileOption() {
         btnThuChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,7 +262,159 @@ public class baocao_activity_homeBC extends AppCompatActivity {
                 popupMenu.show();
             }
         });
+        btnFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (selectedYear.isEmpty()){
+                    Toast.makeText(context, "Vui lòng chọn năm trước!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                PopupMenu popupMenu = new PopupMenu(context, btnFile);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_doanhthu_file, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int itemId = item.getItemId();
+                        if (itemId == R.id.menu_savefile){
+                            saveReportToFile();
+                            return true;
+                        }else if(itemId==R.id.menu_deletefile){
+                            deleteReportFile();
+                            return true;
+                        }else if(itemId==R.id.menu_openfile){
+                            openReportFile();
+                            return true;
+                        }
+
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
+
+    // 🧾 Hàm 1: Lưu file báo cáo vào thư mục Download
+    private void saveReportToFile() {
+        try {
+
+            String suggestedName = "baocao_doanhthu_" + selectedYear + ".txt";
+            final EditText input = new EditText(context);
+            input.setText(suggestedName);
+
+            new androidx.appcompat.app.AlertDialog.Builder(context)
+                    .setTitle("Đặt tên file báo cáo")
+                    .setView(input)
+                    .setPositiveButton("Lưu", (dialog, which) -> {
+                        String fileName = input.getText().toString().trim();
+                        if (!fileName.endsWith(".txt")) fileName += ".txt";
+
+                        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                        File file = new File(downloads, fileName);
+
+                        if (file.exists()) {
+                            new androidx.appcompat.app.AlertDialog.Builder(context)
+                                    .setTitle("Tệp đã tồn tại")
+                                    .setMessage("File này đã tồn tại. Bạn có muốn ghi đè không?")
+                                    .setPositiveButton("Ghi đè", (d, w) -> writeReportToFile(file, selectedYear))
+                                    .setNegativeButton("Hủy", null)
+                                    .show();
+                        } else {
+                            writeReportToFile(file, selectedYear);
+                        }
+                    })
+                    .setNegativeButton("Hủy", null)
+                    .show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Lỗi khi lưu file!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void writeReportToFile(File file, String year) {
+        try {
+            List<baocao_doanhthu> listHD = dtDAO.getdtHDbyYear(year);
+            List<baocao_doanhthu> listThu = dtDAO.getThubyYear(year);
+            List<baocao_doanhthu> listChi = dtDAO.getChibyYear(year);
+
+            double[] tongHD = new double[12];
+            double[] tongThu = new double[12];
+            double[] tongChi = new double[12];
+
+            for (baocao_doanhthu x : listHD) tongHD[x.getThang() - 1] = x.getTongtienHD();
+            for (baocao_doanhthu x : listThu) tongThu[x.getThang() - 1] = x.getTongthu();
+            for (baocao_doanhthu x : listChi) tongChi[x.getThang() - 1] = x.getTongchi();
+
+            StringBuilder content = new StringBuilder();
+            content.append("\tBÁO CÁO DOANH THU NĂM ").append(year).append("\n\n");
+            for (int i = 0; i < 12; i++) {
+                content.append("Tháng ").append(i + 1).append(":\n");
+                content.append("- Tổng thu phòng: ").append((long) tongHD[i]).append("\n");
+                content.append("- Thu khác: ").append((long) tongThu[i]).append("\n");
+                content.append("- Chi: ").append((long) tongChi[i]).append("\n\n");
+            }
+
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(content.toString().getBytes());
+            fos.close();
+
+            Toast.makeText(context, "Đã lưu: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Lỗi khi ghi file!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openReportFile() {
+        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(downloads, "baocao_doanhthu_" + selectedYear + ".txt");
+
+        if (!file.exists()) {
+            Toast.makeText(context, "Không tìm thấy file báo cáo năm " + selectedYear, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "text/plain");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(context, "Không có ứng dụng nào mở được file .txt!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deleteReportFile() {
+        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(downloads, "baocao_doanhthu_" + selectedYear + ".txt");
+
+        if (!file.exists()) {
+            Toast.makeText(context, "Năm "+selectedYear+ " chưa lưu file nào!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new androidx.appcompat.app.AlertDialog.Builder(context)
+                .setTitle("Xóa file?")
+                .setMessage("Bạn có chắc muốn xóa \"" + file.getName() + "\" không?")
+                .setPositiveButton("Xóa", (dialog, which) -> {
+                    if (file.delete()) {
+                        Toast.makeText(context, "Đã xóa " + file.getName(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Không thể xóa file!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
+
+
+
     private void back_manager() {
         tvTitle_baocao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,6 +451,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         barChartDT = findViewById(R.id.baocao_barChartDT);
         lv_namDT = findViewById(R.id.baocao_doanhthu_listnamdt);
         btnThuChi = findViewById(R.id.baocao_btn_thuchi);
+        btnFile= findViewById(R.id.baocao_btn_file);
 
         // Tab Phòng
         lv_Phong = findViewById(R.id.baocao_phong_listview);
