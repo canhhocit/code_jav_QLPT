@@ -100,7 +100,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "giadien REAL, " +
                 "gianuoc REAL)");
 
-
     }
 
     @Override
