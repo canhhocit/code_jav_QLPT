@@ -102,7 +102,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         double giaphong = getIntent().getDoubleExtra("giaphong", 0);
 
         // giữ nguyên kiểu hiển thị hiện tại (nếu muốn format đẹp: df.format(giaphong) + " đ")
-        txtGiaPhong.setText(df.format(giaphong+ " đ"));
+        txtGiaPhong.setText(df.format(giaphong));
         txtTenPhong.setText(String.valueOf(tenphong));
 
         // Lấy giá điện nước từ database (nếu có)

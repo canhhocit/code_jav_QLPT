@@ -67,7 +67,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
 
         txtPhong.setText(pt.getTenphong());
         txtSoNguoi.setText(String.valueOf(pt.getSonguoi()));
-        txtGia.setText(df.format(pt.getGia()+ " đ"));
+        txtGia.setText(df.format(pt.getGia()));
 
         // Nếu là dòng được chọn thì tô màu
         if (i == selectedPosition) {
