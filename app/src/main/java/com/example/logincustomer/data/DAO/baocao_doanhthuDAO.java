@@ -76,7 +76,7 @@ public class baocao_doanhthuDAO  {
         List<baocao_doanhthu> list = new ArrayList<>();
         String sql= "SELECT SUBSTR(ngaytaohdon, 6, 2) AS thang, SUM(tongtien) AS tienHD\n" +
                 "FROM HoaDon\n" +
-                "WHERE SUBSTR(ngaytaohdon,1,4)=?\n" +
+                "WHERE trangthai =1 and SUBSTR(ngaytaohdon,1,4)=?\n" +
                 "GROUP BY thang\n" +
                 "ORDER BY thang;";
         Cursor cursor = db.rawQuery(sql,new String[]{year});

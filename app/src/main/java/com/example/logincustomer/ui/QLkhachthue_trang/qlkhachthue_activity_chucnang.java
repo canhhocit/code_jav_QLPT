@@ -196,9 +196,10 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                     builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            khachDAO.insertKhachThue(kt);
                             Intent intent = new Intent(qlkhachthue_activity_chucnang.this, hopdong_activity_chucnang.class);
                             intent.putExtra("idphong",kt.getIdphong());
-                            intent.putExtra("idkhach",kt.getIdkhach());
+                            intent.putExtra("tenkhach",kt.getHoten());
                             intent.putExtra("check",1);
                             startActivity(intent);
                         }
