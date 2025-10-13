@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
-import com.example.logincustomer.data.Model.PhongTro;
-import com.example.logincustomer.data.Model.hopdong_ifRoom;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class qlphongtro_PhongTroDAO {
     }
 
     // 🔹 Thêm phòng
-    public long insertPhongTro(PhongTro phong) {
+    public long insertPhongTro(qlphongtro_PhongTro phong) {
         ContentValues values = new ContentValues();
         values.put("tenphong", phong.getTenphong()); // ✅ đúng tên cột
         values.put("songuoi", phong.getSonguoi());   // ✅ đúng tên cột
@@ -32,7 +31,7 @@ public class qlphongtro_PhongTroDAO {
     }
 
     // 🔹 Cập nhật phòng
-    public int updatePhongTro(PhongTro phong) {
+    public int updatePhongTro(qlphongtro_PhongTro phong) {
         ContentValues values = new ContentValues();
         values.put("tenphong", phong.getTenphong()); // đúng tên cột
         values.put("gia", phong.getGia());           // đúng tên cột
@@ -47,12 +46,12 @@ public class qlphongtro_PhongTroDAO {
     }
 
     // 🔹 Lấy toàn bộ danh sách phòng
-    public List<PhongTro> getAllPhongTro() {
-        List<PhongTro> list = new ArrayList<>();
+    public List<qlphongtro_PhongTro> getAllPhongTro() {
+        List<qlphongtro_PhongTro> list = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM PhongTro order by tenphong asc", null);
         if (c.moveToFirst()) {
             do {
-                list.add(new PhongTro(
+                list.add(new qlphongtro_PhongTro(
                         c.getInt(0),      // idphong
                         c.getString(1),   // tenphong
                         c.getInt(2),      // songuoi
@@ -66,12 +65,12 @@ public class qlphongtro_PhongTroDAO {
     }
 
     // 🔹 Tìm kiếm phòng theo tên
-    public List<PhongTro> searchPhong(String keyword) {
-        List<PhongTro> list = new ArrayList<>();
+    public List<qlphongtro_PhongTro> searchPhong(String keyword) {
+        List<qlphongtro_PhongTro> list = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM PhongTro WHERE tenphong LIKE ?", new String[]{"%" + keyword + "%"});
         if (c.moveToFirst()) {
             do {
-                list.add(new PhongTro(
+                list.add(new qlphongtro_PhongTro(
                         c.getInt(0),
                         c.getString(1),
                         c.getInt(2),
@@ -127,12 +126,12 @@ public class qlphongtro_PhongTroDAO {
 
         return db.update("PhongTro", values, "idphong = ?", new String[]{String.valueOf(idPhong)});
     }
-    public PhongTro getPhongById(int idPhong) {
-        PhongTro p = null;
+    public qlphongtro_PhongTro getPhongById(int idPhong) {
+        qlphongtro_PhongTro p = null;
         Cursor c = db.rawQuery("SELECT * FROM PhongTro WHERE idphong = ?", new String[]{ String.valueOf(idPhong) });
         if (c != null && c.moveToFirst()) {
             // Sử dụng constructor giống như getAllPhongTro để tránh gọi setter sai tên
-            p = new PhongTro(
+            p = new qlphongtro_PhongTro(
                     c.getInt(0),      // idphong
                     c.getString(1),   // tenphong
                     c.getInt(2),      // songuoi
@@ -143,20 +142,14 @@ public class qlphongtro_PhongTroDAO {
         if (c != null) c.close();
         return p;
     }
-    public List<hopdong_ifRoom> getInfPhongTro() {
-        List<hopdong_ifRoom> list = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT idphong, tenphong, songuoi, gia FROM PhongTro", null);
+    public String getTenPhongById(int idPhong) {
+        String tenPhong = "";
+        Cursor c = db.rawQuery("SELECT tenphong FROM PhongTro WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
         if (c.moveToFirst()) {
-            do {
-                list.add(new hopdong_ifRoom(
-                        c.getInt(0),
-                        c.getString(1),
-                        c.getInt(2),
-                        c.getDouble(3)
-                ));
-            } while (c.moveToNext());
+            tenPhong = c.getString(0);
         }
         c.close();
-        return list;
+        return tenPhong;
     }
+
 }

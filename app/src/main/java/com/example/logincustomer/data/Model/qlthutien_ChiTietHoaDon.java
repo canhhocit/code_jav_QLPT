@@ -1,6 +1,6 @@
 package com.example.logincustomer.data.Model;
 
-public class ChiTietHoaDon {
+public class qlthutien_ChiTietHoaDon {
     private int idchitiethoadon;
     private int idhoadon;
     private String tendichvu;
@@ -11,11 +11,11 @@ public class ChiTietHoaDon {
     private int sosudung;
     private double thanhtien;
 
-    public ChiTietHoaDon() {}
+    public qlthutien_ChiTietHoaDon() {}
 
     // full constructor
-    public ChiTietHoaDon(int idhoadon, String tendichvu, int sodiencu, int sodienmoi,
-                         int sonuoccu, int sonuocmoi, int sosudung, double thanhtien) {
+    public qlthutien_ChiTietHoaDon(int idhoadon, String tendichvu, int sodiencu, int sodienmoi,
+                                   int sonuoccu, int sonuocmoi, int sosudung, double thanhtien) {
         this.idhoadon = idhoadon;
         this.tendichvu = tendichvu;
         this.sodiencu = sodiencu;

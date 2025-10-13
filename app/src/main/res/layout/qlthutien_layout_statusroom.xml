@@ -9,22 +9,31 @@
     android:padding="8dp"
     android:background="@drawable/bg_border_green_circle"
     tools:context=".ui.QLthutien_nguyen.statusRoom">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/img_back_statusRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/arrow_back"/>
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Danh sách hóa đơn"
             android:padding="8dp"
-            android:textSize="23dp" />
-
+            android:textSize="32dp" />
+    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_border_red_circle"
             android:orientation="vertical"
             android:padding="8dp">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,11 +43,9 @@
                     android:layout_width="0dp"
                     android:layout_weight="0.55"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
                     android:text="Từ ngày" />
-
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -53,7 +60,6 @@
                         android:hint="dd/mm/yyy" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,15 +69,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="0.55"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:textStyle="bold"
                     android:text="Đến ngày" />
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_weight="1.45"
                     android:layout_height="wrap_content">
-
                     <EditText
                         android:id="@+id/edt_denDate_statusRoom"
                         android:layout_width="match_parent"
@@ -82,91 +86,120 @@
                         android:hint="dd/mm/yyy" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
             <LinearLayout
-                android:id="@+id/line1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!-- Hàng chọn phòng -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:weightSum="2"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="0.55"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:text="Chọn phòng: "
                         android:layout_marginEnd="8dp"/>
-
                     <Spinner
-                        android:id="@+id/spinnerPhong"
+                        android:id="@+id/spinnerPhong_statusRoom"
                         android:layout_width="0dp"
-                        android:layout_weight="1.45"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:spinnerMode="dropdown" />
-                </LinearLayout>
-
-                <!-- Dưới đây là danh sách dữ liệu -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvData"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Trạng thái: "
+                    android:layout_marginEnd="8dp"/>
 
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radi_da"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đã thanh toán" />
+
+                    <RadioButton
+                        android:id="@+id/radi_chua"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chưa thanh toán" />
+                </RadioGroup>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Tùy chọn: "
+                    android:layout_marginEnd="8dp"/>
+                <CheckBox
+                    android:id="@+id/checkbox_showall_statusroom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hiển thị tất cả danh sách hóa đơn"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_find_WatchBill"
-            android:layout_width="142dp"
-            android:layout_height="46dp"
-            android:layout_margin="12dp"
-            android:background="@drawable/bg_border_red_square"
-            android:text="Tìm kiếm" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FBDBDB"
+        android:layout_marginTop="12dp"
         android:orientation="horizontal"
         android:weightSum="6">
-
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/txtdate_statusroom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold"
-            android:layout_weight="1.4"
+            android:gravity="end"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_weight="1.2"
             android:text="Ngày" />
-
+        <ImageView
+            android:id="@+id/iconSortNgay_statusroom"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="start"
+            android:src="@drawable/arrow_down"/>
         <TextView
             android:id="@+id/textView6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold"
-            android:layout_weight="1.1"
+            android:layout_weight="1.3"
             android:gravity="center"
             android:text="Phòng" />
-
-
         <TextView
             android:id="@+id/textView8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold"
-            android:layout_weight="1.5"
+            android:layout_weight="1.3"
             android:gravity="center"
             android:text="Số tiền" />
 
@@ -174,25 +207,18 @@
             android:id="@+id/textView10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:layout_weight="1.4"
+            android:gravity="start"
+            android:paddingLeft="8dp"
+            android:layout_weight="1.5"
             android:text="Trạng thái" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:text=" " />
     </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_status_WatchBill"
+            android:id="@+id/recycler_status_statusRoom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/qlthutien_item_statusroom"/>
-
 </LinearLayout>
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_add"
+        android:id="@+id/menu_tt"
         android:title="Thanh toán" />
     <item
-        android:id="@+id/menu_xem"
+        android:id="@+id/menu_edit"
         android:title="Sửa hóa đơn" />
     <item
-        android:id="@+id/menu_edit"
+        android:id="@+id/menu_xem"
         android:title="Xem hóa đơn" />
 
     <item
-        android:id="@+id/menu_deletephong"
+        android:id="@+id/menu_deletehd"
         android:title="Xóa hóa đơn" />
 </menu>

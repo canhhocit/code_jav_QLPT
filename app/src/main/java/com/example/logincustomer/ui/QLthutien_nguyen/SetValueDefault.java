@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlthutien_OtherServiceAdapter;
 import com.example.logincustomer.data.DAO.qlthutien_DichVuConDAO;
-import com.example.logincustomer.data.Model.DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 import com.example.logincustomer.data.DAO.qlthutien_GiaMacDinhDienNuocDAO;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class SetValueDefault extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Button btnAdd, btnSave;
     private qlthutien_DichVuConDAO dao;
-    private ArrayList<DichVuCon> list;
+    private ArrayList<qlthutien_DichVuCon> list;
     private qlthutien_OtherServiceAdapter adapter;
 
     @Override
@@ -48,7 +48,7 @@ public class SetValueDefault extends AppCompatActivity {
 
         adapter = new qlthutien_OtherServiceAdapter(this, list, new qlthutien_OtherServiceAdapter.OnItemClickListener() {
             @Override
-            public void onEdit(DichVuCon service) {
+            public void onEdit(qlthutien_DichVuCon service) {
                 AddOtherServiceBottomSheet dialog = new AddOtherServiceBottomSheet(SetValueDefault.this, service, updated -> {
                     dao.update(updated);
                     refreshData();
@@ -57,7 +57,7 @@ public class SetValueDefault extends AppCompatActivity {
             }
 
             @Override
-            public void onDelete(DichVuCon service) {
+            public void onDelete(qlthutien_DichVuCon service) {
                 dao.delete(service.getIddichvucon());
                 refreshData();
             }
@@ -88,7 +88,7 @@ public class SetValueDefault extends AppCompatActivity {
 
                 // --- Lưu danh sách dịch vụ con ---
                 dao.deleteAll(); // Xóa dữ liệu cũ
-                for (DichVuCon service : list) {
+                for (qlthutien_DichVuCon service : list) {
                     dao.insert(service); // Lưu lại dịch vụ mới
                 }
 

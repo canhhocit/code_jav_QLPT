@@ -1,14 +1,14 @@
 package com.example.logincustomer.data.Model;
 
-public class PhongTro {
+public class qlphongtro_PhongTro {
     private int idphong;
     private String tenphong;
     private int songuoi;
     private double gia;
     private int idhopdong;
 
-    public PhongTro(){}
-    public PhongTro(int idphong, String tenphong, int songuoi, double gia, int idhopdong) {
+    public qlphongtro_PhongTro(){}
+    public qlphongtro_PhongTro(int idphong, String tenphong, int songuoi, double gia, int idhopdong) {
         this.idphong = idphong;
         this.tenphong = tenphong;
         this.songuoi = songuoi;

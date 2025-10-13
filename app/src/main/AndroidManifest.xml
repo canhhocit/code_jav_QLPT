@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -90,6 +91,10 @@
         <activity
             android:name=".ui.QLthutien_nguyen.TaoHoaDonActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.QLthutien_nguyen.SuaHoaDonActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".ui.QLthutien_nguyen.SetValueDefault"
             android:exported="false" />
