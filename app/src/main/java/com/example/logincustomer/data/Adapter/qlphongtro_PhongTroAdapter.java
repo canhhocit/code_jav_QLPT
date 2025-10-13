@@ -85,6 +85,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
             }
         });
 
+
         // Giữ lâu để xóa phòng
         convertView.setOnLongClickListener(v -> {
             new androidx.appcompat.app.AlertDialog.Builder(context)
