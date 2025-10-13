@@ -84,10 +84,10 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> galleryLauncher;
     private Uri imageUri;
     private static final double GIA_DIEN_MACDINH = 3500;
-    private static final double GIA_NUOC_MACDINH = 15000;
+    private static final double GIA_NUOC_MACDINH = 20000;
     private final DecimalFormat df = new DecimalFormat("#,###");
     private qlthutien_ChiTietHoaDonDAO qlthutienChiTietHoaDonDAO;
-    private qlthutien_GiaMacDinhDienNuocDAO DefaultValueWE;
+    private qlthutien_GiaMacDinhDienNuocDAO DefaultValueWE, checkdiennuoc;
     private qlthutien_ChiTietHoaDon chiTietDien, chiTietNuoc, chitiethoadon;
     private qlthutien_HoaDon hoaDonintent;
 
@@ -105,6 +105,11 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         txtGiaPhong.setText(df.format(giaphong));
         txtTenPhong.setText(String.valueOf(tenphong));
 
+        //show thông tin điện nươớc
+        checkdiennuoc = new qlthutien_GiaMacDinhDienNuocDAO(TaoHoaDonActivity.this);
+        if(!checkdiennuoc.hasGiaMacDinh()){
+            showNoGiaMacDinhDialog();
+        }
         // Lấy giá điện nước từ database (nếu có)
         layGiaMacDinhTuDatabase();
 
@@ -387,7 +392,16 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             dialog.show();
         });
     }
-
+    private void showNoGiaMacDinhDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Thông báo")
+                .setMessage("Chưa thiết lập giá điện và nước mặc định.\nMặc định sẽ dùng giá điện và nước lần lượt là 3.500 và 20.000\nMuốn thay đổi vui lòng vào phần 'Thiết lập mặc định'.")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    dialog.dismiss(); // Đóng thông báo khi nhấn OK
+                })
+                .setCancelable(false) // Không cho nhấn ra ngoài để tắt
+                .show();
+    }
     private void anhxaid() {
         // Ánh xạ view
         imgBack = findViewById(R.id.img_arrowback_totalPriceroom);

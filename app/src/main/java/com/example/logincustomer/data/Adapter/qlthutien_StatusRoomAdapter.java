@@ -165,9 +165,9 @@ public class qlthutien_StatusRoomAdapter extends RecyclerView.Adapter<qlthutien_
         }
     }
     public void setHoaDonList(List<qlthutien_HoaDon> list) {
-        this.hoaDonList.clear();         // Xóa dữ liệu cũ
-        this.hoaDonList.addAll(list);    // Thêm dữ liệu mới
-        notifyDataSetChanged();          // Báo cho RecyclerView vẽ lại
+        this.hoaDonList.clear();
+        this.hoaDonList.addAll(list);
+        notifyDataSetChanged();
     }
 
 

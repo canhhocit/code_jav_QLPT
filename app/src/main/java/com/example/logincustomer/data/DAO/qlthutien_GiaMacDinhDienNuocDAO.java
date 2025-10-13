@@ -13,7 +13,7 @@ public class qlthutien_GiaMacDinhDienNuocDAO {
     public qlthutien_GiaMacDinhDienNuocDAO(Context context) {
         DatabaseHelper helper = new DatabaseHelper(context);
         db = helper.getWritableDatabase();
-        ensureRecordExists();
+        //ensureRecordExists();
     }
 
     // Tạo dòng dữ liệu mặc định nếu chưa có
@@ -28,6 +28,22 @@ public class qlthutien_GiaMacDinhDienNuocDAO {
         }
         c.close();
     }
+
+    // có rồi thì update, k có thì thêm
+    public boolean insertGiaMacDinh(double giaDien, double giaNuoc) {
+        if (hasGiaMacDinh()) {
+            updateGiaMacDinh(giaDien, giaNuoc);
+            return true;
+        } else {
+            ContentValues values = new ContentValues();
+            values.put("id", 1);
+            values.put("giadien", giaDien);
+            values.put("gianuoc", giaNuoc);
+            long result = db.insert("GiaMacDinh", null, values);
+            return result != -1;
+        }
+    }
+
 
     // Cập nhật giá điện & nước
     public void updateGiaMacDinh(double giaDien, double giaNuoc) {
@@ -53,5 +69,18 @@ public class qlthutien_GiaMacDinhDienNuocDAO {
         if (c.moveToFirst()) result = c.getDouble(0);
         c.close();
         return result;
+    }
+
+    public boolean hasGiaMacDinh() {
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM GiaMacDinh", null);
+        boolean hasData = false;
+
+        if (cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            hasData = count > 0;
+        }
+
+        cursor.close();
+        return hasData;
     }
 }

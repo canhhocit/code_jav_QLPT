@@ -386,7 +386,6 @@ public class qlthutien_HoaDonDAO {
             } while (c.moveToNext());
         }
         c.close();
-        db.close();
         return list;
     }
 

@@ -111,6 +111,7 @@ public class statusRoom extends AppCompatActivity {
             sortAsc = !sortAsc; // đảo chiều
             sortByNgay(sortAsc);
         });
+        quayve();
     }
     private void anhxa() {
         spinnerPhong = findViewById(R.id.spinnerPhong_statusRoom);
@@ -176,15 +177,11 @@ public class statusRoom extends AppCompatActivity {
         }
     }
     private void sortByNgay(boolean asc) {
-
-            Log.d("SORT", "sortByNgay() được gọi, asc = " + asc + ", list size = " + (hoaDonList != null ? hoaDonList.size() : 0));
-
-
+        Log.d("SORT", "sortByNgay() được gọi, asc = " + asc + ", list size = " + (hoaDonList != null ? hoaDonList.size() : 0));
         if (hoaDonList == null || hoaDonList.isEmpty()) return;
 
         Collections.sort(hoaDonList, (hd1, hd2) -> {
             Log.d("SORT", "Trước sort: " + hd1.getNgaytaohdon() + " - " + hd2.getNgaytaohdon());
-
             try {
                 // 🔹 Định dạng đúng với DB của bạn
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -199,7 +196,6 @@ public class statusRoom extends AppCompatActivity {
         });
 
         adapter.setHoaDonList(hoaDonList);
-        //adapter.notifyDataSetChanged();
 
         ImageView imgArrow = findViewById(R.id.iconSortNgay_statusroom);
         if (imgArrow != null) {
@@ -207,5 +203,10 @@ public class statusRoom extends AppCompatActivity {
             float rotation = asc ? 0f : 180f;
             imgArrow.animate().rotation(rotation).setDuration(200).start();
         }
+    }
+    private void quayve(){
+        imgback.setOnClickListener(v -> {
+            finish();
+        });
     }
 }
