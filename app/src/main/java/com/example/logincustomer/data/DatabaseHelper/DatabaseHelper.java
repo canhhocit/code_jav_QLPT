@@ -101,69 +101,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "gianuoc REAL)");
 
 
-        db.execSQL("INSERT INTO PhongTro (tenphong, songuoi, gia) VALUES\n" +
-                "('Phòng A1', 2, 2000000),\n" +
-                "('Phòng A2', 3, 2500000),\n" +
-                "('Phòng B1', 1, 1800000),\n" +
-                "('Phòng B2', 2, 2200000),\n" +
-                "('Phòng C1', 4, 3000000);");
-
-        db.execSQL("INSERT INTO KhachThue (hoten, gioitinh, ngaysinh, sdt, diachi, idphong) VALUES\n" +
-                "('Nguyễn Văn A', 'Nam', '1999-05-10', '0901234567', 'Hà Nội', 1),\n" +
-                "('Trần Thị B', 'Nữ', '2000-03-20', '0912345678', 'Đà Nẵng', 2),\n" +
-                "('Lê Văn C', 'Nam', '1998-08-15', '0923456789', 'HCM', 3),\n" +
-                "('Phạm Thị D', 'Nữ', '2001-11-02', '0934567890', 'Hà Nội', 4),\n" +
-                "('Hoàng Văn E', 'Nam', '1997-07-12', '0945678901', 'Huế', 5);");
-
-        db.execSQL("INSERT INTO HopDong (cccd, ngaykyhopdong, idphong, idkhach) VALUES\n" +
-                "('012345678901', '2024-01-01', 1, 1),\n" +
-                "('012345678902', '2024-02-10', 2, 2),\n" +
-                "('012345678903', '2024-03-15', 3, 3),\n" +
-                "('012345678904', '2024-04-20', 4, 4),\n" +
-                "('012345678905', '2024-05-25', 5, 5);");
-
-        db.execSQL("INSERT INTO ThuChi (tenthuchi, sotien, loai, ngaythuchi) VALUES\n" +
-                "('Thu tiền cọc', 500000, 'Thu', '2024-01-05'),\n" +
-                "('Mua bóng đèn', 100000, 'Chi', '2024-02-03'),\n" +
-                "('Thu điện nước', 300000, 'Thu', '2024-04-12'),\n" +
-                "('Sửa ống nước', 150000, 'Chi', '2024-05-12'),\n" +
-                "('Thu khác', 200000, 'Thu', '2024-01-12');");
-
-        db.execSQL("INSERT INTO ThuChi (tenthuchi, sotien, loai, ngaythuchi) VALUES\n" +
-                "('Thu tiền cọc', 500000, 'Thu', '2025-01-05'),\n" +
-                "('Mua bóng đèn', 100000, 'Chi', '2025-02-03'),\n" +
-                "('Thu điện nước', 300000, 'Thu', '2025-04-12'),\n" +
-                "('Sửa ống nước', 150000, 'Chi', '2025-05-12'),\n" +
-                "('Thu khác', 200000, 'Thu', '2025-01-12');");
-
-        db.execSQL("INSERT INTO HoaDon (idphong, ngaytaohdon, trangthai, ghichu, tongtien) VALUES\n" +
-                "(1, '2024-04-20', 1, 'Tháng 1', 2500000),\n" +
-                "(2, '2024-02-12', 1, 'Tháng 2', 2800000),\n" +
-                "(3, '2024-01-12', 1, 'Tháng 3', 1900000),\n" +
-                "(4, '2024-03-04', 1, 'Tháng 4', 2200000),\n" +
-                "(5, '2024-05-12', 1, 'Tháng 5', 3100000);");
-
-        db.execSQL("INSERT INTO HoaDon (idphong, ngaytaohdon, trangthai, ghichu, tongtien) VALUES\n" +
-                "(1, '2025-04-20', 1, 'Tháng 1', 2500000),\n" +
-                "(2, '2025-02-12', 1, 'Tháng 2', 2800000),\n" +
-                "(3, '2025-01-12', 1, 'Tháng 3', 1900000),\n" +
-                "(4, '2025-03-04', 1, 'Tháng 4', 2200000),\n" +
-                "(5, '2025-05-12', 1, 'Tháng 5', 3100000);");
-
-        db.execSQL("INSERT INTO ChiTietHoaDon (idhoadon, tendichvu, sodiencu, sodienmoi, sonuoccu, sonuocmoi, sosudung, thanhtien) VALUES\n" +
-                "(1, 'Điện', 10, 30, 5, 10, 20, 40000),\n" +
-                "(2, 'Nước', 20, 35, 10, 15, 15, 30000),\n" +
-                "(3, 'Rác', 0, 0, 0, 0, 0, 20000),\n" +
-                "(4, 'Internet', 0, 0, 0, 0, 0, 100000),\n" +
-                "(5, 'Điện', 15, 40, 10, 20, 25, 50000);");
-
-        db.execSQL("INSERT INTO DichVuCon (idchitiethoadon, tendichvu, giatien) VALUES\n" +
-                "(1, 'Wifi', 100000),\n" +
-                "(2, 'Rác', 20000),\n" +
-                "(3, 'Giữ xe', 50000),\n" +
-                "(4, 'Vệ sinh', 30000),\n" +
-                "(5, 'Truyền hình', 40000);\n");
-
     }
 
     @Override
