@@ -1,22 +1,5 @@
 package com.example.logincustomer.ui.QLthutien_nguyen;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.logincustomer.data.Model.HoaDon;
-import com.example.logincustomer.data.Model.PhongTro;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-
 public class s {
     // -------------------oc--------------------------------------------
 
@@ -26,7 +9,7 @@ public class s {
 //        listTenPhong.add("Tất cả"); // mục đầu tiên
 //
 //        for (
-//    PhongTro p : listPhong) {
+//    qlphongtro_PhongTro p : listPhong) {
 //        listTenPhong.add(p.getTenphong());
 //    }
 //
@@ -47,7 +30,7 @@ public class s {
 //            if (selected.equals("Tất cả")) {
 //                Log.d("FILTER", "Hiển thị tất cả phòng");
 //            } else {
-//                PhongTro selectedPhong = listPhong.get(position - 1); // vì "Tất cả" ở vị trí 0
+//                qlphongtro_PhongTro selectedPhong = listPhong.get(position - 1); // vì "Tất cả" ở vị trí 0
 //                int idPhong = selectedPhong.getIdphong();
 //                Log.d("FILTER", "Lọc theo phòng ID: " + idPhong + ", tên: " + selected);
 //            }
@@ -92,7 +75,7 @@ public class s {
 //trong giamacdinhdiennuocDAO để ý hàm getgiadien & getgianuoc
 //check số người = 0 thì k tạo hóa đơn
 
-//cần đổi lại cách check, khi trùng tháng ở quản lý phòng trọ khi thêm hóa đơn
+//cần đổi lại cách check, khi trùng tháng ở quản lý phòng trọ khi thêm hóa đơn có thể nợ
 
 // ---------------------------------------------------------------
 //            int checkstatus = hoaDonDAO.kiemTraTinhTrangHoaDon(idphong);
@@ -106,7 +89,7 @@ public class s {
 // -------------------------fu----1----------------------------------
 //private void checkintentforidphong(int idphong) {
 //    hoaDonintent = hoaDonDAO.getNewestHoaDonByPhong(idphong);
-//    chitiethoadon = new ChiTietHoaDon();
+//    chitiethoadon = new qlthutien_ChiTietHoaDon();
 //    txtTenPhong.setText("Sửa hóa đơn");
 //    btnTaoHoaDon.setText("Xác nhận");
 //    edtdate.setText(hoaDonintent.getNgaytaohdon());
@@ -118,7 +101,7 @@ public class s {
 //}
 //private void checkintentforidhoadon(int idhoadon){
 //    hoaDonintent = hoaDonDAO.getNewestHoaDonByPhong(idphong);
-//    chitiethoadon = new ChiTietHoaDon();
+//    chitiethoadon = new qlthutien_ChiTietHoaDon();
 //    txtTenPhong.setText("Sửa hóa đơn");
 //    btnTaoHoaDon.setText("Xác nhận");
 //    edtdate.setText(hoaDonintent.getNgaytaohdon());
@@ -182,7 +165,7 @@ public class s {
 //double tongTien = tienDien + tienNuoc + giaphong + totalOtherServices; // tùy bạn có thể tính thêm
 //
 //// 5️⃣ Tạo hóa đơn chính
-//HoaDon hd = new HoaDon();
+//qlthutien_HoaDon hd = new qlthutien_HoaDon();
 //                hd.setIdphong(idphong);
 //                hd.setNgaytaohdon(ngayTao);
 //                hd.setTrangthai(false);
@@ -193,7 +176,7 @@ public class s {
 //                hd.setImgNuocCu(pathNuocCu);
 //                hd.setImgNuocMoi(pathNuocMoi);
 //
-//// 6️⃣ Insert vào bảng HoaDon
+//// 6️⃣ Insert vào bảng qlthutien_HoaDon
 //hoaDonDAO = new qlthutien_HoaDonDAO(TaoHoaDonActivity.this);
 //long result = hoaDonDAO.updateHoaDon(hd);
 //
@@ -203,7 +186,7 @@ public class s {
 //                            }
 //
 //// 7️⃣ Tạo chi tiết hóa đơn cho điện
-//chiTietDien = new ChiTietHoaDon();
+//chiTietDien = new qlthutien_ChiTietHoaDon();
 //                chiTietDien.setIdhoadon((int) result);
 //        chiTietDien.setTendichvu("Điện");
 //                chiTietDien.setSodiencu(oldE);
@@ -212,7 +195,7 @@ public class s {
 //                chiTietDien.setThanhtien((int) tienDien);
 //
 //// 8️⃣ Tạo chi tiết hóa đơn cho nước
-//chiTietNuoc = new ChiTietHoaDon();
+//chiTietNuoc = new qlthutien_ChiTietHoaDon();
 //                chiTietNuoc.setIdhoadon((int) result);
 //        chiTietNuoc.setTendichvu("Nước");
 //                chiTietNuoc.setSonuoccu(oldW);
@@ -221,7 +204,7 @@ public class s {
 //                chiTietNuoc.setThanhtien((int) tienNuoc);
 //
 //// 9️⃣ Insert chi tiết hóa đơn
-//chiTietHoaDonDAO = new ChiTietHoaDonDAO(TaoHoaDonActivity.this);
+//chiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(TaoHoaDonActivity.this);
 //                chiTietHoaDonDAO.insertChiTiet(chiTietDien);
 //                chiTietHoaDonDAO.insertChiTiet(chiTietNuoc);
 //

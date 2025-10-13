@@ -1,15 +1,12 @@
 package com.example.logincustomer.ui.QLthutien_nguyen;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,19 +34,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlthutien_TotalPriceAdapter;
 import com.example.logincustomer.data.Adapter.qlthutien_DichVuConAdapter;
-import com.example.logincustomer.data.DAO.ChiTietHoaDonDAO;
+import com.example.logincustomer.data.DAO.qlthutien_ChiTietHoaDonDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.DAO.qlthutien_DichVuConDAO;
 import com.example.logincustomer.data.DAO.qlthutien_GiaMacDinhDienNuocDAO;
 import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
-import com.example.logincustomer.data.Model.ChiTietHoaDon;
-import com.example.logincustomer.data.Model.DichVuCon;
-import com.example.logincustomer.data.Model.HoaDon;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
+import com.example.logincustomer.data.Model.qlthutien_ChiTietHoaDon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_HoaDon;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,11 +63,11 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     private Button btnTaoHoaDon;
     private RecyclerView recyclerView;
     private qlthutien_TotalPriceAdapter adapter;
-    private ArrayList<DichVuCon> listDichVu;
+    private ArrayList<qlthutien_DichVuCon> listDichVu;
 
     // danh sách dịch vụ con (lấy từ DB)
     private qlthutien_DichVuConDAO dichVuConDAO;
-    private ArrayList<DichVuCon> listOtherServices;
+    private ArrayList<qlthutien_DichVuCon> listOtherServices;
     private qlthutien_DichVuConAdapter otherAdapter;
     private double totalOtherServices = 0.0;
     private qlthutien_HoaDonDAO hoaDonDAO;
@@ -90,13 +86,13 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     private static final double GIA_DIEN_MACDINH = 3500;
     private static final double GIA_NUOC_MACDINH = 15000;
     private final DecimalFormat df = new DecimalFormat("#,###");
-    private ChiTietHoaDonDAO chiTietHoaDonDAO;
+    private qlthutien_ChiTietHoaDonDAO qlthutienChiTietHoaDonDAO;
     private qlphongtro_PhongTroDAO phongTroDAO;
     private qlthutien_GiaMacDinhDienNuocDAO DefaultValueWE;
-    private ChiTietHoaDon chiTietDien, chiTietNuoc,
+    private qlthutien_ChiTietHoaDon chiTietDien, chiTietNuoc,
     chitiethoadondien, chitiethoadonnuoc;
-    private HoaDon hoaDonintent;
-    private PhongTro phongtro;
+    private qlthutien_HoaDon hoaDonintent;
+    private qlphongtro_PhongTro phongtro;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,13 +102,13 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         int idhoadon = getIntent().getIntExtra("idhoadon", -1);
 
         hoaDonDAO = new qlthutien_HoaDonDAO(this);
-        chiTietHoaDonDAO = new ChiTietHoaDonDAO(this);
+        qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(this);
         dichVuConDAO = new qlthutien_DichVuConDAO(this);
         DefaultValueWE = new qlthutien_GiaMacDinhDienNuocDAO(this);
         phongTroDAO = new qlphongtro_PhongTroDAO(this);
 
-        chitiethoadondien = chiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonDien(idhoadon);
-        chitiethoadonnuoc = chiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonNuoc(idhoadon);
+        chitiethoadondien = qlthutienChiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonDien(idhoadon);
+        chitiethoadonnuoc = qlthutienChiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonNuoc(idhoadon);
 
 
         int idphong = hoaDonDAO.getIdPhongByIdHoaDon(idhoadon);
@@ -126,7 +122,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         }
 
         // ✅ Lấy hóa đơn từ DB
-        HoaDon hoaDon = hoaDonDAO.getHoaDonById(idhoadon);
+        qlthutien_HoaDon hoaDon = hoaDonDAO.getHoaDonById(idhoadon);
         if (hoaDon == null) {
             Toast.makeText(this, "Không tìm thấy hóa đơn!", Toast.LENGTH_SHORT).show();
             finish();
@@ -160,8 +156,8 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         layGiaMacDinhTuDatabase();
         listDichVu = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listDichVu.add(new DichVuCon("Tiền điện", giaDien));
-        listDichVu.add(new DichVuCon("Tiền nước", giaNuoc));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền điện", giaDien));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền nước", giaNuoc));
         adapter = new qlthutien_TotalPriceAdapter(listDichVu);
         recyclerView.setAdapter(adapter);
 
@@ -254,7 +250,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     private void calculateTotalOtherServices() {
         totalOtherServices = 0.0;
         if (listOtherServices != null) {
-            for (DichVuCon dv : listOtherServices) {
+            for (qlthutien_DichVuCon dv : listOtherServices) {
                 totalOtherServices += dv.getGiatien();
             }
         }
@@ -275,8 +271,8 @@ public class SuaHoaDonActivity extends AppCompatActivity {
 
         // Cập nhật lại list hiển thị (dùng qlthutien_TotalPriceAdapter.setValues như hiện tại)
         listDichVu.clear();
-        listDichVu.add(new DichVuCon("Tiền điện", giaDien));
-        listDichVu.add(new DichVuCon("Tiền nước", giaNuoc));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền điện", giaDien));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền nước", giaNuoc));
         // nếu adapter có phương thức setValues (như bạn đã dùng), ta giữ nguyên
         adapter.setValues(usedE, totalE, usedW, totalW);
 
@@ -521,7 +517,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         double tongTien = tienDien + tienNuoc + giaphong + totalOtherServices;
 
         // ✅ Gán dữ liệu mới cho hóa đơn
-        HoaDon hd = new HoaDon();
+        qlthutien_HoaDon hd = new qlthutien_HoaDon();
         hd.setIdphong(idphong);
         hd.setIdhoadon(idhoadon);
         hd.setNgaytaohdon(ngayTao);
@@ -538,7 +534,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
             return;
         }
         // 7️⃣ Tạo chi tiết hóa đơn cho điện
-        chiTietDien = new ChiTietHoaDon();
+        chiTietDien = new qlthutien_ChiTietHoaDon();
         chiTietDien.setIdhoadon(idhoadon);
         chiTietDien.setTendichvu("Điện");
         chiTietDien.setSodiencu(oldE);
@@ -547,7 +543,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         chiTietDien.setThanhtien((int) tienDien);
 
         // 8️⃣ Tạo chi tiết hóa đơn cho nước
-        chiTietNuoc = new ChiTietHoaDon();
+        chiTietNuoc = new qlthutien_ChiTietHoaDon();
         chiTietNuoc.setIdhoadon(idhoadon);
         chiTietNuoc.setTendichvu("Nước");
         chiTietNuoc.setSonuoccu(oldW);
@@ -556,9 +552,9 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         chiTietNuoc.setThanhtien((int) tienNuoc);
 
         // 9️⃣ Insert chi tiết hóa đơn
-        chiTietHoaDonDAO = new ChiTietHoaDonDAO(SuaHoaDonActivity.this);
-        chiTietHoaDonDAO.updateSoDienNuoc(chiTietDien);
-        chiTietHoaDonDAO.updateSoDienNuoc(chiTietNuoc);
+        qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(SuaHoaDonActivity.this);
+        qlthutienChiTietHoaDonDAO.updateSoDienNuoc(chiTietDien);
+        qlthutienChiTietHoaDonDAO.updateSoDienNuoc(chiTietNuoc);
 
         if (result > 0) {
             Toast.makeText(this, "Cập nhật hóa đơn thành công!", Toast.LENGTH_SHORT).show();

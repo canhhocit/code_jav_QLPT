@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.logincustomer.data.Adapter.qlphongtro_PhongTroAdapter;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.R;
 
 import java.util.ArrayList;
@@ -27,8 +27,8 @@ public class qlphong_activity_home extends AppCompatActivity {
     ListView listView;
     qlphongtro_PhongTroDAO dao;
     qlphongtro_PhongTroAdapter adapter;
-    List<PhongTro> listPhong;
-    PhongTro phongDangChon = null;
+    List<qlphongtro_PhongTro> listPhong;
+    qlphongtro_PhongTro phongDangChon = null;
     TextView tvtitle;
 
     private static final int REQUEST_ADD = 100;
@@ -60,7 +60,7 @@ public class qlphong_activity_home extends AppCompatActivity {
 
         // Cập nhật số người cho từng phòng (đồng bộ trước khi hiển thị)
         listPhong = dao.getAllPhongTro();
-        for (PhongTro p : listPhong) {
+        for (qlphongtro_PhongTro p : listPhong) {
             dao.updateSoNguoiPhong(p.getIdphong());
         }
 
@@ -75,7 +75,7 @@ public class qlphong_activity_home extends AppCompatActivity {
         // 🔍 Tìm kiếm
         btnSearch.setOnClickListener(v -> {
             String keyword = edtSearch.getText().toString().trim();
-            List<PhongTro> result = dao.searchPhong(keyword);
+            List<qlphongtro_PhongTro> result = dao.searchPhong(keyword);
             adapter.updateList(result);
         });
 
@@ -117,7 +117,7 @@ public class qlphong_activity_home extends AppCompatActivity {
                     return;
                 }
 
-                PhongTro phong = new PhongTro();
+                qlphongtro_PhongTro phong = new qlphongtro_PhongTro();
                 phong.setTenphong(tenPhong);
                 phong.setGia(giaPhong);
                 phong.setSonguoi(0);  // mặc định khi thêm
@@ -138,7 +138,7 @@ public class qlphong_activity_home extends AppCompatActivity {
                 double giaPhong = data.getDoubleExtra("gia", 0);
 
                 // Cập nhật lại trong danh sách
-                for (PhongTro p : listPhong) {
+                for (qlphongtro_PhongTro p : listPhong) {
                     if (p.getIdphong() == idPhong) {
                         p.setTenphong(tenPhong);
                         p.setGia(giaPhong);
@@ -150,14 +150,14 @@ public class qlphong_activity_home extends AppCompatActivity {
 
         }
     }
-    public void setPhongDangChon(PhongTro pt) {
+    public void setPhongDangChon(qlphongtro_PhongTro pt) {
         this.phongDangChon = pt;
     }
     @Override
     protected void onResume() {
         super.onResume();
 
-        for (PhongTro p : dao.getAllPhongTro()) {
+        for (qlphongtro_PhongTro p : dao.getAllPhongTro()) {
             dao.updateSoNguoiPhong(p.getIdphong());
         }
 

@@ -9,17 +9,17 @@ import android.widget.TextView;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
 public class baocao_phongAdapter extends BaseAdapter {
     private Context context;
-    private List<PhongTro> listphongtro;
+    private List<qlphongtro_PhongTro> listphongtro;
     private qlphongtro_PhongTroDAO ptDAO;
 
-    public baocao_phongAdapter(Context context, List<PhongTro> listphongtro, qlphongtro_PhongTroDAO ptDAO) {
+    public baocao_phongAdapter(Context context, List<qlphongtro_PhongTro> listphongtro, qlphongtro_PhongTroDAO ptDAO) {
         this.context = context;
         this.listphongtro = listphongtro;
         this.ptDAO = ptDAO;
@@ -46,7 +46,7 @@ public class baocao_phongAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.baocao_layout_itemds_phong,parent,false);
         }
-        PhongTro pt = listphongtro.get(position);
+        qlphongtro_PhongTro pt = listphongtro.get(position);
         TextView tenphong = convertView.findViewById(R.id.baocao_phong_tvtenphong);
         TextView songuoi = convertView.findViewById(R.id.baocao_phong_tvsonguoi);
         TextView gia = convertView.findViewById(R.id.baocao_phong_tvgiatien);

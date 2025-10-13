@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.R;
 
 public class UpdatePhongActivity extends AppCompatActivity {
@@ -51,7 +51,7 @@ public class UpdatePhongActivity extends AppCompatActivity {
             }
 
             double gia = Double.parseDouble(giaStr);
-            PhongTro phong = new PhongTro(idPhong, ten, 0, gia, 0);
+            qlphongtro_PhongTro phong = new qlphongtro_PhongTro(idPhong, ten, 0, gia, 0);
             int result = qlphongtroPhongTroDAO.updatePhongTro(phong);
 
             if (result > 0) {

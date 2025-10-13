@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.Adapter.qlthutien_DichVuConAdapter;
 import com.example.logincustomer.data.DAO.qlthutien_DichVuConDAO;
-import com.example.logincustomer.data.Model.DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class qlthutien_TaoHoaDonAdapter {
     private boolean isExpanded = false;
 
     private qlthutien_DichVuConAdapter adapter;
-    private ArrayList<DichVuCon> list;
+    private ArrayList<qlthutien_DichVuCon> list;
     private double totalOtherServices = 0.0;
 
     private final DecimalFormat df = new DecimalFormat("#,###");
@@ -76,7 +75,7 @@ public class qlthutien_TaoHoaDonAdapter {
 
     private void calculateTotal() {
         totalOtherServices = 0.0;
-        for (DichVuCon dv : list) {
+        for (qlthutien_DichVuCon dv : list) {
             totalOtherServices += dv.getGiatien();
         }
         if (listener != null) listener.onTotalChange(totalOtherServices);

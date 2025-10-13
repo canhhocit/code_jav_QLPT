@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +26,7 @@ import com.example.logincustomer.data.Adapter.baocao_phongAdapter;
 import com.example.logincustomer.data.DAO.baocao_doanhthuDAO;
 import com.example.logincustomer.data.DAO.baocao_hopdongDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.data.Model.baocao_doanhthu;
 import com.example.logincustomer.data.Model.baocao_hopdong;
 import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_chucnang;
@@ -36,7 +35,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 
 import java.util.ArrayList;
@@ -217,7 +215,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
     private void listviewphong() {
         bc_ptDAO = new qlphongtro_PhongTroDAO(context);
-        List<PhongTro> listPT = bc_ptDAO.getAllPhongTro();
+        List<qlphongtro_PhongTro> listPT = bc_ptDAO.getAllPhongTro();
         ptAdapter =new baocao_phongAdapter(context,listPT, bc_ptDAO);
         lv_Phong.setAdapter(ptAdapter);
     }

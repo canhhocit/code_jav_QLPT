@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.ui.QLphong_tam.DetailInRoom;
 import com.example.logincustomer.ui.QLphong_tam.qlphong_activity_home;
 import com.example.logincustomer.ui.QLthutien_nguyen.BillRoomActivity;
@@ -22,18 +22,19 @@ import com.example.logincustomer.ui.QLthutien_nguyen.SuaHoaDonActivity;
 import com.example.logincustomer.ui.QLthutien_nguyen.TaoHoaDonActivity;
 import com.example.logincustomer.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class qlphongtro_PhongTroAdapter extends BaseAdapter {
     private Context context;
-    private List<PhongTro> list;
+    private List<qlphongtro_PhongTro> list;
     private LayoutInflater inflater;
     private qlthutien_HoaDonDAO qlthutienHoaDonDAO;
     private qlphongtro_PhongTroDAO qlphongtroPhongTroDAO;
-
+    private final DecimalFormat df = new DecimalFormat("#,###");
     private int selectedPosition = -1;
 
-    public qlphongtro_PhongTroAdapter(Context context, List<PhongTro> list) {
+    public qlphongtro_PhongTroAdapter(Context context, List<qlphongtro_PhongTro> list) {
         this.context = context;
         this.list = list;
         this.inflater = LayoutInflater.from(context);
@@ -62,11 +63,11 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
         TextView txtXemChiTiet = convertView.findViewById(R.id.txtXemChiTiet_itemdsphong);
         ImageView iconMenu = convertView.findViewById(R.id.iconMoreOption_itemdsphong);
 
-        PhongTro pt = list.get(i);
+        qlphongtro_PhongTro pt = list.get(i);
 
         txtPhong.setText(pt.getTenphong());
         txtSoNguoi.setText(String.valueOf(pt.getSonguoi()));
-        txtGia.setText(String.valueOf(pt.getGia()));
+        txtGia.setText(df.format(pt.getGia()));
 
         // Nếu là dòng được chọn thì tô màu
         if (i == selectedPosition) {
@@ -125,10 +126,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
 
                 if (itemId == R.id.menu_add) {
                     // 🔍 Kiểm tra phòng đã có hóa đơn chưa
-                    if (check == 1) {
-                        Toast.makeText(context, "Phòng này có hóa đơn chưa thanh toán, không thể tạo thêm!", Toast.LENGTH_SHORT).show();
-                        return true;
-                    } else if (check == 2) {
+                    if (check == 2) {
                         Toast.makeText(context, "Phòng này đã có hóa đơn tháng này, không thể tạo thêm!", Toast.LENGTH_SHORT).show();
                         return true;
                     }
@@ -207,7 +205,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
         });
         return convertView;
     }
-    public void updateList(List<PhongTro> newList) {
+    public void updateList(List<qlphongtro_PhongTro> newList) {
         this.list = newList;
         notifyDataSetChanged();
     }

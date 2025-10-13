@@ -1,19 +1,19 @@
 package com.example.logincustomer.data.Model;
 
-public class DichVuCon {
+public class qlthutien_DichVuCon {
     private int iddichvucon;
     private int idchitiethoadon;
     private String tendichvu;
     private double giatien;
 
-    public DichVuCon(int iddichvucon, int idchitiethoadon, String tendichvu, double giatien) {
+    public qlthutien_DichVuCon(int iddichvucon, int idchitiethoadon, String tendichvu, double giatien) {
         this.iddichvucon = iddichvucon;
         this.idchitiethoadon = idchitiethoadon;
         this.tendichvu = tendichvu;
         this.giatien = giatien;
     }
 
-    public DichVuCon(String tendichvu, double giatien) {
+    public qlthutien_DichVuCon(String tendichvu, double giatien) {
         this.tendichvu = tendichvu;
         this.giatien = giatien;
     }

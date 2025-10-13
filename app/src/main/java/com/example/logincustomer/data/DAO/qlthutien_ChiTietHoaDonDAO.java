@@ -6,21 +6,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
-import com.example.logincustomer.data.Model.ChiTietHoaDon;
+import com.example.logincustomer.data.Model.qlthutien_ChiTietHoaDon;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChiTietHoaDonDAO {
+public class qlthutien_ChiTietHoaDonDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
-    public ChiTietHoaDonDAO(Context context) {
+    public qlthutien_ChiTietHoaDonDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
     }
 
     // Insert 1 chi tiết
-    public long insertChiTiet(ChiTietHoaDon ct) {
+    public long insertChiTiet(qlthutien_ChiTietHoaDon ct) {
         ContentValues values = new ContentValues();
         values.put("idhoadon", ct.getIdhoadon());
         values.put("tendichvu", ct.getTendichvu());
@@ -34,12 +34,12 @@ public class ChiTietHoaDonDAO {
     }
 
     // Lấy danh sách chi tiết theo idhoadon
-    public ArrayList<ChiTietHoaDon> getChiTietByHoaDonId(int idHoaDon) {
-        ArrayList<ChiTietHoaDon> list = new ArrayList<>();
+    public ArrayList<qlthutien_ChiTietHoaDon> getChiTietByHoaDonId(int idHoaDon) {
+        ArrayList<qlthutien_ChiTietHoaDon> list = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM ChiTietHoaDon WHERE idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
         if (c.moveToFirst()) {
             do {
-                ChiTietHoaDon ct = new ChiTietHoaDon();
+                qlthutien_ChiTietHoaDon ct = new qlthutien_ChiTietHoaDon();
                 ct.setIdchitiethoadon(c.getInt(c.getColumnIndexOrThrow("idchitiethoadon")));
                 ct.setIdhoadon(c.getInt(c.getColumnIndexOrThrow("idhoadon")));
                 ct.setTendichvu(c.getString(c.getColumnIndexOrThrow("tendichvu")));
@@ -60,13 +60,13 @@ public class ChiTietHoaDonDAO {
     public int deleteByHoaDonId(int idHoaDon) {
         return db.delete("ChiTietHoaDon", "idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
     }
-    public List<ChiTietHoaDon> getByHoaDonId(int idHoaDon) {
-        List<ChiTietHoaDon> list = new ArrayList<>();
+    public List<qlthutien_ChiTietHoaDon> getByHoaDonId(int idHoaDon) {
+        List<qlthutien_ChiTietHoaDon> list = new ArrayList<>();
         db = dbHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM ChiTietHoaDon WHERE idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
         if (c.moveToFirst()) {
             do {
-                ChiTietHoaDon ct = new ChiTietHoaDon();
+                qlthutien_ChiTietHoaDon ct = new qlthutien_ChiTietHoaDon();
                 ct.setIdchitiethoadon(c.getInt(c.getColumnIndexOrThrow("idchitiethoadon")));
                 ct.setIdhoadon(c.getInt(c.getColumnIndexOrThrow("idhoadon")));
                 ct.setTendichvu(c.getString(c.getColumnIndexOrThrow("tendichvu")));
@@ -83,7 +83,7 @@ public class ChiTietHoaDonDAO {
         return list;
     }
 
-    public int updateSoDienNuoc(ChiTietHoaDon chiTiet) {
+    public int updateSoDienNuoc(qlthutien_ChiTietHoaDon chiTiet) {
         ContentValues values = new ContentValues();
         values.put("sodiencu", chiTiet.getSodiencu());
         values.put("sodienmoi", chiTiet.getSodienmoi());
@@ -102,9 +102,9 @@ public class ChiTietHoaDonDAO {
         return rows;
     }
 
-    public ChiTietHoaDon getChiTietHoaDonByIdHoaDonDien(int idHoaDon) {
+    public qlthutien_ChiTietHoaDon getChiTietHoaDonByIdHoaDonDien(int idHoaDon) {
         db = dbHelper.getReadableDatabase();
-        ChiTietHoaDon chiTiet = null;
+        qlthutien_ChiTietHoaDon chiTiet = null;
 
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM ChiTietHoaDon WHERE idhoadon = ? AND tendichvu = ?",
@@ -112,7 +112,7 @@ public class ChiTietHoaDonDAO {
         );
 
         if (cursor.moveToFirst()) {
-            chiTiet = new ChiTietHoaDon();
+            chiTiet = new qlthutien_ChiTietHoaDon();
             chiTiet.setIdchitiethoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idchitiethoadon")));
             chiTiet.setIdhoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idhoadon")));
             chiTiet.setTendichvu(cursor.getString(cursor.getColumnIndexOrThrow("tendichvu")));
@@ -128,9 +128,9 @@ public class ChiTietHoaDonDAO {
         return chiTiet;
     }
 
-    public ChiTietHoaDon getChiTietHoaDonByIdHoaDonNuoc(int idHoaDon) {
+    public qlthutien_ChiTietHoaDon getChiTietHoaDonByIdHoaDonNuoc(int idHoaDon) {
         db = dbHelper.getReadableDatabase();
-        ChiTietHoaDon chiTiet = null;
+        qlthutien_ChiTietHoaDon chiTiet = null;
 
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM ChiTietHoaDon WHERE idhoadon = ? AND tendichvu = ?",
@@ -138,7 +138,7 @@ public class ChiTietHoaDonDAO {
         );
 
         if (cursor.moveToFirst()) {
-            chiTiet = new ChiTietHoaDon();
+            chiTiet = new qlthutien_ChiTietHoaDon();
             chiTiet.setIdchitiethoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idchitiethoadon")));
             chiTiet.setIdhoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idhoadon")));
             chiTiet.setTendichvu(cursor.getString(cursor.getColumnIndexOrThrow("tendichvu")));

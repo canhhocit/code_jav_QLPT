@@ -12,7 +12,7 @@ import com.example.logincustomer.data.Adapter.qlphongtro_PersonInRoomAdapter;
 import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.Model.khachthue;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_addPerson;
 import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucnang;
 
@@ -44,7 +44,7 @@ public class DetailInRoom extends AppCompatActivity {
         khachDAO = new qlkhachthue_khachthueDAO(this);
 
         // set tên phòng
-        PhongTro phong = phongDAO.getPhongById(idPhong);
+        qlphongtro_PhongTro phong = phongDAO.getPhongById(idPhong);
         if (phong != null) {
             txtTenPhong.setText(phong.getTenphong());
         } else {

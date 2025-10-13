@@ -1,13 +1,9 @@
 package com.example.logincustomer.data.Adapter;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,20 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
-import com.example.logincustomer.data.Model.HoaDon;
-import com.example.logincustomer.data.Model.PhongTro;
-import com.example.logincustomer.ui.QLphong_tam.UpdatePhongActivity;
+import com.example.logincustomer.data.Model.qlthutien_HoaDon;
 import com.example.logincustomer.ui.QLthutien_nguyen.BillRoomActivity;
 import com.example.logincustomer.ui.QLthutien_nguyen.SuaHoaDonActivity;
-import com.example.logincustomer.ui.QLthutien_nguyen.TaoHoaDonActivity;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class StatusRoomAdapter extends RecyclerView.Adapter<StatusRoomAdapter.ViewHolder> {
+public class qlthutien_StatusRoomAdapter extends RecyclerView.Adapter<qlthutien_StatusRoomAdapter.ViewHolder> {
 
     private Context context;
-    private List<HoaDon> hoaDonList;
+    private List<qlthutien_HoaDon> hoaDonList;
     private OnItemClickListener listener;
     private qlphongtro_PhongTroDAO phongTroDAO;
     private qlthutien_HoaDonDAO qlthutienHoaDonDAO;
@@ -42,11 +35,11 @@ public class StatusRoomAdapter extends RecyclerView.Adapter<StatusRoomAdapter.Vi
 
     // Interface để truyền sự kiện click
     public interface OnItemClickListener {
-        void onItemClick(HoaDon hoaDon);
-        void onMenuClick(HoaDon hoaDon, View view);
+        void onItemClick(qlthutien_HoaDon hoaDon);
+        void onMenuClick(qlthutien_HoaDon hoaDon, View view);
     }
 
-    public StatusRoomAdapter(Context context, List<HoaDon> hoaDonList) {
+    public qlthutien_StatusRoomAdapter(Context context, List<qlthutien_HoaDon> hoaDonList) {
         this.context = context;
         this.hoaDonList = hoaDonList;
         phongTroDAO = new qlphongtro_PhongTroDAO(context);
@@ -55,14 +48,14 @@ public class StatusRoomAdapter extends RecyclerView.Adapter<StatusRoomAdapter.Vi
 
     @NonNull
     @Override
-    public StatusRoomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public qlthutien_StatusRoomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.qlthutien_item_statusroom, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StatusRoomAdapter.ViewHolder holder, int position) {
-        HoaDon hoaDon = hoaDonList.get(position);
+    public void onBindViewHolder(@NonNull qlthutien_StatusRoomAdapter.ViewHolder holder, int position) {
+        qlthutien_HoaDon hoaDon = hoaDonList.get(position);
 
         holder.tvNgay.setText(hoaDon.getNgaytaohdon());
         String tenphong = phongTroDAO.getTenPhongById(hoaDon.getIdphong());
@@ -171,5 +164,12 @@ public class StatusRoomAdapter extends RecyclerView.Adapter<StatusRoomAdapter.Vi
             iconMenu = itemView.findViewById(R.id.iconMoreOption);
         }
     }
+    public void setHoaDonList(List<qlthutien_HoaDon> list) {
+        this.hoaDonList.clear();         // Xóa dữ liệu cũ
+        this.hoaDonList.addAll(list);    // Thêm dữ liệu mới
+        notifyDataSetChanged();          // Báo cho RecyclerView vẽ lại
+    }
+
+
 }
 

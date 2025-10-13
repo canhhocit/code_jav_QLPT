@@ -9,7 +9,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,17 +36,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlthutien_TotalPriceAdapter;
 import com.example.logincustomer.data.Adapter.qlthutien_DichVuConAdapter;
-import com.example.logincustomer.data.DAO.ChiTietHoaDonDAO;
+import com.example.logincustomer.data.DAO.qlthutien_ChiTietHoaDonDAO;
 import com.example.logincustomer.data.DAO.qlthutien_DichVuConDAO;
 import com.example.logincustomer.data.DAO.qlthutien_GiaMacDinhDienNuocDAO;
 import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
-import com.example.logincustomer.data.Model.ChiTietHoaDon;
-import com.example.logincustomer.data.Model.DichVuCon;
-import com.example.logincustomer.data.Model.HoaDon;
+import com.example.logincustomer.data.Model.qlthutien_ChiTietHoaDon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_HoaDon;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,11 +63,11 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private Button btnTaoHoaDon;
     private RecyclerView recyclerView;
     private qlthutien_TotalPriceAdapter adapter;
-    private ArrayList<DichVuCon> listDichVu;
+    private ArrayList<qlthutien_DichVuCon> listDichVu;
 
     // danh sách dịch vụ con (lấy từ DB)
     private qlthutien_DichVuConDAO dichVuConDAO;
-    private ArrayList<DichVuCon> listOtherServices;
+    private ArrayList<qlthutien_DichVuCon> listOtherServices;
     private qlthutien_DichVuConAdapter otherAdapter;
     private double totalOtherServices = 0.0;
     private qlthutien_HoaDonDAO hoaDonDAO;
@@ -88,10 +86,10 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private static final double GIA_DIEN_MACDINH = 3500;
     private static final double GIA_NUOC_MACDINH = 15000;
     private final DecimalFormat df = new DecimalFormat("#,###");
-    private ChiTietHoaDonDAO chiTietHoaDonDAO;
+    private qlthutien_ChiTietHoaDonDAO qlthutienChiTietHoaDonDAO;
     private qlthutien_GiaMacDinhDienNuocDAO DefaultValueWE;
-    private ChiTietHoaDon chiTietDien, chiTietNuoc, chitiethoadon;
-    private HoaDon hoaDonintent;
+    private qlthutien_ChiTietHoaDon chiTietDien, chiTietNuoc, chitiethoadon;
+    private qlthutien_HoaDon hoaDonintent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,13 +97,11 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         setContentView(R.layout.qlthutien_layout_total_priceroom);
         anhxaid();
 
-
         int idphong = getIntent().getIntExtra("idPhong", 0);
         String tenphong = getIntent().getStringExtra("tenphong");
         double giaphong = getIntent().getDoubleExtra("giaphong", 0);
 
         // giữ nguyên kiểu hiển thị hiện tại (nếu muốn format đẹp: df.format(giaphong) + " đ")
-
         txtGiaPhong.setText(df.format(giaphong));
         txtTenPhong.setText(String.valueOf(tenphong));
 
@@ -115,8 +111,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         // Khởi tạo danh sách dịch vụ cho recycler chính (Tiền điện, tiền nước)
         listDichVu = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listDichVu.add(new DichVuCon("Tiền điện", giaDien));
-        listDichVu.add(new DichVuCon("Tiền nước", giaNuoc));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền điện", giaDien));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền nước", giaNuoc));
         adapter = new qlthutien_TotalPriceAdapter(listDichVu);
         recyclerView.setAdapter(adapter);
 
@@ -216,7 +212,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             double tongTien = tienDien + tienNuoc + giaphong + totalOtherServices; // tùy bạn có thể tính thêm
 
             // 5️⃣ Tạo hóa đơn chính
-            HoaDon hd = new HoaDon();
+            qlthutien_HoaDon hd = new qlthutien_HoaDon();
             hd.setIdphong(idphong);
             hd.setNgaytaohdon(ngayTao);
             hd.setTrangthai(false);
@@ -227,7 +223,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             hd.setImgNuocCu(pathNuocCu);
             hd.setImgNuocMoi(pathNuocMoi);
 
-            // 6️⃣ Insert vào bảng HoaDon
+            // 6️⃣ Insert vào bảng qlthutien_HoaDon
             hoaDonDAO = new qlthutien_HoaDonDAO(TaoHoaDonActivity.this);
             long result = hoaDonDAO.insertHoaDon(hd);
 
@@ -237,7 +233,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             }
 
             // 7️⃣ Tạo chi tiết hóa đơn cho điện
-            chiTietDien = new ChiTietHoaDon();
+            chiTietDien = new qlthutien_ChiTietHoaDon();
             chiTietDien.setIdhoadon((int) result);
             chiTietDien.setTendichvu("Điện");
             chiTietDien.setSodiencu(oldE);
@@ -246,7 +242,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             chiTietDien.setThanhtien((int) tienDien);
 
             // 8️⃣ Tạo chi tiết hóa đơn cho nước
-            chiTietNuoc = new ChiTietHoaDon();
+            chiTietNuoc = new qlthutien_ChiTietHoaDon();
             chiTietNuoc.setIdhoadon((int) result);
             chiTietNuoc.setTendichvu("Nước");
             chiTietNuoc.setSonuoccu(oldW);
@@ -255,9 +251,9 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             chiTietNuoc.setThanhtien((int) tienNuoc);
 
             // 9️⃣ Insert chi tiết hóa đơn
-            chiTietHoaDonDAO = new ChiTietHoaDonDAO(TaoHoaDonActivity.this);
-            chiTietHoaDonDAO.insertChiTiet(chiTietDien);
-            chiTietHoaDonDAO.insertChiTiet(chiTietNuoc);
+            qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(TaoHoaDonActivity.this);
+            qlthutienChiTietHoaDonDAO.insertChiTiet(chiTietDien);
+            qlthutienChiTietHoaDonDAO.insertChiTiet(chiTietNuoc);
 
             if (result != -1) {
                 Toast.makeText(this, "Thêm hóa đơn thành công!", Toast.LENGTH_SHORT).show();
@@ -329,7 +325,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private void calculateTotalOtherServices() {
         totalOtherServices = 0.0;
         if (listOtherServices != null) {
-            for (DichVuCon dv : listOtherServices) {
+            for (qlthutien_DichVuCon dv : listOtherServices) {
                 totalOtherServices += dv.getGiatien();
             }
         }
@@ -350,8 +346,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
         // Cập nhật lại list hiển thị (dùng qlthutien_TotalPriceAdapter.setValues như hiện tại)
         listDichVu.clear();
-        listDichVu.add(new DichVuCon("Tiền điện", giaDien));
-        listDichVu.add(new DichVuCon("Tiền nước", giaNuoc));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền điện", giaDien));
+        listDichVu.add(new qlthutien_DichVuCon("Tiền nước", giaNuoc));
         // nếu adapter có phương thức setValues (như bạn đã dùng), ta giữ nguyên
         adapter.setValues(usedE, totalE, usedW, totalW);
 

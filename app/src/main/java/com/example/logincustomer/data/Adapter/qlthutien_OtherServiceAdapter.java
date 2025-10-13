@@ -12,22 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.Model.DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 
 import java.util.ArrayList;
 
 public class qlthutien_OtherServiceAdapter extends RecyclerView.Adapter<qlthutien_OtherServiceAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<DichVuCon> list;
+    private ArrayList<qlthutien_DichVuCon> list;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onEdit(DichVuCon service);
-        void onDelete(DichVuCon service);
+        void onEdit(qlthutien_DichVuCon service);
+        void onDelete(qlthutien_DichVuCon service);
     }
 
-    public qlthutien_OtherServiceAdapter(Context context, ArrayList<DichVuCon> list, OnItemClickListener listener) {
+    public qlthutien_OtherServiceAdapter(Context context, ArrayList<qlthutien_DichVuCon> list, OnItemClickListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
@@ -42,7 +42,7 @@ public class qlthutien_OtherServiceAdapter extends RecyclerView.Adapter<qlthutie
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DichVuCon service = list.get(position);
+        qlthutien_DichVuCon service = list.get(position);
         holder.txtTen.setText(service.getTendichvu());
         holder.txtGia.setText(String.valueOf(service.getGiatien()));
 

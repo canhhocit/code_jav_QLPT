@@ -1,5 +1,5 @@
 package com.example.logincustomer.data.Model;
-public class HoaDon {
+public class qlthutien_HoaDon {
     private int idhoadon;
     private int idphong;
     private String ngaytaohdon;
@@ -10,10 +10,10 @@ public class HoaDon {
     private String imgDienMoi;
     private String imgNuocCu;
     private String imgNuocMoi;
-    public HoaDon() {}
-    public HoaDon(int idhoadon, int idphong, String ngaytaohdon, boolean trangthai,
-                  String ghichu, double tongtien,
-                  String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
+    public qlthutien_HoaDon() {}
+    public qlthutien_HoaDon(int idhoadon, int idphong, String ngaytaohdon, boolean trangthai,
+                            String ghichu, double tongtien,
+                            String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
         this.idhoadon = idhoadon;
         this.idphong = idphong;
         this.ngaytaohdon = ngaytaohdon;
@@ -26,8 +26,8 @@ public class HoaDon {
         this.imgNuocMoi = imgNuocMoi;
     }
     // Constructor rút gọn khi tạo mới (trạng thái mặc định là chưa thanh toán)
-    public HoaDon(int idphong, String ngaytaohdon, String ghichu, double tongtien,
-                  String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
+    public qlthutien_HoaDon(int idphong, String ngaytaohdon, String ghichu, double tongtien,
+                            String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
         this.idphong = idphong;
         this.ngaytaohdon = ngaytaohdon;
         this.trangthai = false;

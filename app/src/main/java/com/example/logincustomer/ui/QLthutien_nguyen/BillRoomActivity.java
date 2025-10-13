@@ -25,20 +25,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlthutien_DichVuConAdapter;
-import com.example.logincustomer.data.DAO.ChiTietHoaDonDAO;
+import com.example.logincustomer.data.DAO.qlthutien_ChiTietHoaDonDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
 import com.example.logincustomer.data.DAO.qlthutien_DichVuConDAO;
 import com.example.logincustomer.data.DAO.qlthutien_GiaMacDinhDienNuocDAO;
 import com.example.logincustomer.data.DAO.qlthutien_HoaDonDAO;
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
-import com.example.logincustomer.data.Model.ChiTietHoaDon;
-import com.example.logincustomer.data.Model.DichVuCon;
-import com.example.logincustomer.data.Model.HoaDon;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlthutien_ChiTietHoaDon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_HoaDon;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.ui.Manager_Home.activity_manager;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.io.File;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class BillRoomActivity extends AppCompatActivity {
     private Button btnBackBillRoom, btnPayBillRoom;
     // danh sách dịch vụ con (lấy từ DB)
     private qlthutien_DichVuConDAO dichVuConDAO;
-    private ArrayList<DichVuCon> listOtherServices;
+    private ArrayList<qlthutien_DichVuCon> listOtherServices;
     private qlthutien_DichVuConAdapter otherAdapter;
     private double totalOtherServices = 0.0;
     private RecyclerView recyclerOtherService;
@@ -69,7 +68,7 @@ public class BillRoomActivity extends AppCompatActivity {
     private final DecimalFormat df = new DecimalFormat("#,###");
     private int idHoaDon;
     private qlthutien_HoaDonDAO hoaDonDAO;
-    private ChiTietHoaDonDAO chiTietHoaDonDAO;
+    private qlthutien_ChiTietHoaDonDAO qlthutienChiTietHoaDonDAO;
     private qlphongtro_PhongTroDAO phongTroDAO;
     private qlthutien_GiaMacDinhDienNuocDAO dienNuocDAO;
     private boolean dathanhtoan = false;
@@ -110,7 +109,7 @@ public class BillRoomActivity extends AppCompatActivity {
         }
 
         hoaDonDAO = new qlthutien_HoaDonDAO(this);
-        chiTietHoaDonDAO = new ChiTietHoaDonDAO(this);
+        qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(this);
         phongTroDAO = new qlphongtro_PhongTroDAO(this);
         dienNuocDAO = new qlthutien_GiaMacDinhDienNuocDAO(this);
 
@@ -163,7 +162,7 @@ public class BillRoomActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Log.d("DEBUG", "Đã nhấn vào txtdetailWbillroom");
-                HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
+                qlthutien_HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
                 if (hd == null) {
                     Log.e("DEBUG", "Không tìm thấy hóa đơn");
                     return;
@@ -178,14 +177,14 @@ public class BillRoomActivity extends AppCompatActivity {
         txtdetailEbillroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
+                qlthutien_HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
                 showBottomSheetEImages(hd);
             }
         });
     }
 
     private void hienThiHoaDon(int idHoaDon) {
-        HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
+        qlthutien_HoaDon hd = hoaDonDAO.getHoaDonById(idHoaDon);
 
         if (hd == null) {
             Toast.makeText(this, "Không tìm thấy dữ liệu hóa đơn!", Toast.LENGTH_SHORT).show();
@@ -193,7 +192,7 @@ public class BillRoomActivity extends AppCompatActivity {
         }
 
         // Lấy thông tin phòng
-        PhongTro phong = phongTroDAO.getPhongById(hd.getIdphong());
+        qlphongtro_PhongTro phong = phongTroDAO.getPhongById(hd.getIdphong());
         if (phong != null) {
             txtRoomBillRoom.setText("" + phong.getTenphong());
             txtQuantityPeopleBillRoom.setText("" + phong.getSonguoi());
@@ -207,8 +206,8 @@ public class BillRoomActivity extends AppCompatActivity {
         txtSumMoneyBillRoom.setText(String.format("%,.0f đ", hd.getTongtien()));
 
         // Lấy chi tiết hóa đơn (Điện & Nước)
-        List<ChiTietHoaDon> chiTietList = chiTietHoaDonDAO.getByHoaDonId(idHoaDon);
-        for (ChiTietHoaDon ct : chiTietList) {
+        List<qlthutien_ChiTietHoaDon> chiTietList = qlthutienChiTietHoaDonDAO.getByHoaDonId(idHoaDon);
+        for (qlthutien_ChiTietHoaDon ct : chiTietList) {
             if (ct.getTendichvu().equalsIgnoreCase("Điện")) {
                 txtOldElectricBillRoom.setText(String.valueOf(ct.getSodiencu()));
                 txtNewElectricBillRoom.setText(String.valueOf(ct.getSodienmoi()));
@@ -301,13 +300,13 @@ public class BillRoomActivity extends AppCompatActivity {
     private void calculateTotalOtherServices() {
         totalOtherServices = 0.0;
         if (listOtherServices != null) {
-            for (DichVuCon dv : listOtherServices) {
+            for (qlthutien_DichVuCon dv : listOtherServices) {
                 totalOtherServices += dv.getGiatien();
             }
         }
     }
 
-    private void checktrangthai(HoaDon hd){
+    private void checktrangthai(qlthutien_HoaDon hd){
         dathanhtoan = hd.isTrangthai();
         if (dathanhtoan) {
             imgStatusBillRoom.setImageResource(R.drawable.img_correct);  // ảnh "đã thanh toán"
@@ -320,7 +319,7 @@ public class BillRoomActivity extends AppCompatActivity {
         }
     }
 
-    private void showBottomSheetWImages(HoaDon hoaDon) {
+    private void showBottomSheetWImages(qlthutien_HoaDon hoaDon) {
         bottomSheetDialog = new BottomSheetDialog(this);
         View view = getLayoutInflater().inflate(R.layout.qlthutien_layout_bottomsheet, null);
         bottomSheetDialog.setContentView(view);
@@ -334,7 +333,7 @@ public class BillRoomActivity extends AppCompatActivity {
 
         bottomSheetDialog.show();
     }
-    private void showBottomSheetEImages(HoaDon hoaDon) {
+    private void showBottomSheetEImages(qlthutien_HoaDon hoaDon) {
         bottomSheetDialog = new BottomSheetDialog(this);
         View view = getLayoutInflater().inflate(R.layout.qlthutien_layout_bottomsheet, null);
         bottomSheetDialog.setContentView(view);

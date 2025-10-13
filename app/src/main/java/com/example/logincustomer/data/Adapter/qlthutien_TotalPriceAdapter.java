@@ -9,18 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.Model.DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class qlthutien_TotalPriceAdapter extends RecyclerView.Adapter<qlthutien_TotalPriceAdapter.ViewHolder> {
 
-    private final ArrayList<DichVuCon> list;
+    private final ArrayList<qlthutien_DichVuCon> list;
     private double usedE, totalE, usedW, totalW;
     private final DecimalFormat df = new DecimalFormat("#,###");
 
-    public qlthutien_TotalPriceAdapter(ArrayList<DichVuCon> list) {
+    public qlthutien_TotalPriceAdapter(ArrayList<qlthutien_DichVuCon> list) {
         this.list = list;
     }
 
@@ -42,7 +42,7 @@ public class qlthutien_TotalPriceAdapter extends RecyclerView.Adapter<qlthutien_
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DichVuCon dv = list.get(position);
+        qlthutien_DichVuCon dv = list.get(position);
 
         holder.txtTen.setText(dv.getTendichvu());
         if (position == 0) {
