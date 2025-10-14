@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ECEFF1"
+    android:background="#549DCC"
     tools:context=".ui.QLbaocao_canh.baocao_activity_homeBC"
     android:padding="5dp">
 

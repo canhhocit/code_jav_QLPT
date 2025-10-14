@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_btnthuchi_them"
-        android:title="Thêm khoản thu/chi" />
+        android:title="➕Thêm khoản thu/chi" />
     <item
         android:id="@+id/menu_btnthuchi_ds"
-        android:title="Xem danh sách"/>
+        android:title="📑Xem danh sách"/>
+    <item
+        android:id="@+id/menu_btnthuchi_bieudo"
+        android:title="📊Xem biểu đồ"/>
 </menu>

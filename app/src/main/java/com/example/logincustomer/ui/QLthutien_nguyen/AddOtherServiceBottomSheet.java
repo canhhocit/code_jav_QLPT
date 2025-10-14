@@ -10,8 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 
 import com.example.logincustomer.R;
-import com.example.logincustomer.data.Model.DichVuCon;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class AddOtherServiceBottomSheet extends BottomSheetDialog {
@@ -19,10 +18,10 @@ public class AddOtherServiceBottomSheet extends BottomSheetDialog {
     private EditText edtName, edtPrice;
     private Button btnBack, btnSave;
     private OnSaveListener listener;
-    private DichVuCon existingService;
+    private qlthutien_DichVuCon existingService;
 
     public interface OnSaveListener {
-        void onSave(DichVuCon service);
+        void onSave(qlthutien_DichVuCon service);
     }
 
     public AddOtherServiceBottomSheet(@NonNull Context context, OnSaveListener listener) {
@@ -30,7 +29,7 @@ public class AddOtherServiceBottomSheet extends BottomSheetDialog {
         this.listener = listener;
     }
 
-    public AddOtherServiceBottomSheet(@NonNull Context context, DichVuCon service, OnSaveListener listener) {
+    public AddOtherServiceBottomSheet(@NonNull Context context, qlthutien_DichVuCon service, OnSaveListener listener) {
         super(context);
         this.existingService = service;
         this.listener = listener;
@@ -70,7 +69,7 @@ public class AddOtherServiceBottomSheet extends BottomSheetDialog {
             }
 
             if (existingService == null) {
-                listener.onSave(new DichVuCon(name, price));
+                listener.onSave(new qlthutien_DichVuCon(name, price));
             } else {
                 existingService.setTendichvu(name);
                 existingService.setGiatien(price);

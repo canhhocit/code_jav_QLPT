@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_savefile"
+        android:title="Lưu doanh thu của năm vào file" />
+
+    <item
+        android:id="@+id/menu_deletefile"
+        android:title="Xóa file" />
+    <item
+        android:id="@+id/menu_openfile"
+        android:title="Mở file" />
+</menu>

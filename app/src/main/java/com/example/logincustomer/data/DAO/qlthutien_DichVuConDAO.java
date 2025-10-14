@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
-import com.example.logincustomer.data.Model.DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class qlthutien_DichVuConDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-    public long insert(DichVuCon dichVuCon) {
+    public long insert(qlthutien_DichVuCon dichVuCon) {
         ContentValues values = new ContentValues();
         values.put("tendichvu", dichVuCon.getTendichvu());
         values.put("giatien", dichVuCon.getGiatien());
@@ -26,7 +26,7 @@ public class qlthutien_DichVuConDAO {
         return db.insert("DichVuCon", null, values);
     }
 
-    public int update(DichVuCon dichVuCon) {
+    public int update(qlthutien_DichVuCon dichVuCon) {
         ContentValues values = new ContentValues();
         values.put("tendichvu", dichVuCon.getTendichvu());
         values.put("giatien", dichVuCon.getGiatien());
@@ -38,12 +38,12 @@ public class qlthutien_DichVuConDAO {
         return db.delete("DichVuCon", "iddichvucon = ?", new String[]{String.valueOf(id)});
     }
 
-    // 🔹 Xoá toàn bộ bảng DichVuCon
+    // 🔹 Xoá toàn bộ bảng qlthutien_DichVuCon
     public void deleteAll() {
         db.delete("DichVuCon", null, null);
     }
-    public ArrayList<DichVuCon> getAll() {
-        ArrayList<DichVuCon> list = new ArrayList<>();
+    public ArrayList<qlthutien_DichVuCon> getAll() {
+        ArrayList<qlthutien_DichVuCon> list = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM DichVuCon", null);
         if (cursor.moveToFirst()) {
             do {
@@ -51,7 +51,7 @@ public class qlthutien_DichVuConDAO {
                 int idChiTiet = cursor.getInt(1);
                 String ten = cursor.getString(2);
                 double gia = cursor.getDouble(3);
-                list.add(new DichVuCon(id, idChiTiet, ten, gia));
+                list.add(new qlthutien_DichVuCon(id, idChiTiet, ten, gia));
             } while (cursor.moveToNext());
         }
         cursor.close();

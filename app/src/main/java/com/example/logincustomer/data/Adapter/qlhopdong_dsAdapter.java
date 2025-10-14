@@ -42,7 +42,6 @@ public class qlhopdong_dsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        // Dùng ViewHolder để tối ưu hiệu năng listview
         if (convertView == null) {
             convertView = LayoutInflater.from(context)
                     .inflate(R.layout.qlhopdong_layout_item_dshopdong, parent, false);

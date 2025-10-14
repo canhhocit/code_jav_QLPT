@@ -2,6 +2,7 @@ package com.example.logincustomer.ui.QLthutien_nguyen;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.EditText;
 
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlthutien_OtherServiceAdapter;
 import com.example.logincustomer.data.DAO.qlthutien_DichVuConDAO;
-import com.example.logincustomer.data.Model.DichVuCon;
+import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 import com.example.logincustomer.data.DAO.qlthutien_GiaMacDinhDienNuocDAO;
 
 import java.util.ArrayList;
@@ -23,20 +24,16 @@ public class SetValueDefault extends AppCompatActivity {
     private qlthutien_GiaMacDinhDienNuocDAO qlthutienGiaMacDinhDAO;
     private RecyclerView recyclerView;
     private Button btnAdd, btnSave;
+    private ImageView imgback;
     private qlthutien_DichVuConDAO dao;
-    private ArrayList<DichVuCon> list;
+    private ArrayList<qlthutien_DichVuCon> list;
     private qlthutien_OtherServiceAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qlthutien_layout_setgiatrimacdinh);
-
-        recyclerView = findViewById(R.id.recycler_setDefaultPrice_SD);
-        btnAdd = findViewById(R.id.btn_addOtherService_SD);
-        btnSave = findViewById(R.id.btn_Save_SD);
-        edtElectric = findViewById(R.id.edt_setdefaultElectric_SD);
-        edtWater = findViewById(R.id.edt_setdefaultWater_SD);
+        anhxa();
 
         dao = new qlthutien_DichVuConDAO(this);
         list = dao.getAll();
@@ -48,7 +45,7 @@ public class SetValueDefault extends AppCompatActivity {
 
         adapter = new qlthutien_OtherServiceAdapter(this, list, new qlthutien_OtherServiceAdapter.OnItemClickListener() {
             @Override
-            public void onEdit(DichVuCon service) {
+            public void onEdit(qlthutien_DichVuCon service) {
                 AddOtherServiceBottomSheet dialog = new AddOtherServiceBottomSheet(SetValueDefault.this, service, updated -> {
                     dao.update(updated);
                     refreshData();
@@ -57,7 +54,7 @@ public class SetValueDefault extends AppCompatActivity {
             }
 
             @Override
-            public void onDelete(DichVuCon service) {
+            public void onDelete(qlthutien_DichVuCon service) {
                 dao.delete(service.getIddichvucon());
                 refreshData();
             }
@@ -67,13 +64,7 @@ public class SetValueDefault extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // 👉 Nút thêm dịch vụ mới
-        btnAdd.setOnClickListener(v -> {
-            AddOtherServiceBottomSheet dialog = new AddOtherServiceBottomSheet(this, newService -> {
-                dao.insert(newService);
-                refreshData();
-            });
-            dialog.show();
-        });
+        themdichvu();
 
         // 👉 Nút lưu toàn bộ danh sách hiện tại
         btnSave.setOnClickListener(v -> {
@@ -82,13 +73,13 @@ public class SetValueDefault extends AppCompatActivity {
                 double giaDien = Double.parseDouble(edtElectric.getText().toString().trim());
                 double giaNuoc = Double.parseDouble(edtWater.getText().toString().trim());
 
-                // Gọi DAO để cập nhật vào bảng giá mặc định
+                // Gọi DAO để thêm vào bảng giá mặc định
                 qlthutienGiaMacDinhDAO = new qlthutien_GiaMacDinhDienNuocDAO(this);
-                qlthutienGiaMacDinhDAO.updateGiaMacDinh(giaDien, giaNuoc);
+                qlthutienGiaMacDinhDAO.insertGiaMacDinh(giaDien, giaNuoc);
 
                 // --- Lưu danh sách dịch vụ con ---
                 dao.deleteAll(); // Xóa dữ liệu cũ
-                for (DichVuCon service : list) {
+                for (qlthutien_DichVuCon service : list) {
                     dao.insert(service); // Lưu lại dịch vụ mới
                 }
 
@@ -101,11 +92,34 @@ public class SetValueDefault extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+        back();
     }
 
     private void refreshData() {
         list.clear();
         list.addAll(dao.getAll());
         adapter.notifyDataSetChanged();
+    }
+    private void back(){
+        imgback.setOnClickListener(v -> {
+            finish();
+        });
+    }
+    private void themdichvu(){
+        btnAdd.setOnClickListener(v -> {
+            AddOtherServiceBottomSheet dialog = new AddOtherServiceBottomSheet(this, newService -> {
+                dao.insert(newService);
+                refreshData();
+            });
+            dialog.show();
+        });
+    }
+    private void anhxa(){
+        recyclerView = findViewById(R.id.recycler_setDefaultPrice_SD);
+        btnAdd = findViewById(R.id.btn_addOtherService_SD);
+        btnSave = findViewById(R.id.btn_Save_SD);
+        edtElectric = findViewById(R.id.edt_setdefaultElectric_SD);
+        edtWater = findViewById(R.id.edt_setdefaultWater_SD);
+        imgback = findViewById(R.id.img_arrowback_setD);
     }
 }

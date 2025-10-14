@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tính hóa đơn"
+                android:text="Sửa hóa đơn"
                 android:textSize="36dp"/>
         </LinearLayout>
 
@@ -122,11 +122,11 @@
                         android:paddingBottom="10dp"
                         android:orientation="horizontal">
                         <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hình điện cũ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hình điện cũ"
                             android:gravity="center"
-                        android:layout_weight="1"/>
+                            android:layout_weight="1"/>
                         <ImageView
                             android:id="@+id/imga_oldElectric_totalPrice"
                             android:layout_width="53dp"
@@ -358,32 +358,32 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                android:id="@+id/layout_otherService_totalPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:id="@+id/layout_otherService_totalPrice"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:text="Tiền dịch vụ khác" />
-                <TextView
-                    android:id="@+id/txt_otherService_totalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textStyle="bold"
-                    android:textSize="15dp"
-                    android:paddingRight="10dp"
-                    android:text="200,000" />
-                <ImageView
-                    android:id="@+id/img_expand_OtherService_totalPrice"
-                    android:layout_width="12dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/img_arrow" />
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingLeft="8dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="Tiền dịch vụ khác" />
+                    <TextView
+                        android:id="@+id/txt_otherService_totalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:paddingRight="10dp"
+                        android:text="200,000" />
+                    <ImageView
+                        android:id="@+id/img_expand_OtherService_totalPrice"
+                        android:layout_width="12dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/img_arrow" />
                 </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_OtherService_totalPrice"
@@ -406,7 +406,7 @@
                 android:id="@+id/btn_createBill_totalPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tạo hóa đơn"
+                android:text="Xác nhận"
                 android:layout_marginTop="12dp"/>
         </LinearLayout>
     </LinearLayout>
