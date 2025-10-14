@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/purple"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/bg_border_green_circle"
     tools:context=".ui.QLkhachthue_trang.qlkhachthue_activity_dstt">
 
     <ImageView
@@ -61,7 +63,7 @@
         android:layout_marginTop="16dp"
         android:text="Thông tin khách thuê"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/purple"
         android:textSize="32dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +84,7 @@
         android:background="@drawable/purple_bg"
         android:foreground="@drawable/baseline_add_24"
         android:foregroundTint="#F4F1F1"
-        android:textColor="@color/white"
+        android:textColor="@color/purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
@@ -103,7 +105,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E1D6EF"
+        android:background="@color/lightpurple"
         android:orientation="horizontal"
         android:paddingStart="10dp"
         android:weightSum="6"
