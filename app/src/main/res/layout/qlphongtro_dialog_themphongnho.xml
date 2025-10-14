@@ -47,7 +47,7 @@
             android:background="@drawable/bg_border_green_circle"
             android:autofillHints="price"
             android:hint="Giá phòng"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:minHeight="48dp"
             android:padding="10dp" />
 

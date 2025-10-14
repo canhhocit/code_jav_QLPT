@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,7 +21,7 @@ import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.qlhopdong_showphongAdapter;
 import com.example.logincustomer.data.DAO.qlhopdong_hopdongDAO;
 import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.Model.PhongTro;
+import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.data.Model.hopdong_ifRoom;
 import com.example.logincustomer.ui.Manager_Home.activity_manager;
 
@@ -99,11 +98,11 @@ public class hopdong_activity_showphong extends AppCompatActivity {
         dao = new qlphongtro_PhongTroDAO(context);
 
         // 2️⃣ Lấy danh sách tất cả phòng
-        List<PhongTro> allPhong = dao.getAllPhongTro();
+        List<qlphongtro_PhongTro> allPhong = dao.getAllPhongTro();
         if (allPhong == null) allPhong = new ArrayList<>();
 
         // 3️⃣ Cập nhật số người thực tế cho từng phòng
-        for (PhongTro p : allPhong) {
+        for (qlphongtro_PhongTro p : allPhong) {
             dao.updateSoNguoiPhong(p.getIdphong());
         }
 

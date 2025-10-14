@@ -150,6 +150,34 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             } else if ("Nữ".equalsIgnoreCase(gioitinh)) {
                 ((RadioButton) findViewById(R.id.khachthue_radioNu)).setChecked(true);
             }
+        } else if (check ==5 ) {
+            btnThem.setVisibility(View.INVISIBLE);
+            btnSua.setVisibility(View.INVISIBLE);
+            btnXoa.setVisibility(View.INVISIBLE);
+            edtHoTen.setEnabled(false); edtNgaySinh.setEnabled(false);edtSDT.setEnabled(false);
+            edtPhong.setEnabled(false); edtDiaChi.setEnabled(false);
+            String hoten = intent.getStringExtra("hoten");
+            String gioitinh = intent.getStringExtra("gioitinh");
+            String ngaysinh = intent.getStringExtra("ngaysinh");
+            String sdt = intent.getStringExtra("sdt");
+            String diachi = intent.getStringExtra("diachi");
+            int idphong = intent.getIntExtra("idphong", -1);
+
+            edtHoTen.setText(hoten);
+            edtNgaySinh.setText(ngaysinh);
+            edtSDT.setText(sdt);
+            edtDiaChi.setText(diachi);
+
+
+            khachDAO = new qlkhachthue_khachthueDAO(this);
+            String tenphongDB = khachDAO.getTenphongbyID(idphong);
+            edtPhong.setText(tenphongDB);
+
+            if ("Nam".equalsIgnoreCase(gioitinh)) {
+                ((RadioButton) findViewById(R.id.khachthue_radioNam)).setChecked(true);
+            } else if ("Nữ".equalsIgnoreCase(gioitinh)) {
+                ((RadioButton) findViewById(R.id.khachthue_radioNu)).setChecked(true);
+            }
         }
     }
     private void them() {
@@ -168,9 +196,10 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                     builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            khachDAO.insertKhachThue(kt);
                             Intent intent = new Intent(qlkhachthue_activity_chucnang.this, hopdong_activity_chucnang.class);
                             intent.putExtra("idphong",kt.getIdphong());
-                            intent.putExtra("idkhach",kt.getIdkhach());
+                            intent.putExtra("tenkhach",kt.getHoten());
                             intent.putExtra("check",1);
                             startActivity(intent);
                         }
@@ -253,7 +282,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
                     qlkhachthue_activity_chucnang.this,
                     (view, year1, month1, dayOfMonth) -> {
                         if (year1 > 2015) {
-                            Toast.makeText(this, "Năm sinh phải lớn hơn 2015!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Năm sinh phải nhỏ hơn 2015!", Toast.LENGTH_SHORT).show();
                         } else {
                             edtNgaySinh.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
                         }

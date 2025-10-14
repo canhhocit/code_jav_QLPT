@@ -6,29 +6,35 @@
     android:weightSum="4">
     <TextView
         android:id="@+id/baocao_hopdong_lisitem_tvphong"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:text="P101"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold" />
-
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"/>
     <TextView
         android:id="@+id/baocao_hopdong_lisitem_tvngayky"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:gravity="center"
         android:text="21/02/2001"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/baocao_hopdong_lisitem_tvhanconlai"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:text="200 ngay"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold" />

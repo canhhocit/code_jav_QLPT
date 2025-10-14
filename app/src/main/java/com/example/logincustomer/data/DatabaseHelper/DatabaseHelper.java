@@ -63,10 +63,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE HoaDon (" +
                 "idhoadon INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "idphong INTEGER, " +
-                "ngaytaohdon DATE, " +
-                "trangthai INTERGER DEFAULT 0, " +
+                "ngaytaohdon TEXT, " +
+                "trangthai INTEGER DEFAULT 0, " +
                 "ghichu TEXT, " +
-                "image TEXT, " +
+                "image_diencu TEXT, " +
+                "image_dienmoi TEXT, " +
+                "image_nuoccu TEXT, " +
+                "image_nuocmoi TEXT, " +
                 "tongtien REAL, " +
                 "FOREIGN KEY (idphong) REFERENCES PhongTro(idphong))");
 
@@ -96,8 +99,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY CHECK (id = 1), " +
                 "giadien REAL, " +
                 "gianuoc REAL)");
-    }
 
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS DichVuCon");

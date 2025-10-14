@@ -253,6 +253,9 @@
                                 Intent intent = new Intent(baocao_activity_homedsthuchi.this, baocao_activity_chitietthuchi.class);
                                 intent.putExtra("check",1);
                                 startActivity(intent);
+                            } else if (itemId == R.id.menu_thuchi_xembieudo) {
+                                Intent intent = new Intent(baocao_activity_homedsthuchi.this, baocao_activiity_bieudothuchi.class);
+                                startActivity(intent);
                             } else if (itemId == R.id.menu_thuchi_sua) {
                                 Toast.makeText(baocao_activity_homedsthuchi.this, "Hãy click vào dòng muốn sửa", Toast.LENGTH_SHORT).show();
                                 return true;
