@@ -2,6 +2,7 @@ package com.example.logincustomer.ui.QLhopdong_y;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_chucnang;
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,6 +25,8 @@ import com.example.logincustomer.R;
 import com.example.logincustomer.data.DAO.qlhopdong_hopdongDAO;
 
 import com.example.logincustomer.data.Model.khachthue;
+import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucnang;
+
 import java.util.Calendar;
 
 public class hopdong_activity_addPerson extends AppCompatActivity {
@@ -124,17 +128,37 @@ public class hopdong_activity_addPerson extends AppCompatActivity {
                 return;
             }
 
-            long result = hdDAO.insertKhachThue(khach);
-            if (result>0) {
-                Toast.makeText(this, "Thêm khách thuê thành công!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, hopdong_activity_chucnang.class);
-                intent.putExtra("check",1);
-                intent.putExtra("idphong",idphong);
-                intent.putExtra("tenkhach",hoten);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Thêm thất bại!", Toast.LENGTH_SHORT).show();
+            int checkdialog = getIntent().getIntExtra("checkDialog",-1);
+            if(checkdialog ==1){
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Thêm thất bại");
+                builder.setIcon(R.drawable.img_wrong);
+                builder.setMessage("Phòng này chưa được ký hợp đồng, bạn có muốn ký hợp đồng với phòng này?");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        long result = hdDAO.insertKhachThue(khach);
+                        if (result>0) {
+                            Toast.makeText(context, "Thêm khách thuê thành công!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Thêm thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                        Intent intent = new Intent(context, hopdong_activity_chucnang.class);
+                        intent.putExtra("check",1);
+                        intent.putExtra("idphong",idphong);
+                        intent.putExtra("tenkhach",hoten);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                builder.show();
             }
+
         });
     }
 
