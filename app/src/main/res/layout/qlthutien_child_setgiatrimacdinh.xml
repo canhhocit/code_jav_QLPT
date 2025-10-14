@@ -10,23 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tên dịch vụ"
-        android:textSize="20dp"
         android:inputType="textPersonName"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/edt_Price_OtherService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Giá dịch vụ"
-        android:textSize="20dp"
         android:inputType="number"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:textSize="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:paddingTop="12dp"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="12dp">
 
         <Button
             android:id="@+id/btn_back_OtherService"
@@ -38,7 +39,7 @@
 
         <Space
             android:layout_width="12dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btn_update_OtherService"

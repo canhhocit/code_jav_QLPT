@@ -20,26 +20,31 @@
             android:paddingBottom="8dp"
             android:text="Nhập thông tin phòng"
             android:textSize="18sp"
+            android:textColor="@color/purple"
             android:textStyle="bold" />
 
         <!-- Tên phòng -->
+
+        <!-- Giá phòng -->
         <EditText
             android:id="@+id/edtTenPhong_themphong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:autofillHints="name"
+            android:background="@drawable/bg_border_green_circle"
             android:hint="Tên phòng"
+            android:textColor="@android:color/white"
             android:inputType="textCapWords"
             android:minHeight="48dp"
             android:padding="10dp" />
 
-        <!-- Giá phòng -->
         <EditText
             android:id="@+id/edtGiaPhong_themphong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:background="@drawable/bg_border_green_circle"
             android:autofillHints="price"
             android:hint="Giá phòng"
             android:inputType="numberDecimal"
@@ -59,12 +64,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
+                android:backgroundTint="#099578"
                 android:text="Hủy" />
 
             <Button
                 android:id="@+id/btnLuu_themPhong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#099578"
                 android:text="Lưu" />
         </LinearLayout>
 
