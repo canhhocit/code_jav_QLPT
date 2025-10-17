@@ -59,16 +59,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab_phong"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="#FFFFFF">
-                    <include layout="@layout/baocao_layout_phong" />
-                </LinearLayout>
-
-
-                <LinearLayout
                     android:id="@+id/tab_HD"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

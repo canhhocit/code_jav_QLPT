@@ -54,7 +54,6 @@ public class qlkhachthue_activity_dstt extends AppCompatActivity {
 
         //listview
         listdshienthi();
-        listcontrol();
         findbyName();
 
     }
@@ -87,25 +86,6 @@ public class qlkhachthue_activity_dstt extends AppCompatActivity {
         });
     }
 
-    private void listcontrol() {
-        lvkhach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                khachthue kt = (khachthue) ktadapter.getItem(position);
-                Intent intent = new Intent(qlkhachthue_activity_dstt.this, qlkhachthue_activity_chucnang.class);
-                // sent data
-                intent.putExtra("check", 2);
-                intent.putExtra("idkhach", kt.getIdkhach());
-                intent.putExtra("hoten", kt.getHoten());
-                intent.putExtra("gioitinh", kt.getGioitinh());
-                intent.putExtra("ngaysinh", kt.getNgaysinh());
-                intent.putExtra("sdt", kt.getSdt());
-                intent.putExtra("diachi", kt.getDiachi());
-                intent.putExtra("idphong", kt.getIdphong());
-                startActivity(intent);
-            }
-        });
-    }
 
 
     private void listdshienthi() {

@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:hint="Lê Thị Quỳnh Trang"
+                android:hint="Your Name"
                 android:textSize="23dp"
                 android:textAlignment="center"
                 android:textStyle="bold" />
@@ -237,31 +237,19 @@
         </LinearLayout>
 
 
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+        <Button
+            android:id="@+id/khachthue_btnSua"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/khachthue_btnSua"
-                android:layout_width="9dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Sửa" />
-
-            <Button
-                android:id="@+id/khachthue_btnXoa"
-                android:layout_width="10dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Xóa" />
-        </LinearLayout>
-
+            android:layout_gravity="center_horizontal"
+            android:text="Sửa" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

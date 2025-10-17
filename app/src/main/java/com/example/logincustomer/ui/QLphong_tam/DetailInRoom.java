@@ -61,6 +61,7 @@ public class DetailInRoom extends AppCompatActivity {
             if(songuoi==0){
                 Intent intent = new Intent(this, hopdong_activity_addPerson.class);
                 intent.putExtra("check", 1);
+                intent.putExtra("checkDialog",1);
                 intent.putExtra("idphong", idPhong);
                 intent.putExtra("tenphong", phong.getTenphong());
                 startActivity(intent);
