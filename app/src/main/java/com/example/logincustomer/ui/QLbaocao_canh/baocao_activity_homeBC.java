@@ -60,10 +60,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     private baocao_doanhthuDAO dtDAO;
     private String selectedYear = "";
 
-    // Phong
-    private ListView lv_Phong;
-    private qlphongtro_PhongTroDAO bc_ptDAO;
-    private baocao_phongAdapter ptAdapter;
     //Hop dong
     private ListView lv_Hopdong;
     private baocao_hopdongDAO bc_hdDAO;
@@ -85,8 +81,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         //tab doanh thu
         menuThuchiandFileOption();
         listviewYear();
-        //tab phong
-        listviewphong();
 
         //tab hop dong
         listviewHD();
@@ -223,12 +217,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     }
 
 
-    private void listviewphong() {
-        bc_ptDAO = new qlphongtro_PhongTroDAO(context);
-        List<qlphongtro_PhongTro> listPT = bc_ptDAO.getAllPhongTro();
-        ptAdapter =new baocao_phongAdapter(context,listPT, bc_ptDAO);
-        lv_Phong.setAdapter(ptAdapter);
-    }
 
 
     private void menuThuchiandFileOption() {
@@ -429,16 +417,11 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         tabHost = findViewById(R.id.baocao_tabhost_DT);
         tabHost.setup();
 
-        // 4 Tab
         TabHost.TabSpec tab1 = tabHost.newTabSpec("tab1");
         tab1.setIndicator("Doanh thu");
         tab1.setContent(R.id.tab_DT);
         tabHost.addTab(tab1);
 
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("tab2");
-        tab2.setIndicator("Phòng");
-        tab2.setContent(R.id.tab_phong);
-        tabHost.addTab(tab2);
 
         TabHost.TabSpec tab4 = tabHost.newTabSpec("tab4");
         tab4.setIndicator("Hợp đồng");
@@ -452,9 +435,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         lv_namDT = findViewById(R.id.baocao_doanhthu_listnamdt);
         btnThuChi = findViewById(R.id.baocao_btn_thuchi);
         btnFile= findViewById(R.id.baocao_btn_file);
-
-        // Tab Phòng
-        lv_Phong = findViewById(R.id.baocao_phong_listview);
 
 
         // Tab Hợp đồng
@@ -475,8 +455,6 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
         showBarchart(currentYear);
 
-
-        listviewphong();
         listviewHD();
     }
 
