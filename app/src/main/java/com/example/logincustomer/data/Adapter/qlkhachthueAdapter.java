@@ -1,7 +1,5 @@
 package com.example.logincustomer.data.Adapter;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +16,6 @@ import android.widget.Toast;
 import com.example.logincustomer.data.DAO.qlkhachthue_khachthueDAO;
 import com.example.logincustomer.data.Model.khachthue;
 import com.example.logincustomer.R;
-import com.example.logincustomer.ui.QLbaocao_canh.baocao_activiity_bieudothuchi;
-import com.example.logincustomer.ui.QLbaocao_canh.baocao_activity_chitietthuchi;
-import com.example.logincustomer.ui.QLbaocao_canh.baocao_activity_homedsthuchi;
 import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_chucnang;
 
 import java.util.List;
@@ -90,18 +85,37 @@ public class qlkhachthueAdapter extends BaseAdapter {
                             context.startActivity(intent);
                             return true;
                         } else if (itemId == R.id.menu_qlkhach_xoa) {
-                            new AlertDialog.Builder(context)
-                                    .setTitle("Xóa khách thuê")
-                                    .setMessage("Bạn có chắc muốn xóa khách này không?")
-                                    .setPositiveButton("Xóa", (dialog, which) -> {
-                                        ktDAO.deleteKhacThue(khach.getIdkhach());
-                                        listkhachthue.remove(position);
-                                        notifyDataSetChanged();
-                                        Toast.makeText(context, "Đã xóa khách thuê", Toast.LENGTH_SHORT).show();
-                                    })
-                                    .setNegativeButton("Hủy", null)
-                                    .show();
-                            return true;
+                            int nguoi=ktDAO.SoNguoiTrongPhong(khach.getIdphong());
+                            if(nguoi==1){
+                                new AlertDialog.Builder(context)
+                                        .setTitle("Xóa khách thuê")
+                                        .setMessage("Phòng này chỉ còn 1 người, bạn có muốn hủy hợp đồng không?")
+                                        .setPositiveButton("Xóa", (dialog, which) -> {
+                                            ktDAO.deleteKhachThue(khach.getIdkhach());
+                                            //xoa luon HD
+                                            ktDAO.deleteHD_Nguoi(khach.getIdphong(), khach.getIdkhach());
+                                            listkhachthue.remove(position);
+                                            notifyDataSetChanged();
+                                            Toast.makeText(context, "Đã xóa khách thuê", Toast.LENGTH_SHORT).show();
+                                        })
+                                        .setNegativeButton("Hủy", null)
+                                        .show();
+                                return true;
+                            }else{
+                                new AlertDialog.Builder(context)
+                                        .setTitle("Xóa khách thuê")
+                                        .setMessage("Bạn có chắc muốn xóa khách này không?")
+                                        .setPositiveButton("Xóa", (dialog, which) -> {
+                                            ktDAO.deleteKhachThue(khach.getIdkhach());
+                                            listkhachthue.remove(position);
+                                            notifyDataSetChanged();
+                                            Toast.makeText(context, "Đã xóa khách thuê", Toast.LENGTH_SHORT).show();
+                                        })
+                                        .setNegativeButton("Hủy", null)
+                                        .show();
+                                return true;
+                            }
+
                         } else if (itemId == R.id.menu_qlkhach_xemct) {
                             Intent intent = new Intent(context, qlkhachthue_activity_chucnang.class);
                             intent.putExtra("check", 5);

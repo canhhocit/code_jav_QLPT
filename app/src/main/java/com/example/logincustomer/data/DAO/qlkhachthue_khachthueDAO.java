@@ -40,7 +40,7 @@ public class qlkhachthue_khachthueDAO {
         db.update("KhachThue", vlu, "idkhach=?", new String[]{String.valueOf(kt.getIdkhach())});
     }
     //delete
-    public void deleteKhacThue(int idkhach) {
+    public void deleteKhachThue(int idkhach) {
         db.delete("KhachThue", "idkhach=?", new String[]{String.valueOf(idkhach)});
     }
 
@@ -143,6 +143,19 @@ public class qlkhachthue_khachthueDAO {
         }
         cur.close();
         return list;
+    }
+    public int SoNguoiTrongPhong(int idPhong) {
+        int count = 0;
+        Cursor c = db.rawQuery("SELECT COUNT(*) FROM KhachThue WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
+        if (c.moveToFirst()) {
+            count = c.getInt(0);
+        }
+        c.close();
+        return count;
+    }
+    public void deleteHD_Nguoi(int idp, int idkhach){
+        db.delete("HopDong","idphong =? and idkhach =?",
+                new String[]{String.valueOf(idp),String.valueOf(idkhach)});
     }
 
 
