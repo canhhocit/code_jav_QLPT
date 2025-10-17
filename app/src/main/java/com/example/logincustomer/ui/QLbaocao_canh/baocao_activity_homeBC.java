@@ -27,11 +27,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.R;
 import com.example.logincustomer.data.Adapter.baocao_hopdongAdapter;
-import com.example.logincustomer.data.Adapter.baocao_phongAdapter;
 import com.example.logincustomer.data.DAO.baocao_doanhthuDAO;
 import com.example.logincustomer.data.DAO.baocao_hopdongDAO;
-import com.example.logincustomer.data.DAO.qlphongtro_PhongTroDAO;
-import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.data.Model.baocao_doanhthu;
 import com.example.logincustomer.data.Model.baocao_hopdong;
 import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_chucnang;
