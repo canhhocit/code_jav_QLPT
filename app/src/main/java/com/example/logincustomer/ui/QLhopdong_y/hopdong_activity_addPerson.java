@@ -158,6 +158,19 @@ public class hopdong_activity_addPerson extends AppCompatActivity {
                 });
                 builder.show();
             }
+            else{
+                long result = hdDAO.insertKhachThue(khach);
+                if (result>0) {
+                    Toast.makeText(context, "Thêm khách thuê thành công!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Thêm thất bại!", Toast.LENGTH_SHORT).show();
+                }
+                Intent intent = new Intent(context, hopdong_activity_chucnang.class);
+                intent.putExtra("check",1);
+                intent.putExtra("idphong",idphong);
+                intent.putExtra("tenkhach",hoten);
+                startActivity(intent);
+            }
 
         });
     }
