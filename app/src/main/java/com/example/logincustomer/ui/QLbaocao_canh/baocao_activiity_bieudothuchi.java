@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -26,6 +25,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,85 +51,127 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
 
         anhXa();
         menu();
-        listviewYear();
+        loadDataAndDisplay();
     }
-    private void listviewYear() {
+
+    private void loadDataAndDisplay() {
         dtDAO = new baocao_doanhthuDAO(context);
+
+        // listview năm
         List<Integer> years = dtDAO.getYears();
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, years);
         lvNam.setAdapter(adapter);
 
-        // Hiển thị chart mặc định năm hiện tại
+        // show bieu do nam hientai
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        showBarchart(chartThu, dtDAO.getThubyYear(String.valueOf(currentYear)), "Thu", String.valueOf(currentYear));
-        showBarchart(chartChi, dtDAO.getChibyYear(String.valueOf(currentYear)), "Chi", String.valueOf(currentYear));
+        displayChartForYear(String.valueOf(currentYear));
 
         lvNam.setOnItemClickListener((parent, view, position, id) -> {
-            String year = years.get(position) + "";
-            showBarchart(chartThu, dtDAO.getThubyYear(year), "Thu", year);
-            showBarchart(chartChi, dtDAO.getChibyYear(year), "Chi", year);
+            String selectedYear = years.get(position).toString();
+            displayChartForYear(selectedYear);
         });
     }
 
+    private void displayChartForYear(String year) {
+        List<baocao_doanhthu> thuList = dtDAO.getThubyYear(year);
+        List<baocao_doanhthu> chiList = dtDAO.getChibyYear(year);
 
+        showBarchart(chartThu, thuList, "Thu", year, Color.parseColor("#4CAF50"));
+        showBarchart(chartChi, chiList, "Chi", year, Color.parseColor("#F44336"));
+    }
 
-    private void showBarchart(BarChart chart, List<baocao_doanhthu> listBC, String loai, String year) {
-        // Khởi tạo dữ liệu 12 tháng = 0
-        ArrayList<Double> data = new ArrayList<>();
-        for (int i = 0; i < 12; i++){ data.add(0.0);}
+    private void showBarchart(BarChart chart, List<baocao_doanhthu> listBC, String loai, String year, int mainColor) {
+        double[] cot_thang = new double[12];
 
-        // Đổ dữ liệu từ listBC vào đúng tháng
-        for (baocao_doanhthu x : listBC) {
-            int thang = x.getThang() - 1;
-            if (thang >= 0 && thang < 12) {
-                if (loai.equalsIgnoreCase("Thu")){
-                    data.set(thang, x.getTongthu());
-                }
-                else data.set(thang, x.getTongchi());
+        // gan dl cho thang
+        for (baocao_doanhthu item : listBC) {
+            int thang = item.getThang();
+
+            if (thang >= 1 && thang <= 12) {
+                double giaTri = loai.equalsIgnoreCase("Thu") ? item.getTongthu() : item.getTongchi();
+                cot_thang[thang - 1] = giaTri;
             }
         }
 
-        // Tạo BarEntry
         ArrayList<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) entries.add(new BarEntry(i + 1, data.get(i).floatValue()));
+        for (int i = 0; i < 12; i++) {
+            entries.add(new BarEntry(i + 1, (float) cot_thang[i]));
+        }
 
-        // Tô màu, tháng hiện tại nổi bật
+
+        BarDataSet dataSet = new BarDataSet(entries, loai + " năm " + year);
+
+        // Màu
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        BarDataSet dataSet = new BarDataSet(entries, loai + " " + year);
         ArrayList<Integer> colors = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            colors.add(i + 1 == currentMonth ? Color.parseColor("#2196F3") : Color.parseColor("#FF9800"));
+        for (int i = 1; i <= 12; i++) {
+            if (i == currentMonth) {
+                colors.add(Color.parseColor("#2196F3"));
+            } else {
+                colors.add(mainColor);
+            }
         }
         dataSet.setColors(colors);
-        dataSet.setValueFormatter(new com.github.mikephil.charting.formatter.ValueFormatter(){
+
+        // format hien thi gia
+        dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                if(value >=100_000 && value <1000_000){
-                    return String.format("%.2f Nghìn", value / 1000f);
-                }
-                else if (value >= 1_000_000f) {
-                    return String.format("%.1f Triệu", value / 1_000_000f);
+                if (value == 0) {
+                    return "";
+                } else if (value >= 1_000_000f) {
+                    return String.format("%.1fTr", value / 1_000_000f);
+                } else if (value >= 100_000f) {
+                    return String.format("%.0fK", value / 1_000f);
                 } else {
                     return String.format("%.0f", value);
                 }
             }
         });
+        dataSet.setValueTextSize(9f);
+        dataSet.setValueTextColor(Color.BLACK);
 
-        // Set BarData
+        // Tạo BarData và cấu hình chart
         BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.9f);
+        barData.setBarWidth(0.8f);
 
+        // Oy left
         chart.getAxisLeft().setAxisMinimum(0f);
+        chart.getAxisLeft().setTextColor(Color.BLACK);
+        chart.getAxisLeft().setTextSize(10f);
+
         chart.getAxisRight().setEnabled(false);
 
+        // Ox
         XAxis xAxis = chart.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.setLabelCount(12);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setAxisMinimum(0.5f);
+        xAxis.setAxisMaximum(12.5f);
+        xAxis.setLabelCount(12, false);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setTextSize(10f);
+        xAxis.setDrawGridLines(false);
 
+        // Format Ox
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return "T" + (int) value;
+            }
+        });
+
+        // Cấu hình chung
         chart.setData(barData);
         chart.setFitBars(true);
         chart.getDescription().setEnabled(false);
+        chart.getLegend().setEnabled(true);
+        chart.getLegend().setTextSize(12f);
+        chart.setDrawGridBackground(false);
+        chart.setDrawBorders(false);
+        chart.animateY(800);
+
+        // Refresh chart
         chart.invalidate();
     }
 
@@ -171,7 +213,6 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        listviewYear();
-
+        loadDataAndDisplay();
     }
 }
