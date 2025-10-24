@@ -121,14 +121,41 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
             popup.getMenuInflater().inflate(R.menu.menu_item_dsphong, popup.getMenu());
 
             int check = qlthutienHoaDonDAO.kiemTraTinhTrangHoaDon(pt.getIdphong());
+            int checkStateInMonth = qlthutienHoaDonDAO.kiemTraHoaDonThangHienTai(pt.getIdphong());
 
             popup.setOnMenuItemClickListener(item -> {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.menu_add) {
                     // 🔍 Kiểm tra phòng đã có hóa đơn chưa
-                    if (check == 2) {
-                        Toast.makeText(context, "Phòng này đã có hóa đơn tháng này, không thể tạo thêm!", Toast.LENGTH_SHORT).show();
+                    if (checkStateInMonth == 1) {
+                        new AlertDialog.Builder(context)
+                                .setTitle("Thông báo")
+                                .setMessage("Hóa đơn phòng \""+pt.getTenphong()+"\" tháng này đã được tạo, có muốn xem?")
+                                .setPositiveButton("Xem", (dialog, which) -> {
+                                    int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                                    Intent intent = new Intent(context, BillRoomActivity.class);
+                                    intent.putExtra("idhoadon", idhoadon);
+                                    context.startActivity(intent);
+                                })
+                                .setNegativeButton("Hủy", null)
+                                .show();
+                        return true;
+                    }else if(checkStateInMonth == 2){
+                        new AlertDialog.Builder(context)
+                                .setTitle("Thông báo")
+                                .setMessage("Phòng \""+pt.getTenphong()+"\" tháng này đã thanh toán, có muốn xem?")
+                                .setPositiveButton("Xem", (dialog, which) -> {
+                                    int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                                    Intent intent = new Intent(context, BillRoomActivity.class);
+                                    intent.putExtra("idhoadon", idhoadon);
+                                    context.startActivity(intent);
+                                })
+                                .setNegativeButton("Hủy", null)
+                                .show();
+                        return true;
+                    }else if(pt.getSonguoi() == 0){
+                        Toast.makeText(context, "Không thể tạo hóa đơn cho phòng trống!", Toast.LENGTH_SHORT).show();
                         return true;
                     }
 

@@ -108,7 +108,7 @@ public class qlthutien_StatusRoomAdapter extends RecyclerView.Adapter<qlthutien_
                     }else {
                         //code sửa
                         Intent intent = new Intent(context, SuaHoaDonActivity.class);
-                        intent.putExtra("check", 2);
+                        //intent.putExtra("check", 2);
                         intent.putExtra("idhoadon", hoaDon.getIdhoadon());
                         context.startActivity(intent);
                     }
