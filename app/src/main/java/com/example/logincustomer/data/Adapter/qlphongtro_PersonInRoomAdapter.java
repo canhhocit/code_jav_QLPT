@@ -88,6 +88,7 @@ public class qlphongtro_PersonInRoomAdapter extends BaseAdapter {
                     intent.putExtra("gioitinh", khach.getGioitinh());
                     intent.putExtra("ngaysinh", khach.getNgaysinh());
                     intent.putExtra("sdt", khach.getSdt());
+                    
                     intent.putExtra("diachi", khach.getDiachi());
                     intent.putExtra("idphong", khach.getIdphong());
 
