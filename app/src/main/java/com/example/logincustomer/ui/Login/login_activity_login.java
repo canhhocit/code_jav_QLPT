@@ -55,20 +55,27 @@ public class login_activity_login extends AppCompatActivity {
                     return;
                 }
                 List<Account> list = accDAO.getAllAccount();
+                boolean found = false;
+
                 for (Account acc : list) {
                     if (acc.getUsername().equalsIgnoreCase(username) && acc.getPass().equalsIgnoreCase(pass)) {
-                        Intent intent = new Intent(context, activity_manager.class );
+                        Intent intent = new Intent(context, activity_manager.class);
                         startActivity(intent);
-                        Toast.makeText(context, "Đăng nhập thành công !", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        new AlertDialog.Builder(context)
-                                .setTitle("Thông báo")
-                                .setMessage("Tên đăng nhập hoặc mật khẩu không hợp lệ!")
-                                .setIcon(R.drawable.img_wrong)
-                                .setPositiveButton("OK", null).show();
+                        Toast.makeText(context, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        found = true;
+                        break;
                     }
                 }
+
+                if (!found) {
+                    new AlertDialog.Builder(context)
+                            .setTitle("Thông báo")
+                            .setMessage("Tên đăng nhập hoặc mật khẩu không hợp lệ!")
+                            .setIcon(R.drawable.img_wrong)
+                            .setPositiveButton("OK", null)
+                            .show();
+                }
+
             }
         });
 
