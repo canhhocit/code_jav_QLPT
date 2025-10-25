@@ -86,8 +86,20 @@ public class activity_manager extends AppCompatActivity {
         imgdangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_manager.this, login_activity_login.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity_manager.this);
+                builder.setTitle("Xác nhận");
+                builder.setIcon(R.drawable.warning_img);
+                builder.setMessage("Bạn muốn đăng xuất không?");
+                builder.setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(activity_manager.this, login_activity_login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("Hủy", null);
+                builder.show();
             }
         });
         imgthoat.setOnClickListener(v -> {
@@ -111,20 +123,7 @@ public class activity_manager extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                new AlertDialog.Builder(activity_manager.this)
-                        .setTitle("Thoát ứng dụng")
-                        .setIcon(R.drawable.manager_logout_img)
-                        .setMessage("Bạn có chắc muốn thoát ứng dụng không?")
-                        .setPositiveButton("Có", (dialog, which) -> {
-                            finishAffinity();
-                        })
-                        .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
-                        .show();
-            }
-        });
+
 
     }
 
