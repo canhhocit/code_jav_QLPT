@@ -31,7 +31,7 @@ public class account_DAO {
         vlu.put("password",account.getPass());
         db.update("TaiKhoan",vlu,"idTK =? or username =?",new String[]{String.valueOf(account.getId()), account.getUsername()});
     }
-    public void deleteAcoount(int id){
+    public void deleteAccount(int id){
         db.delete("TaiKhoan","idTK =?",new String[]{String.valueOf(id)});
     }
 

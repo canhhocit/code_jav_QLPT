@@ -4,6 +4,6 @@
         android:id="@+id/menu_edit"
         android:title="Sửa tài khoản" />
     <item
-        android:id="@+id/menu_deletephong"
+        android:id="@+id/menu_delete"
         android:title="Xóa tài khoản" />
 </menu>
