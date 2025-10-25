@@ -3,6 +3,7 @@ package com.example.logincustomer.ui.Account;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ public class account_activity extends AppCompatActivity {
     private EditText edtUsername, edtPassword;
     private Button btnThem;
     private ListView lvUser;
-
+    private ImageView imgback;
     private List<Account> accountList;
     private AccountAdapter adapter;
     private account_DAO accountDao;
@@ -81,6 +82,10 @@ public class account_activity extends AppCompatActivity {
             // 🔹 Xóa dữ liệu nhập
             edtUsername.setText("");
             edtPassword.setText("");
+
+            imgback.setOnClickListener(v1 ->{
+                finish();
+            });
         });
     }
 
@@ -89,6 +94,7 @@ public class account_activity extends AppCompatActivity {
         edtPassword = findViewById(R.id.acc_edtPassword);
         btnThem = findViewById(R.id.acc_btnThem);
         lvUser = findViewById(R.id.acc_lvUser);
+        imgback = findViewById(R.id.img_arrowback_account);
     }
 
     // 🔹 Hàm được Adapter gọi khi chọn "Sửa"

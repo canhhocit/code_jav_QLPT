@@ -54,7 +54,6 @@ public class BillRoomActivity extends AppCompatActivity {
             txtdetailWbillroom, txtdetailEbillroom;
     private EditText edtNoteBillRoom;
     private Button btnBackBillRoom, btnPayBillRoom;
-    // danh sách dịch vụ con (lấy từ DB)
     private qlthutien_DichVuConDAO dichVuConDAO;
     private ArrayList<qlthutien_DichVuCon> listOtherServices;
     private qlthutien_DichVuConAdapter otherAdapter;
@@ -81,7 +80,6 @@ public class BillRoomActivity extends AppCompatActivity {
 
         anhxa();
 
-        // Lấy giá điện nước từ database (nếu có)
         layGiaMacDinhTuDatabase();
         // --- SETUP "Tiền dịch vụ khác" (RecyclerView con, adapter, DAO) ---
         dichVuConDAO = new qlthutien_DichVuConDAO(this);
@@ -309,13 +307,13 @@ public class BillRoomActivity extends AppCompatActivity {
     private void checktrangthai(qlthutien_HoaDon hd){
         dathanhtoan = hd.isTrangthai();
         if (dathanhtoan) {
-            imgStatusBillRoom.setImageResource(R.drawable.img_correct);  // ảnh "đã thanh toán"
+            imgStatusBillRoom.setImageResource(R.drawable.img_correct);
             txtStatusBillRoom.setText("Đã thanh toán");
-            txtStatusBillRoom.setTextColor(Color.parseColor("#00AA00")); // màu xanh
+            txtStatusBillRoom.setTextColor(Color.parseColor("#00AA00"));
         } else {
-            imgStatusBillRoom.setImageResource(R.drawable.img_wrong);    // ảnh "chưa thanh toán"
+            imgStatusBillRoom.setImageResource(R.drawable.img_wrong);
             txtStatusBillRoom.setText("Chưa thanh toán");
-            txtStatusBillRoom.setTextColor(Color.parseColor("#FF0000")); // màu đỏ
+            txtStatusBillRoom.setTextColor(Color.parseColor("#FF0000"));
         }
     }
 
@@ -341,7 +339,6 @@ public class BillRoomActivity extends AppCompatActivity {
         imgDienCu = view.findViewById(R.id.imganhCu);
         imgDienMoi = view.findViewById(R.id.imganhMoi);
 
-        // Gọi hàm load ảnh từ đường dẫn
         loadImageFromPath(hoaDon.getImgDienCu(), imgDienCu);
         loadImageFromPath(hoaDon.getImgDienMoi(), imgDienMoi);
 

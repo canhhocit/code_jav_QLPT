@@ -79,7 +79,7 @@ public class statusRoom extends AppCompatActivity {
         edtFromDate.setOnClickListener(v -> showDatePickerDialog(edtFromDate));
         edtToDate.setOnClickListener(v -> showDatePickerDialog(edtToDate));
 
-        // 🔹 Lấy danh sách phòng từ DB
+        // Lấy danh sách phòng từ DB
         listPhong = phongTroDAO.getAllPhongTro();
         listTenPhong = new ArrayList<>();
         listTenPhong.add("Tất cả"); // mục đầu tiên
@@ -88,12 +88,12 @@ public class statusRoom extends AppCompatActivity {
             listTenPhong.add(p.getTenphong());
         }
 
-        // 🔹 Tạo adapter cho Spinner
+        // Tạo adapter cho Spinner
         ArrayAdapter<String> adapterPhong = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listTenPhong);
         adapterPhong.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPhong.setAdapter(adapterPhong);
 
-        // 🔹 Xử lý khi chọn phòng
+        // Xử lý khi chọn phòng
         spinnerPhong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -148,7 +148,7 @@ public class statusRoom extends AppCompatActivity {
         adapter.setHoaDonList(hoaDonList);
         adapter.notifyDataSetChanged();
     }
-//     🔹 Hàm hiển thị DatePicker
+//  Hàm hiển thị DatePicker
 private void showDatePickerDialog(EditText target) {
     Calendar calendar = Calendar.getInstance();
     DatePickerDialog dialog = new DatePickerDialog(
@@ -163,21 +163,19 @@ private void showDatePickerDialog(EditText target) {
             calendar.get(Calendar.DAY_OF_MONTH)
     );
 
-    // Luôn giới hạn ngày chọn không được vượt quá ngày hiện tại
+    //ngày chọn không được vượt quá ngày hiện tại
     dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
-    // --- LOGIC MỚI BẮT ĐẦU TỪ ĐÂY ---
-    // Nếu người dùng đang chọn ngày kết thúc (toDate)
+    //chọn ngày kết thúc (toDate)
     if (target.getId() == R.id.edt_denDate_statusRoom) {
         String fromDateString = edtFromDate.getText().toString().trim();
-        // Và nếu ngày bắt đầu (fromDate) đã được chọn
+        //ngày bắt đầu (fromDate) đã được chọn
         if (!fromDateString.isEmpty()) {
             try {
-                // Chuyển chuỗi ngày bắt đầu sang dạng Date
+                // Chuyển chuỗi ngày sang dạng Date
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date fromDate = sdf.parse(fromDateString);
-                // ĐẶT NGÀY TỐI THIỂU cho DatePickerDialog của toDate
-                // Người dùng sẽ không thể chọn ngày nào trước fromDate
+                // không thể chọn ngày nào trước fromDate
                 if (fromDate != null) {
                     dialog.getDatePicker().setMinDate(fromDate.getTime());
                 }
@@ -206,7 +204,7 @@ private void showDatePickerDialog(EditText target) {
         Collections.sort(hoaDonList, (hd1, hd2) -> {
             Log.d("SORT", "Trước sort: " + hd1.getNgaytaohdon() + " - " + hd2.getNgaytaohdon());
             try {
-                // 🔹 Định dạng đúng với DB của bạn
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 Date d1 = sdf.parse(hd1.getNgaytaohdon());
                 Date d2 = sdf.parse(hd2.getNgaytaohdon());
@@ -222,7 +220,6 @@ private void showDatePickerDialog(EditText target) {
 
         ImageView imgArrow = findViewById(R.id.iconSortNgay_statusroom);
         if (imgArrow != null) {
-            // Xoay icon mũi tên: nếu asc = true thì quay lên 0°, nếu false thì quay xuống 180°
             float rotation = asc ? 0f : 180f;
             imgArrow.animate().rotation(rotation).setDuration(200).start();
         }

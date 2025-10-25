@@ -55,7 +55,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private EditText edtOldElectric, edtNewElectric, edtOldWater, edtNewWater, edtdate, edtnote;
     private TextView txtTongTien, txtGiaPhong, txtTenPhong;
 
-    // views cho "Tiền dịch vụ khác"
     private TextView txtOtherServiceTotal;
     private ImageView imgExpandOther, imgBack, currentImageView;
     private RecyclerView recyclerOtherService;
@@ -64,8 +63,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private qlthutien_TotalPriceAdapter adapter;
     private ArrayList<qlthutien_DichVuCon> listDichVu;
-
-    // danh sách dịch vụ con (lấy từ DB)
     private qlthutien_DichVuConDAO dichVuConDAO;
     private ArrayList<qlthutien_DichVuCon> listOtherServices;
     private qlthutien_DichVuConAdapter otherAdapter;
@@ -79,7 +76,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private ImageView imgNuocCu, imgNuocMoi, iconNuocCu, iconNuocMoi;
     private String pathDienCu, pathDienMoi, pathNuocCu, pathNuocMoi;
 
-    // Dùng ActivityResultLauncher cho an toàn (API mới)
     private ActivityResultLauncher<Intent> cameraLauncher;
     private ActivityResultLauncher<Intent> galleryLauncher;
     private Uri imageUri;
@@ -112,7 +108,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         if(!checkdiennuoc.hasGiaMacDinh()){
             showNoGiaMacDinhDialog();
         }
-        // Lấy giá điện nước từ database (nếu có)
+        // Lấy giá điện nước từ database
         layGiaMacDinhTuDatabase();
 
         // Khởi tạo danh sách dịch vụ cho recycler chính (Tiền điện, tiền nước)
@@ -125,7 +121,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
         // --- SETUP "Tiền dịch vụ khác" (RecyclerView con, adapter, DAO) ---
         dichVuConDAO = new qlthutien_DichVuConDAO(this);
-        listOtherServices = dichVuConDAO.getAll(); // lấy tất cả dich vu con từ DB
+        listOtherServices = dichVuConDAO.getAll();
         // tính tổng các dịch vụ con
         calculateTotalOtherServices();
         otherAdapter = new qlthutien_DichVuConAdapter(listOtherServices);
@@ -167,15 +163,12 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             finish();
         });
 
-        // click chọn ngày
         chooseDate(idphong);
 
-        // tính lần đầu (gồm cả dịch vụ khác)
         tinhToan();
         picture();
 
         btnTaoHoaDon.setOnClickListener(v -> {
-            // 1️⃣ Lấy dữ liệu từ giao diện
             String ngayTao = edtdate.getText().toString().trim();
             String ghiChu = edtnote.getText().toString().trim();
             String txsodiencu = edtOldElectric.getText().toString().trim();
@@ -203,22 +196,18 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                 return;
             }
 
-            // 2️⃣ Lấy giá điện nước từ bảng GiaMacDinh
             DefaultValueWE = new qlthutien_GiaMacDinhDienNuocDAO(TaoHoaDonActivity.this);
-            double giaDien = DefaultValueWE.getGiaDien(); // bạn cần tạo hàm này trong DAO
+            double giaDien = DefaultValueWE.getGiaDien();
             double giaNuoc = DefaultValueWE.getGiaNuoc();
 
-            // 3️⃣ Tính tiền điện nước
             int soDienSuDung = newE - oldE;
             int soNuocSuDung = newW - oldW;
 
             double tienDien = soDienSuDung * giaDien;
             double tienNuoc = soNuocSuDung * giaNuoc;
 
-            // 4️⃣ Tính tổng tiền
-            double tongTien = tienDien + tienNuoc + giaphong + totalOtherServices; // tùy bạn có thể tính thêm
+            double tongTien = tienDien + tienNuoc + giaphong + totalOtherServices;
 
-            // 5️⃣ Tạo hóa đơn chính
             qlthutien_HoaDon hd = new qlthutien_HoaDon();
             hd.setIdphong(idphong);
             hd.setNgaytaohdon(ngayTao);
@@ -231,8 +220,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             hd.setImgNuocCu(pathNuocCu);
             hd.setImgNuocMoi(pathNuocMoi);
 
-            // 6️⃣ Insert vào bảng qlthutien_HoaDon
-
             long result = hoaDonDAO.insertHoaDon(hd);
 
             if (result == -1) {
@@ -240,7 +227,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                 return;
             }
 
-            // 7️⃣ Tạo chi tiết hóa đơn cho điện
             chiTietDien = new qlthutien_ChiTietHoaDon();
             chiTietDien.setIdhoadon((int) result);
             chiTietDien.setTendichvu("Điện");
@@ -249,7 +235,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             chiTietDien.setSosudung(soDienSuDung);
             chiTietDien.setThanhtien((int) tienDien);
 
-            // 8️⃣ Tạo chi tiết hóa đơn cho nước
             chiTietNuoc = new qlthutien_ChiTietHoaDon();
             chiTietNuoc.setIdhoadon((int) result);
             chiTietNuoc.setTendichvu("Nước");
@@ -258,7 +243,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             chiTietNuoc.setSosudung(soNuocSuDung);
             chiTietNuoc.setThanhtien((int) tienNuoc);
 
-            // 9️⃣ Insert chi tiết hóa đơn
             qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(TaoHoaDonActivity.this);
             qlthutienChiTietHoaDonDAO.insertChiTiet(chiTietDien);
             qlthutienChiTietHoaDonDAO.insertChiTiet(chiTietNuoc);
@@ -284,7 +268,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             builder.setPositiveButton("Xem hóa đơn", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // Chuyển sang activity khác
                     Intent intent = new Intent(TaoHoaDonActivity.this, BillRoomActivity.class);
                     intent.putExtra("idhoadon", (int) result);
                     startActivity(intent);
@@ -297,8 +280,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     private void toggleOtherServices() {
@@ -307,7 +288,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             imgExpandOther.animate().rotation(0).setDuration(200).start();
         } else {
             recyclerOtherService.setVisibility(View.VISIBLE);
-            imgExpandOther.animate().rotation(180).setDuration(200).start(); // xoay chỉ minh hoạ
+            imgExpandOther.animate().rotation(180).setDuration(200).start();
         }
         isOtherExpanded = !isOtherExpanded;
     }
@@ -352,15 +333,13 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         double totalE = usedE * giaDien;
         double totalW = usedW * giaNuoc;
 
-        // Cập nhật lại list hiển thị (dùng qlthutien_TotalPriceAdapter.setValues như hiện tại)
+        // Cập nhật lại list hiển thị
         listDichVu.clear();
         listDichVu.add(new qlthutien_DichVuCon("Tiền điện", giaDien));
         listDichVu.add(new qlthutien_DichVuCon("Tiền nước", giaNuoc));
-        // nếu adapter có phương thức setValues (như bạn đã dùng), ta giữ nguyên
         adapter.setValues(usedE, totalE, usedW, totalW);
 
         // cập nhật lại tổng: cộng cả dịch vụ con
-        // nếu danh sách dịch vụ con có thay đổi động thì cần gọi calculateTotalOtherServices() lại trước khi tính
         calculateTotalOtherServices();
         txtOtherServiceTotal.setText(df.format(totalOtherServices) + " đ");
 
@@ -391,19 +370,13 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                     TaoHoaDonActivity.this,
                     (view, year, month, dayOfMonth) -> {
 
-                        // Định dạng lại chuỗi thành "YYYY-MM" để khớp với câu lệnh SQL
-                        // String.format("%02d", ...) sẽ đảm bảo tháng luôn có 2 chữ số (ví dụ: 09, 10, 11)
                         String thangNamKiemTra = String.format("%d-%02d", year, month + 1);
-
-                        // Gọi hàm kiểm tra từ DAO với định dạng đã chuẩn
                         boolean daTonTai = hoaDonDAO.kiemTraHoaDonDaTonTaiWithThangNam(idphong, thangNamKiemTra);
 
                         if (daTonTai) {
-                            // Hiển thị tháng/năm cho người dùng dễ hiểu
                             Toast.makeText(TaoHoaDonActivity.this, "Hóa đơn cho tháng " + (month + 1) + "/" + year + " đã tồn tại!", Toast.LENGTH_LONG).show();
-                            edtdate.setText(""); // Reset về trạng thái ban đầu
+                            edtdate.setText("");
                         } else {
-                            // Nếu false: Set ngày đầy đủ vào EditText như cũ
                             edtdate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                         }
                     },
@@ -418,13 +391,12 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                 .setTitle("Thông báo")
                 .setMessage("Chưa thiết lập giá điện và nước mặc định.\nMặc định sẽ dùng giá điện và nước lần lượt là 3.500 và 20.000\nMuốn thay đổi vui lòng vào phần 'Thiết lập mặc định'.")
                 .setPositiveButton("OK", (dialog, which) -> {
-                    dialog.dismiss(); // Đóng thông báo khi nhấn OK
+                    dialog.dismiss();
                 })
-                .setCancelable(false) // Không cho nhấn ra ngoài để tắt
+                .setCancelable(false)
                 .show();
     }
     private void anhxaid() {
-        // Ánh xạ view
         imgBack = findViewById(R.id.img_arrowback_totalPriceroom);
         txtTenPhong = findViewById(R.id.tvTenPhong);
         edtdate = findViewById(R.id.edt_date_totalPrice);
@@ -449,7 +421,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         iconNuocMoi = findViewById(R.id.imga_newWater_totalPrice);
         imgNuocMoi = findViewById(R.id.imgb_newWater_totalPrice);
 
-        // ánh xạ cho phần dịch vụ khác (row riêng của bạn)
         txtOtherServiceTotal = findViewById(R.id.txt_otherService_totalPrice);
         imgExpandOther = findViewById(R.id.img_expand_OtherService_totalPrice);
         recyclerOtherService = findViewById(R.id.recycler_OtherService_totalPrice);
@@ -462,7 +433,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK && currentImageView != null) {
                         currentImageView.setImageURI(imageUri);
 
-                        // 🔥 Lưu đường dẫn (để insert DB)
+                        // Lưu đường dẫn (để insert DB)
                         String path = imageUri.toString();
 
                         if (currentImageView == imgDienCu) pathDienCu = path;
@@ -481,7 +452,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null && currentImageView != null) {
                         Uri uri = result.getData().getData();
 
-                        // 👉 Giữ quyền truy cập lâu dài cho URI được chọn
+                        // Giữ quyền truy cập lâu dài cho URI được chọn
                         final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
                         try {
                             getContentResolver().takePersistableUriPermission(uri, takeFlags);
@@ -507,7 +478,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     }
 
     private void eventButtonCamera() {
-        // --- Khi nhấn vào hình điện: mở camera ---
         iconDienCu.setOnClickListener(v -> {
             currentImageView = imgDienCu;
             openCamera();
@@ -528,7 +498,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             openCamera();
         });
 
-        // --- Khi nhấn vào hình nước: mở thư viện ---
         imgDienCu.setOnClickListener(v -> {
             currentImageView = imgDienCu;
             openGallery();
@@ -583,7 +552,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
         if (requestCode == 100) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Người dùng đã cho phép
                 openCamera();
             } else {
                 Toast.makeText(this, "Bạn cần cấp quyền camera để chụp ảnh", Toast.LENGTH_SHORT).show();

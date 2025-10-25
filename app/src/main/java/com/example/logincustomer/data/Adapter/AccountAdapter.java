@@ -24,7 +24,7 @@ public class AccountAdapter extends ArrayAdapter<Account> {
 
     private Context context;
     private List<Account> accountList;
-    private account_activity activity; // để gọi hàm từ activity
+    private account_activity activity;
     private account_DAO accountDao;
 
     public AccountAdapter(@NonNull Context context, int resource, @NonNull List<Account> objects, account_activity activity) {
