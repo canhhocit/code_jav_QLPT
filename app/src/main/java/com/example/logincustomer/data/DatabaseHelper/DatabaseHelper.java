@@ -56,8 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE TaiKhoan (" +
                 "idTK INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username TEXT, " +
-                "pass TEXT, " +
-                "phanloai TEXT)");
+                "password TEXT )");
 
         // Bảng Hóa đơn
         db.execSQL("CREATE TABLE HoaDon (" +
