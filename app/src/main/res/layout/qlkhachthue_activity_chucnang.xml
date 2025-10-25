@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple">
+            android:background="@color/ng2">
 
 
             <ImageView
@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:src="@drawable/back" />
+                android:src="@drawable/arrow_back" />
 
 
         </LinearLayout>
@@ -30,7 +30,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="@color/purple"
+            android:background="@color/ng2"
             android:padding="20dp">
 
             <ImageView
@@ -248,6 +248,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="#099578"
             android:text="Sửa" />
     </LinearLayout>
     <LinearLayout
@@ -262,6 +263,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="#099578"
             android:text="Thêm" />
 
     </LinearLayout>

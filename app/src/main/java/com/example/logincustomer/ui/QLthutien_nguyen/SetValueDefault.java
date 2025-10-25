@@ -19,7 +19,6 @@ import com.example.logincustomer.data.DAO.qlthutien_GiaMacDinhDienNuocDAO;
 import java.util.ArrayList;
 
 public class SetValueDefault extends AppCompatActivity {
-
     private EditText edtElectric, edtWater;
     private qlthutien_GiaMacDinhDienNuocDAO qlthutienGiaMacDinhDAO;
     private RecyclerView recyclerView;
@@ -63,10 +62,10 @@ public class SetValueDefault extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        // 👉 Nút thêm dịch vụ mới
+        //  Nút thêm dịch vụ mới
         themdichvu();
 
-        // 👉 Nút lưu toàn bộ danh sách hiện tại
+        //  Nút lưu toàn bộ danh sách hiện tại
         btnSave.setOnClickListener(v -> {
             try {
                 // --- Lưu giá điện và giá nước ---

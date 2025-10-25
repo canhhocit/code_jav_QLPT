@@ -1,91 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_dn"
     tools:context=".ui.Login.login_activity_login">
 
-    <TextView
-        android:id="@+id/login_tv0"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Đăng nhập"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/login_edt_username"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="48dp"
-        android:ems="20"
-        android:hint="User Name"
-        android:inputType="text"
-        android:textAlignment="center"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_tv0" />
-
-    <EditText
-        android:id="@+id/login_edt_pass"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:ems="20"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/login_tv_quenmk"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_edt_username"
-        app:layout_constraintVertical_bias="0.451" />
-
-    <Button
-        android:id="@+id/quenmk_btn_guima"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:text="Đăng nhập"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_edt_pass" />
-
-    <TextView
-        android:id="@+id/login_tv_quenmk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="32dp"
-        android:text="Quên mật khẩu?"
-        android:textColor="#412147"
-        android:textStyle="italic|bold"
-        app:layout_constraintBottom_toTopOf="@+id/quenmk_btn_guima"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/login_tv_dangky"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="32dp"
-        android:text="Đăng ký"
-        android:textColor="#412147"
-        android:textStyle="italic|bold"
-        app:layout_constraintBottom_toTopOf="@+id/quenmk_btn_guima"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toEndOf="@+id/login_tv_quenmk" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/login_tv0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="Đăng nhập"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/login_edt_username"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_dk"
+            android:ems="20"
+            android:hint="User Name"
+            android:inputType="text"
+            android:textAlignment="center"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_tv0" />
+
+        <EditText
+            android:id="@+id/login_edt_pass"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_dk"
+            android:ems="20"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/login_tv_quenmk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_edt_username"
+            app:layout_constraintVertical_bias="0.451" />
+
+        <Button
+            android:id="@+id/login_btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Đăng nhập"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_edt_pass" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/login_tv_quenmk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_dk"
+                android:text="Quên mật khẩu?"
+                android:textColor="#412147"
+                android:textStyle="italic|bold"
+                app:layout_constraintBottom_toTopOf="@+id/quenmk_btn_guima"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/login_tv_dangky"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:layout_gravity="center"
+                android:text="Đăng ký"
+                android:textColor="#412147"
+                android:textStyle="italic|bold"
+                app:layout_constraintBottom_toTopOf="@+id/quenmk_btn_guima"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.049"
+                app:layout_constraintStart_toEndOf="@+id/login_tv_quenmk" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

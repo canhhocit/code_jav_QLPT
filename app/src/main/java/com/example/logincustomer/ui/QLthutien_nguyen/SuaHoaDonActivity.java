@@ -54,8 +54,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
 
     private EditText edtOldElectric, edtNewElectric, edtOldWater, edtNewWater, edtdate, edtnote;
     private TextView txtTongTien, txtGiaPhong, txtTenPhong;
-
-    // views cho "Tiền dịch vụ khác"
     private TextView txtOtherServiceTotal;
     private ImageView imgExpandOther, imgBack, currentImageView;
     private RecyclerView recyclerOtherService;
@@ -64,8 +62,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private qlthutien_TotalPriceAdapter adapter;
     private ArrayList<qlthutien_DichVuCon> listDichVu;
-
-    // danh sách dịch vụ con (lấy từ DB)
     private qlthutien_DichVuConDAO dichVuConDAO;
     private ArrayList<qlthutien_DichVuCon> listOtherServices;
     private qlthutien_DichVuConAdapter otherAdapter;
@@ -78,8 +74,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     private ImageView imgDienCu, imgDienMoi, iconDienCu, iconDienMoi;
     private ImageView imgNuocCu, imgNuocMoi, iconNuocCu, iconNuocMoi;
     private String pathDienCu, pathDienMoi, pathNuocCu, pathNuocMoi;
-
-    // Dùng ActivityResultLauncher cho an toàn (API mới)
     private ActivityResultLauncher<Intent> cameraLauncher;
     private ActivityResultLauncher<Intent> galleryLauncher;
     private Uri imageUri;
@@ -110,18 +104,15 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         chitiethoadondien = qlthutienChiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonDien(idhoadon);
         chitiethoadonnuoc = qlthutienChiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonNuoc(idhoadon);
 
-
         int idphong = hoaDonDAO.getIdPhongByIdHoaDon(idhoadon);
         phongtro = phongTroDAO.getPhongById(idphong);
 
-        // ✅ Nhận idhoadon từ intent
         if (idhoadon == -1) {
             Toast.makeText(this, "Không tìm thấy ID hóa đơn!", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        // ✅ Lấy hóa đơn từ DB
         qlthutien_HoaDon hoaDon = hoaDonDAO.getHoaDonById(idhoadon);
         if (hoaDon == null) {
             Toast.makeText(this, "Không tìm thấy hóa đơn!", Toast.LENGTH_SHORT).show();
@@ -129,7 +120,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
             return;
         }
 
-        // ✅ Điền dữ liệu cũ vào form
         txtTenPhong.setText(phongtro.getTenphong());
         txtGiaPhong.setText(df.format(phongtro.getGia()));
         edtdate.setText(hoaDon.getNgaytaohdon());
@@ -140,19 +130,19 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         edtOldWater.setText(String.valueOf(chitiethoadonnuoc.getSonuoccu()));
         edtNewWater.setText(String.valueOf(chitiethoadonnuoc.getSonuocmoi()));
 
-        // ✅ Ảnh cũ (nếu có)
+        // Ảnh cũ (nếu có)
         if (hoaDon.getImgDienCu() != null) imgDienCu.setImageURI(Uri.parse(hoaDon.getImgDienCu()));
         if (hoaDon.getImgDienMoi() != null) imgDienMoi.setImageURI(Uri.parse(hoaDon.getImgDienMoi()));
         if (hoaDon.getImgNuocCu() != null) imgNuocCu.setImageURI(Uri.parse(hoaDon.getImgNuocCu()));
         if (hoaDon.getImgNuocMoi() != null) imgNuocMoi.setImageURI(Uri.parse(hoaDon.getImgNuocMoi()));
 
-        // ✅ Lưu lại các path ảnh cũ
+        // Lưu lại các path ảnh cũ
         pathDienCu = hoaDon.getImgDienCu();
         pathDienMoi = hoaDon.getImgDienMoi();
         pathNuocCu = hoaDon.getImgNuocCu();
         pathNuocMoi = hoaDon.getImgNuocMoi();
 
-        // ✅ Gán lại DAO và các phần tính toán
+        // Gán lại DAO và các phần tính toán
         layGiaMacDinhTuDatabase();
         listDichVu = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -198,7 +188,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         edtOldWater.addTextChangedListener(watcher);
         edtNewWater.addTextChangedListener(watcher);
 
-
         // tính tổng lại
         tinhToan();
         picture();
@@ -210,12 +199,9 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     private void toggleOtherServices() {
@@ -269,7 +255,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         double totalE = usedE * giaDien;
         double totalW = usedW * giaNuoc;
 
-        // Cập nhật lại list hiển thị (dùng qlthutien_TotalPriceAdapter.setValues như hiện tại)
+        // Cập nhật lại list hiển thị
         listDichVu.clear();
         listDichVu.add(new qlthutien_DichVuCon("Tiền điện", giaDien));
         listDichVu.add(new qlthutien_DichVuCon("Tiền nước", giaNuoc));
@@ -277,7 +263,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         adapter.setValues(usedE, totalE, usedW, totalW);
 
         // cập nhật lại tổng: cộng cả dịch vụ con
-        // nếu danh sách dịch vụ con có thay đổi động thì cần gọi calculateTotalOtherServices() lại trước khi tính
         calculateTotalOtherServices();
         txtOtherServiceTotal.setText(df.format(totalOtherServices) + " đ");
 
@@ -314,7 +299,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     }
 
     private void anhxaid() {
-        // Ánh xạ view
         imgBack = findViewById(R.id.img_arrowback_totalPriceroom);
         txtTenPhong = findViewById(R.id.tvTenPhong);
         edtdate = findViewById(R.id.edt_date_totalPrice);
@@ -339,7 +323,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         iconNuocMoi = findViewById(R.id.imga_newWater_totalPrice);
         imgNuocMoi = findViewById(R.id.imgb_newWater_totalPrice);
 
-        // ánh xạ cho phần dịch vụ khác (row riêng của bạn)
         txtOtherServiceTotal = findViewById(R.id.txt_otherService_totalPrice);
         imgExpandOther = findViewById(R.id.img_expand_OtherService_totalPrice);
         recyclerOtherService = findViewById(R.id.recycler_OtherService_totalPrice);
@@ -352,7 +335,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK && currentImageView != null) {
                         currentImageView.setImageURI(imageUri);
 
-                        // 🔥 Lưu đường dẫn (để insert DB)
+                        // Lưu đường dẫn (insert DB)
                         String path = imageUri.toString();
 
                         if (currentImageView == imgDienCu) pathDienCu = path;
@@ -371,7 +354,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null && currentImageView != null) {
                         Uri uri = result.getData().getData();
 
-                        // 👉 Giữ quyền truy cập lâu dài cho URI được chọn
+                        // Giữ quyền truy cập lâu dài cho URI được chọn
                         final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
                         try {
                             getContentResolver().takePersistableUriPermission(uri, takeFlags);
@@ -397,7 +380,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     }
 
     private void eventButtonCamera() {
-        // --- Khi nhấn vào hình điện: mở camera ---
         iconDienCu.setOnClickListener(v -> {
             currentImageView = imgDienCu;
             openCamera();
@@ -418,7 +400,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
             openCamera();
         });
 
-        // --- Khi nhấn vào hình nước: mở thư viện ---
         imgDienCu.setOnClickListener(v -> {
             currentImageView = imgDienCu;
             openGallery();
@@ -473,7 +454,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
 
         if (requestCode == 100) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Người dùng đã cho phép
                 openCamera();
             } else {
                 Toast.makeText(this, "Bạn cần cấp quyền camera để chụp ảnh", Toast.LENGTH_SHORT).show();
@@ -516,7 +496,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         double tienNuoc = soNuocSuDung * giaNuoc;
         double tongTien = tienDien + tienNuoc + giaphong + totalOtherServices;
 
-        // ✅ Gán dữ liệu mới cho hóa đơn
         qlthutien_HoaDon hd = new qlthutien_HoaDon();
         hd.setIdphong(idphong);
         hd.setIdhoadon(idhoadon);
@@ -533,7 +512,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
             Toast.makeText(this, "Lỗi khi sửa hóa đơn!", Toast.LENGTH_SHORT).show();
             return;
         }
-        // 7️⃣ Tạo chi tiết hóa đơn cho điện
         chiTietDien = new qlthutien_ChiTietHoaDon();
         chiTietDien.setIdhoadon(idhoadon);
         chiTietDien.setTendichvu("Điện");
@@ -542,7 +520,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         chiTietDien.setSosudung(soDienSuDung);
         chiTietDien.setThanhtien((int) tienDien);
 
-        // 8️⃣ Tạo chi tiết hóa đơn cho nước
         chiTietNuoc = new qlthutien_ChiTietHoaDon();
         chiTietNuoc.setIdhoadon(idhoadon);
         chiTietNuoc.setTendichvu("Nước");
@@ -551,7 +528,6 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         chiTietNuoc.setSosudung(soNuocSuDung);
         chiTietNuoc.setThanhtien((int) tienNuoc);
 
-        // 9️⃣ Insert chi tiết hóa đơn
         qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(SuaHoaDonActivity.this);
         qlthutienChiTietHoaDonDAO.updateSoDienNuoc(chiTietDien);
         qlthutienChiTietHoaDonDAO.updateSoDienNuoc(chiTietNuoc);

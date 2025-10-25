@@ -34,11 +34,6 @@
         <activity
             android:name=".ui.Manager_Home.activity_manager"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.QLkhachthue_trang.qlkhachthue_activity_chucnang"
@@ -60,7 +55,15 @@
             android:exported="false" />
         <activity
             android:name=".ui.Login.login_activity_login"
-            android:exported="false" />
+            android:exported="true">
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        </activity>
         <activity
             android:name=".ui.QLbaocao_canh.baocao_activity_homeBC"
             android:exported="false" />
