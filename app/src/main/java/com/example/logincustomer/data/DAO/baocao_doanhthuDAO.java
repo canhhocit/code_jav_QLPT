@@ -41,11 +41,11 @@ public class baocao_doanhthuDAO  {
 
     public List<baocao_doanhthu> getChibyYear(String year){
         List<baocao_doanhthu> list = new ArrayList<>();
-        String sql= "SELECT SUBSTR(ngaythuchi, 6, 2) AS thang, SUM(sotien) AS tongchi\n" +
+        String sql= "SELECT CAST(SUBSTR(ngaythuchi, 6, 2) AS INTEGER) AS thang, SUM(sotien) AS tongchi\n" +
                 "FROM ThuChi\n" +
                 "WHERE loai = 'Chi' AND SUBSTR(ngaythuchi, 1, 4) = ? \n" +
                 "GROUP BY thang  \n" +
-                "ORDER BY CAST(thang AS INTEGER);";
+                "ORDER BY thang;";
         Cursor cursor = db.rawQuery(sql,new String[]{year});
         if(cursor.moveToFirst()){
             do {
@@ -58,11 +58,11 @@ public class baocao_doanhthuDAO  {
 
     public List<baocao_doanhthu> getThubyYear(String year){
         List<baocao_doanhthu> list = new ArrayList<>();
-        String sql= "SELECT SUBSTR(ngaythuchi, 6, 2) AS thang, SUM(sotien) AS tongthu\n" +
+        String sql= "SELECT CAST(SUBSTR(ngaythuchi, 6, 2) AS INTEGER) AS thang, SUM(sotien) AS tongthu\n" +
                 "FROM ThuChi\n" +
                 "WHERE loai = 'Thu' AND SUBSTR(ngaythuchi, 1, 4) = ? \n" +
                 "GROUP BY thang  \n" +
-                "ORDER BY CAST(thang AS INTEGER);";
+                "ORDER BY thang;";
         Cursor cursor = db.rawQuery(sql,new String[]{year});
         if(cursor.moveToFirst()){
             do {
@@ -74,7 +74,7 @@ public class baocao_doanhthuDAO  {
     }
     public List<baocao_doanhthu> getdtHDbyYear(String year){
         List<baocao_doanhthu> list = new ArrayList<>();
-        String sql= "SELECT SUBSTR(ngaytaohdon, 6, 2) AS thang, SUM(tongtien) AS tienHD\n" +
+        String sql= "SELECT CAST(SUBSTR(ngaytaohdon, 6, 2) AS INTEGER) AS thang, SUM(tongtien) AS tienHD\n" +
                 "FROM HoaDon\n" +
                 "WHERE trangthai =1 and SUBSTR(ngaytaohdon,1,4)=?\n" +
                 "GROUP BY thang\n" +

@@ -183,7 +183,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="16dp"
-                        android:text="Quản lý hợp đồng của các khách thuê trong phòng một cách chi tiết."/>
+                        android:text="Thêm, sửa, hủy và hiển thị danh sách hợp đồng từng phòng"
+                       />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -214,7 +215,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="16dp"
-                        android:text="Báo cáo thống kê theo năm, hiển thị nhiều thứ."/>
+                        android:text="- Xem biểu đồ doanh thu, biểu đồ thu chi các tháng trong năm, danh sách thu thi, sắp xếp theo ngày hoặc loại.\n- Xem thời hạn còn lại của hợp đồng, tự động hủy hợp đồng nếu hết hạn.\n- Tạo, sửa, xóa các khoản thu/chi theo ngày"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

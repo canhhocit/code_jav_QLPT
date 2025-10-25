@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="5dp"
-    android:weightSum="6">
-
+    android:layout_marginBottom="8dp"
+    android:weightSum="6.5">
+<TextView
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="0.1"/>
 
     <TextView
         android:id="@+id/khachthue_tv_hotenlv"
@@ -19,12 +23,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Nam" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"/>
 
     <TextView
         android:id="@+id/khachthue_tv_ngaysinhlv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1.7"
         android:text="12/01/2001" />
 
     <TextView
@@ -32,5 +40,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:text="101" />
+    <ImageView
+        android:id="@+id/khachthue_img_option"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_weight="0.5"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/img_threedot" />
 </LinearLayout>

@@ -31,7 +31,8 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
     private ImageView imageBack;
     private EditText edtHoTen, edtNgaySinh, edtSDT, edtDiaChi, edtPhong;
     private RadioGroup rdgGioiTinh;
-    private Button btnSua, btnXoa, btnThem;
+    private RadioButton rdonam, rdonu;
+    private Button btnSua, btnThem;
     private qlkhachthue_khachthueDAO khachDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,36 +49,7 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         nhandulieu();
         them();
         Sua();
-        Xoa();
         back_list();
-    }
-
-    private void Xoa() {
-      btnXoa.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              AlertDialog.Builder builder = new AlertDialog.Builder(qlkhachthue_activity_chucnang.this);
-              builder.setTitle("Lưu ý");
-              builder.setIcon(R.drawable.warning_img);
-              builder.setMessage("Xóa người này?");
-              builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which) {
-                      Intent intent = getIntent();
-                      int idkhach = intent.getIntExtra("idkhach", -1);
-                      if (idkhach != -1) {
-                          khachDAO.deleteKhacThue(idkhach);
-                          Toast.makeText(qlkhachthue_activity_chucnang.this, "Đã xóa khách thuê!", Toast.LENGTH_SHORT).show();
-                          finish();
-                      } else {
-                          Toast.makeText(qlkhachthue_activity_chucnang.this, "Lỗi: không tìm thấy khách!", Toast.LENGTH_SHORT).show();
-                      }
-                  }
-              });
-              builder.setNegativeButton("Hủy",null);
-              builder.show();
-          }
-      });
     }
 
     private void Sua() {
@@ -86,6 +58,11 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent= getIntent();
                 int idkhach=intent.getIntExtra("idkhach",-1);
+                int sdt_size = edtSDT.getText().length();
+                if(sdt_size<9){
+                    Toast.makeText(qlkhachthue_activity_chucnang.this, "Số điện thoại không hợp lệ( phải > 9 số) !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 khachthue kt = getdatafromText();
                 if (kt == null) {
                     Toast.makeText(qlkhachthue_activity_chucnang.this, "Lỗi, hãy chọn khách", Toast.LENGTH_SHORT).show();
@@ -126,7 +103,6 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
             btnThem.setVisibility(View.VISIBLE);
         } else if (check == 2) {
             btnSua.setVisibility(View.VISIBLE);
-            btnXoa.setVisibility(View.VISIBLE);
 
             String hoten = intent.getStringExtra("hoten");
             String gioitinh = intent.getStringExtra("gioitinh");
@@ -153,9 +129,9 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         } else if (check ==5 ) {
             btnThem.setVisibility(View.INVISIBLE);
             btnSua.setVisibility(View.INVISIBLE);
-            btnXoa.setVisibility(View.INVISIBLE);
             edtHoTen.setEnabled(false); edtNgaySinh.setEnabled(false);edtSDT.setEnabled(false);
             edtPhong.setEnabled(false); edtDiaChi.setEnabled(false);
+            rdgGioiTinh.setEnabled(false); rdonam.setEnabled(false);rdonu.setEnabled(false);
             String hoten = intent.getStringExtra("hoten");
             String gioitinh = intent.getStringExtra("gioitinh");
             String ngaysinh = intent.getStringExtra("ngaysinh");
@@ -184,6 +160,11 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int sdt_size = edtSDT.getText().length();
+                if(sdt_size<9){
+                    Toast.makeText(qlkhachthue_activity_chucnang.this, "Số điện thoại không hợp lệ( phải > 9 số) !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 khachthue kt =getdatafromText();
                 if(kt==null){
                     return;
@@ -263,13 +244,12 @@ public class qlkhachthue_activity_chucnang extends AppCompatActivity {
         edtPhong = findViewById(R.id.khachthue_edt_phong);
 
         rdgGioiTinh = findViewById(R.id.khachthue_rdogroup);
-
+        rdonam = findViewById(R.id.khachthue_radioNam);
+        rdonu = findViewById(R.id.khachthue_radioNu);
         btnSua = findViewById(R.id.khachthue_btnSua);
-        btnXoa = findViewById(R.id.khachthue_btnXoa);
         btnThem = findViewById(R.id.khachthue_btnThem);
         btnThem.setVisibility(View.INVISIBLE);
         btnSua.setVisibility(View.INVISIBLE);
-        btnXoa.setVisibility(View.INVISIBLE);
         khachDAO = new qlkhachthue_khachthueDAO(this);
         //click ngay
         edtNgaySinh.setOnClickListener(v -> {

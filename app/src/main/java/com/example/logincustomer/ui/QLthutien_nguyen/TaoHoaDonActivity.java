@@ -97,6 +97,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         setContentView(R.layout.qlthutien_layout_total_priceroom);
         anhxaid();
 
+        hoaDonDAO = new qlthutien_HoaDonDAO(TaoHoaDonActivity.this);
+
         int idphong = getIntent().getIntExtra("idPhong", 0);
         String tenphong = getIntent().getStringExtra("tenphong");
         double giaphong = getIntent().getDoubleExtra("giaphong", 0);
@@ -166,7 +168,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         });
 
         // click chọn ngày
-        chooseDate();
+        chooseDate(idphong);
+
         // tính lần đầu (gồm cả dịch vụ khác)
         tinhToan();
         picture();
@@ -175,14 +178,13 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             // 1️⃣ Lấy dữ liệu từ giao diện
             String ngayTao = edtdate.getText().toString().trim();
             String ghiChu = edtnote.getText().toString().trim();
-
             String txsodiencu = edtOldElectric.getText().toString().trim();
             String txsodienmoi = edtNewElectric.getText().toString().trim();
             String txsonuoccu = edtOldWater.getText().toString().trim();
             String txsonuocmoi = edtNewWater.getText().toString().trim();
 
-            //ngayTao.isEmpty() || cho vào if dưới
-            if (txsonuoccu.isEmpty() || txsonuocmoi.isEmpty() ||
+            // cho vào if dưới
+            if (ngayTao.isEmpty() || txsonuoccu.isEmpty() || txsonuocmoi.isEmpty() ||
                     txsodiencu.isEmpty() || txsodienmoi.isEmpty()) {
                 Toast.makeText(this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 return;
@@ -220,6 +222,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             qlthutien_HoaDon hd = new qlthutien_HoaDon();
             hd.setIdphong(idphong);
             hd.setNgaytaohdon(ngayTao);
+
             hd.setTrangthai(false);
             hd.setGhichu(ghiChu);
             hd.setTongtien(tongTien);
@@ -229,7 +232,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             hd.setImgNuocMoi(pathNuocMoi);
 
             // 6️⃣ Insert vào bảng qlthutien_HoaDon
-            hoaDonDAO = new qlthutien_HoaDonDAO(TaoHoaDonActivity.this);
+
             long result = hoaDonDAO.insertHoaDon(hd);
 
             if (result == -1) {
@@ -377,7 +380,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         }
     }
 
-    private void chooseDate() {
+    private void chooseDate(int idphong) {
         edtdate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int y = calendar.get(Calendar.YEAR);
@@ -386,9 +389,27 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
             DatePickerDialog dialog = new DatePickerDialog(
                     TaoHoaDonActivity.this,
-                    (view, year1, month1, dayOfMonth) -> edtdate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
+                    (view, year, month, dayOfMonth) -> {
+
+                        // Định dạng lại chuỗi thành "YYYY-MM" để khớp với câu lệnh SQL
+                        // String.format("%02d", ...) sẽ đảm bảo tháng luôn có 2 chữ số (ví dụ: 09, 10, 11)
+                        String thangNamKiemTra = String.format("%d-%02d", year, month + 1);
+
+                        // Gọi hàm kiểm tra từ DAO với định dạng đã chuẩn
+                        boolean daTonTai = hoaDonDAO.kiemTraHoaDonDaTonTaiWithThangNam(idphong, thangNamKiemTra);
+
+                        if (daTonTai) {
+                            // Hiển thị tháng/năm cho người dùng dễ hiểu
+                            Toast.makeText(TaoHoaDonActivity.this, "Hóa đơn cho tháng " + (month + 1) + "/" + year + " đã tồn tại!", Toast.LENGTH_LONG).show();
+                            edtdate.setText(""); // Reset về trạng thái ban đầu
+                        } else {
+                            // Nếu false: Set ngày đầy đủ vào EditText như cũ
+                            edtdate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                        }
+                    },
                     y, m, d
             );
+            dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
             dialog.show();
         });
     }
