@@ -14,6 +14,11 @@ public class Account {
     public Account() {
     }
 
+    public Account(String username, String pass) {
+        this.username = username;
+        this.pass = pass;
+    }
+
     public int getId() {
         return id;
     }

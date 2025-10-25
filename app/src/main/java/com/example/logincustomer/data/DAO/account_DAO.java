@@ -29,7 +29,7 @@ public class account_DAO {
         ContentValues vlu = new ContentValues();
         vlu.put("username", account.getUsername());
         vlu.put("password",account.getPass());
-        db.update("TaiKhoan",vlu,"idTK =?",new String[]{String.valueOf(account.getId())});
+        db.update("TaiKhoan",vlu,"idTK =? or username =?",new String[]{String.valueOf(account.getId()), account.getUsername()});
     }
     public void deleteAcoount(int id){
         db.delete("TaiKhoan","idTK =?",new String[]{String.valueOf(id)});
