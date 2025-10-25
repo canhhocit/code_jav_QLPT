@@ -42,49 +42,14 @@
         android:inputType="textPassword"
         android:layout_marginBottom="10dp"/>
 
-    <EditText
-        android:id="@+id/acc_edtPhanLoai"
-        android:layout_width="250dp"
+    <Button
+        android:id="@+id/acc_btnThem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:hint="Phân loại"
-        android:inputType="text"
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:layout_marginBottom="16dp"/>
+        android:text="Xác nhận"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/acc_btnThem"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-
-            android:layout_height="wrap_content"
-            android:text="Thêm"/>
-
-        <Button
-            android:id="@+id/acc_btnSua"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Sửa"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
-
-        <Button
-            android:id="@+id/acc_btnXoa"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Xóa"/>
-    </LinearLayout>
 
 
     <ListView
@@ -94,5 +59,6 @@
         android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:padding="8dp"
-        android:dividerHeight="2dp"/>
+        android:dividerHeight="2dp"
+        tools:listitem="@layout/layout_account_item"/>
 </LinearLayout>
