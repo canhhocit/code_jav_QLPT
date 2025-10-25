@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="#FFE5E5"
     android:gravity="center">
 
     <!-- Hộp thoại chính -->
@@ -20,7 +20,7 @@
             android:gravity="center"
             android:paddingBottom="8dp"
             android:text="Nhập thông tin phòng"
-            android:textSize="18sp"
+            android:textSize="25dp"
             android:textColor="@color/purple"
             android:textStyle="bold" />
 

@@ -5,6 +5,7 @@
     android:id="@+id/mainphong"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffe5e5"
     tools:context=".ui.QLphong_tam.qlphong_activity_home"
     android:padding="8dp">
 
@@ -16,7 +17,7 @@
         android:textAlignment="center"
         android:drawableStart="@drawable/arrow_back"
         android:paddingBottom="12dp"
-        android:textColor="#303036"
+        android:textColor="@color/purple"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
