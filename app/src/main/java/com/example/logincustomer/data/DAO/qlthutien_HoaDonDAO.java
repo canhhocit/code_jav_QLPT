@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.logincustomer.data.DatabaseHelper.DatabaseHelper;
 import com.example.logincustomer.data.Model.qlthutien_HoaDon;
@@ -17,6 +18,9 @@ import java.util.Locale;
 public class qlthutien_HoaDonDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
+    public static final int HOA_DON_CHUA_TON_TAI = 0;
+    public static final int HOA_DON_CHUA_THANH_TOAN = 1;
+    public static final int HOA_DON_DA_THANH_TOAN = 2;
     public qlthutien_HoaDonDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
@@ -160,6 +164,67 @@ public class qlthutien_HoaDonDAO {
         }
         return 0; // có thể tạo mới
     }
+    public int kiemTraHoaDonThangHienTai(int idPhong) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+        // Mặc định kết quả là không có hóa đơn
+        int ketQua = HOA_DON_CHUA_TON_TAI;
+
+        try {
+            // 2. CÂU LỆNH SQL TỐI ƯU
+            // Lấy trạng thái hóa đơn của phòng trong tháng và năm hiện tại
+            String sqlQuery = "SELECT trangthai FROM HoaDon WHERE idphong = ? " +
+                    "AND strftime('%Y-%m', ngaytaohdon) = strftime('%Y-%m', 'now')";
+
+            cursor = db.rawQuery(sqlQuery, new String[]{String.valueOf(idPhong)});
+
+            // 3. XỬ LÝ KẾT QUẢ
+            // Nếu con trỏ di chuyển được đến bản ghi đầu tiên (tức là tìm thấy hóa đơn)
+            if (cursor.moveToFirst()) {
+                // Lấy giá trị của cột 'trangthai' (cột đầu tiên, index = 0)
+                int trangThaiDb = cursor.getInt(0);
+
+                if (trangThaiDb == 1) { // Giả sử 1 là "đã thanh toán"
+                    ketQua = HOA_DON_DA_THANH_TOAN;
+                } else { // Ngược lại (trạng thái là 0) là "chưa thanh toán"
+                    ketQua = HOA_DON_CHUA_THANH_TOAN;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("HoaDonDAO", "Lỗi khi kiểm tra hóa đơn tháng hiện tại", e);
+        } finally {
+            // 4. ĐÓNG CURSOR ĐỂ TRÁNH RÒ RỈ BỘ NHỚ
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return ketQua;
+    }
+    public boolean kiemTraHoaDonDaTonTaiWithThangNam(int idPhong, String thangNam) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            // Câu lệnh SQL không cần lấy 'trangthai' nữa, chỉ cần kiểm tra sự tồn tại.
+            // Dùng "SELECT 1" sẽ hiệu quả hơn một chút.
+            String sqlQuery = "SELECT 1 FROM HoaDon WHERE idphong = ? " +
+                    "AND strftime('%Y-%m', ngaytaohdon) = ? LIMIT 1";
+
+            cursor = db.rawQuery(sqlQuery, new String[]{String.valueOf(idPhong), thangNam});
+
+            // Nếu con trỏ có bất kỳ bản ghi nào (count > 0), nghĩa là hóa đơn đã tồn tại.
+            if (cursor != null && cursor.getCount() > 0) {
+                return true; // Tìm thấy hóa đơn
+            }
+        } catch (Exception e) {
+            Log.e("HoaDonDAO", "Lỗi khi kiểm tra sự tồn tại của hóa đơn", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        // Mặc định trả về false nếu không tìm thấy hoặc có lỗi
+        return false;
+    }
     // ✅ Cập nhật trạng thái thanh toán riêng
     public int updateTrangThai(int idHoaDon, boolean trangThai) {
         ContentValues values = new ContentValues();
@@ -234,64 +299,6 @@ public class qlthutien_HoaDonDAO {
 
         cursor.close();
         return idPhong;
-    }
-    public List<qlthutien_HoaDon> getFilteredHoaDon(String tuNgay, String denNgay, int idPhong) {
-        List<qlthutien_HoaDon> list = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        // Xây dựng câu truy vấn động
-        StringBuilder query = new StringBuilder("SELECT * FROM HoaDon WHERE 1=1");
-        List<String> args = new ArrayList<>();
-
-        // Nếu có chọn ngày bắt đầu
-        if (tuNgay != null && !tuNgay.isEmpty()) {
-            query.append(" AND date(substr(ngaytaohdon, 7, 4) || '-' || substr(ngaytaohdon, 4, 2) || '-' || substr(ngaytaohdon, 1, 2)) >= date(?)");
-            args.add(convertDateToDB(tuNgay)); // Chuyển dd/MM/yyyy -> yyyy-MM-dd
-        }
-
-        // Nếu có chọn ngày kết thúc
-        if (denNgay != null && !denNgay.isEmpty()) {
-            query.append(" AND date(substr(ngaytaohdon, 7, 4) || '-' || substr(ngaytaohdon, 4, 2) || '-' || substr(ngaytaohdon, 1, 2)) <= date(?)");
-            args.add(convertDateToDB(denNgay));
-        }
-
-        // Nếu chọn 1 phòng cụ thể
-        if (idPhong != -1) {
-            query.append(" AND idphong = ?");
-            args.add(String.valueOf(idPhong));
-        }
-
-        query.append(" ORDER BY idhoadon DESC");
-
-        Cursor cursor = db.rawQuery(query.toString(), args.toArray(new String[0]));
-
-        if (cursor.moveToFirst()) {
-            do {
-                qlthutien_HoaDon hd = new qlthutien_HoaDon();
-                hd.setIdhoadon(cursor.getInt(cursor.getColumnIndexOrThrow("idhoadon")));
-                hd.setIdphong(cursor.getInt(cursor.getColumnIndexOrThrow("idphong")));
-                hd.setNgaytaohdon(cursor.getString(cursor.getColumnIndexOrThrow("ngaytaohdon")));
-                hd.setTrangthai(cursor.getInt(cursor.getColumnIndexOrThrow("trangthai")) == 1);
-                hd.setGhichu(cursor.getString(cursor.getColumnIndexOrThrow("ghichu")));
-                hd.setTongtien(cursor.getDouble(cursor.getColumnIndexOrThrow("tongtien")));
-                hd.setImgDienCu(cursor.getString(cursor.getColumnIndexOrThrow("imgDienCu")));
-                hd.setImgDienMoi(cursor.getString(cursor.getColumnIndexOrThrow("imgDienMoi")));
-                hd.setImgNuocCu(cursor.getString(cursor.getColumnIndexOrThrow("imgNuocCu")));
-                hd.setImgNuocMoi(cursor.getString(cursor.getColumnIndexOrThrow("imgNuocMoi")));
-                list.add(hd);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return list;
-    }
-    private String convertDateToDB(String date) {
-        // Input: dd/MM/yyyy → Output: yyyy-MM-dd (SQLite có thể so sánh được)
-        try {
-            String[] parts = date.split("/");
-            return parts[2] + "-" + parts[1] + "-" + parts[0];
-        } catch (Exception e) {
-            return date; // fallback nếu format sai
-        }
     }
     public boolean trangthaihoadon(int idHoaDon) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();

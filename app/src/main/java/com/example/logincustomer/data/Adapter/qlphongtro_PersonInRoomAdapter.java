@@ -100,7 +100,7 @@ public class qlphongtro_PersonInRoomAdapter extends BaseAdapter {
                             .setTitle("Xóa khách thuê")
                             .setMessage("Bạn có chắc muốn xóa khách này không?")
                             .setPositiveButton("Xóa", (dialog, which) -> {
-                                dao.deleteKhacThue(khach.getIdkhach());
+                                dao.deleteKhachThue(khach.getIdkhach());
                                 list.remove(position);
                                 notifyDataSetChanged();
                                 Toast.makeText(context, "Đã xóa khách thuê", Toast.LENGTH_SHORT).show();
