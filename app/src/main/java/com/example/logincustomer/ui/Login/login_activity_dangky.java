@@ -71,6 +71,7 @@ public class login_activity_dangky extends AppCompatActivity {
                 accDAO.insertAccount(newAcc);
 
                 Toast.makeText(context, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                finish();
                 edt_name.setText("");
                 edt_pass.setText("");
                 edt_acp_pass.setText("");

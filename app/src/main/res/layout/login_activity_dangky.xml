@@ -30,16 +30,6 @@
         android:inputType="text"
         android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/dangky_edt_xacnhanmk"
-        android:layout_width="232dp"
-        android:layout_height="45dp"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:hint="Xác nhận mật khẩu"
-        android:inputType="textPassword"
-        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/dangky_edt_mk"
@@ -52,6 +42,16 @@
         android:inputType="textPassword"
         android:textAlignment="center"
         />
+    <EditText
+        android:id="@+id/dangky_edt_xacnhanmk"
+        android:layout_width="232dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:hint="Xác nhận mật khẩu"
+        android:inputType="textPassword"
+        android:textAlignment="center" />
 
     <LinearLayout
         android:layout_width="match_parent"

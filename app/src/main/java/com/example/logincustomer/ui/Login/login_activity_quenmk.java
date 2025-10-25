@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +28,7 @@ public class login_activity_quenmk extends AppCompatActivity {
 
     private EditText edtUsername, edtMa, edtMKMoi, edtXacNhanMK;
     private Button btnGuiMa, btnXacNhan;
+    private TextView tvTitle;
     private String maxacnhan="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +115,17 @@ public class login_activity_quenmk extends AppCompatActivity {
                             .setMessage("Đổi mật khẩu thành công!")
                             .setPositiveButton("OK", null)
                             .show();
+                finish();
 
             }
         });
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 
@@ -126,6 +136,7 @@ public class login_activity_quenmk extends AppCompatActivity {
         edtXacNhanMK = findViewById(R.id.quenmk_edt_xacnhanmk);
         btnGuiMa = findViewById(R.id.quenmk_btn_guima);
         btnXacNhan = findViewById(R.id.quenmk_btn_xacnhan);
+        tvTitle = findViewById(R.id.login_tv0);
         
     }
 }

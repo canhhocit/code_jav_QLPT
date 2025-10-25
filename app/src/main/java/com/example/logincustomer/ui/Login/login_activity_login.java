@@ -60,8 +60,10 @@ public class login_activity_login extends AppCompatActivity {
                 for (Account acc : list) {
                     if (acc.getUsername().equalsIgnoreCase(username) && acc.getPass().equalsIgnoreCase(pass)) {
                         Intent intent = new Intent(context, activity_manager.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         Toast.makeText(context, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        edt_pass.setText("");
                         found = true;
                         break;
                     }

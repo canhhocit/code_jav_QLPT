@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -109,5 +110,21 @@ public class activity_manager extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(activity_manager.this)
+                        .setTitle("Thoát ứng dụng")
+                        .setIcon(R.drawable.manager_logout_img)
+                        .setMessage("Bạn có chắc muốn thoát ứng dụng không?")
+                        .setPositiveButton("Có", (dialog, which) -> {
+                            finishAffinity();
+                        })
+                        .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
+
     }
+
 }
