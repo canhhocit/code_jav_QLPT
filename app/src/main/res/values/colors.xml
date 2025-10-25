@@ -11,4 +11,15 @@
     <color name="graygreen">#758C76</color>
     <color name="lightgreen">#A2FFA4</color>
     <color name="red">#502D1F</color>
+    <color name="ng1">#c1f2c1</color>
+    <color name="ng2">#c0ffc0</color>
+    <color name="ng3">#a4ffa7</color>
+    <color name="ng4">#98fb98</color>
+    <color name="ng5">#90ee90</color>
+    <color name="ng6">#a4f5a5</color>
+    <color name="ng7">#3cb371</color>
+    <color name="ng8">#00a550</color>
+    <color name="ng9">#bbf7c6</color>
+    <color name="ng10">#90f3c9</color>
+
 </resources>
