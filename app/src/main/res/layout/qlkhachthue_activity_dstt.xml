@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/pink"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
@@ -19,7 +20,7 @@
         <ImageView
             android:id="@+id/khachthue_imgbtn_back"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/arrow_back" />
 
@@ -141,7 +142,7 @@
             android:layout_gravity="end"
             android:background="@drawable/purple_bg"
             android:foreground="@drawable/baseline_add_24"
-            android:backgroundTint="@color/graygreen"
+            android:backgroundTint="@color/purple"
             android:foregroundTint="#FFFFFF"
             android:textColor="@color/white" />
     </LinearLayout>

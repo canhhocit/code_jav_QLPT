@@ -3,8 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/pink"
     android:fillViewport="true">
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -22,10 +24,18 @@
                 android:layout_marginRight="8dp"
                 android:src="@drawable/arrow_back"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:textColor="@color/purple"
+                android:textStyle="bold"
                 android:text="Tính hóa đơn"
-                android:textSize="36dp"/>
+                android:gravity="center"
+                android:textSize="30dp"/>
+
+            <Space
+                android:layout_width="20sp"
+                android:layout_height="20sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -407,6 +417,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tạo hóa đơn"
+                android:backgroundTint="#099578"
                 android:layout_marginTop="12dp"/>
         </LinearLayout>
     </LinearLayout>

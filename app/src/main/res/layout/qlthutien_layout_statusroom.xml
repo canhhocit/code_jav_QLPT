@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="@drawable/bg_border_green_circle"
+    android:background="@color/pink"
     tools:context=".ui.QLthutien_nguyen.statusRoom">
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,16 +22,23 @@
             android:src="@drawable/arrow_back"/>
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Danh sách hóa đơn"
+            android:textColor="@color/purple"
+            android:textStyle="bold"
             android:padding="8dp"
+            android:gravity="center"
             android:textSize="32dp" />
+        <Space
+            android:layout_width="20sp"
+            android:layout_height="20sp"/>
     </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_border_red_circle"
+            android:background="@drawable/bg_border_green_circle"
             android:orientation="vertical"
             android:padding="8dp">
             <LinearLayout
@@ -162,7 +169,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FBDBDB"
+        android:background="#C7F6C1"
+
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
         android:weightSum="6">
