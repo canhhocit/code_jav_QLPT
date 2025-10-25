@@ -107,7 +107,7 @@ public class hopdong_activity_chucnang extends AppCompatActivity {
             edtCccd.setText(hd.getCccd()); edtNgayky.setText(hd.getNgayky()); edtPhong.setText(room.getTenphong());
 
         }
-        else if(check==3){
+        else if(check==3){// check tu ben ds hopdong
             btnSua.setVisibility(View.VISIBLE);btnXoa.setVisibility(View.VISIBLE);
             idhopdong = getIntent().getIntExtra("idhd",-1);
             tenphong = getIntent().getStringExtra("tenp");

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.logincustomer.ui.Account.account_activity;
 import com.example.logincustomer.ui.Login.login_activity_dangky;
+import com.example.logincustomer.ui.Login.login_activity_login;
 import com.example.logincustomer.ui.QLbaocao_canh.baocao_activity_homeBC;
 import com.example.logincustomer.ui.QLhopdong_y.hopdong_activity_showphong;
 import com.example.logincustomer.ui.QLkhachthue_trang.qlkhachthue_activity_dstt;
@@ -84,8 +86,20 @@ public class activity_manager extends AppCompatActivity {
         imgdangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_manager.this, login_activity_dangky.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity_manager.this);
+                builder.setTitle("Xác nhận");
+                builder.setIcon(R.drawable.warning_img);
+                builder.setMessage("Bạn muốn đăng xuất không?");
+                builder.setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(activity_manager.this, login_activity_login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("Hủy", null);
+                builder.show();
             }
         });
         imgthoat.setOnClickListener(v -> {
@@ -109,5 +123,8 @@ public class activity_manager extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
+
 }

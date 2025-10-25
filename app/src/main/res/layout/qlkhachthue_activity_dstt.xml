@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:background="@color/lightpurple"
+        android:background="#C7F6C1"
         android:orientation="horizontal"
         android:weightSum="6.5"
         android:paddingVertical="4dp">

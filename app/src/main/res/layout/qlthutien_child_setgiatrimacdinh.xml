@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:orientation="vertical"
+    android:background="#ffe5e5"
     android:padding="16dp">
 
     <EditText
@@ -10,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tên dịch vụ"
+        android:background="@drawable/bg_border_green_circle"
         android:textSize="20dp"
         android:inputType="textPersonName"
         android:padding="8dp" />
@@ -19,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Giá dịch vụ"
+        android:background="@drawable/bg_border_green_circle"
         android:textSize="20dp"
         android:inputType="number"
         android:padding="8dp" />
@@ -32,6 +35,7 @@
             android:id="@+id/btn_back_OtherService"
             android:layout_width="0dp"
             android:layout_height="60dp"
+            android:backgroundTint="#099578"
             android:layout_weight="1"
             android:text="Quay lại"
             android:textSize="19dp" />
@@ -44,6 +48,7 @@
             android:id="@+id/btn_update_OtherService"
             android:layout_width="0dp"
             android:layout_height="60dp"
+            android:backgroundTint="#099578"
             android:layout_weight="1"
             android:text="Cập nhật"
             android:textSize="19dp" />

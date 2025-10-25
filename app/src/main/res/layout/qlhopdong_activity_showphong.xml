@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="#ffe5e5"
     tools:context=".ui.QLhopdong_y.hopdong_activity_showphong">
     <TextView
         android:id="@+id/hopdong_showp_tv"
@@ -15,9 +15,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
+
         android:text="Danh sách phòng"
         android:drawableStart="@drawable/arrow_back"
-        android:textColor="#36093E"
+        android:textColor="@color/darkpurple"
         android:textSize="25dp"
         android:textStyle="bold" />
     <LinearLayout
@@ -77,5 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_gravity="center"
+        android:backgroundTint="#099578"
         android:text="Danh sách hợp đồng" />
 </LinearLayout>

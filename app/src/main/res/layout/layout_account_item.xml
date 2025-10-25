@@ -18,26 +18,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/acc_txt_user"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="19sp"
-                    android:paddingLeft="8dp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
-                    android:layout_height="wrap_content"
-                    android:text="Nguyễn Thanh Thúy"/>
+            <TextView
+                android:id="@+id/acc_txt_user"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:textSize="19sp"
+                android:paddingLeft="8dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Thanh Thúy"/>
 
-                <TextView
-                    android:id="@+id/acc_txt_password"
-                    android:layout_width="match_parent"
-                    android:paddingLeft="8dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="05/08/2005"/>
+            <TextView
+                android:id="@+id/acc_txt_password"
+                android:layout_width="match_parent"
+                android:paddingLeft="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="05/08/2005"/>
         </LinearLayout>
 
         <ImageView

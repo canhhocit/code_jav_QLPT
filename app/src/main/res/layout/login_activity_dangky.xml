@@ -30,6 +30,18 @@
         android:inputType="text"
         android:textAlignment="center" />
 
+
+    <EditText
+        android:id="@+id/dangky_edt_mk"
+        android:layout_width="232dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:hint="Mật khẩu"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        />
     <EditText
         android:id="@+id/dangky_edt_xacnhanmk"
         android:layout_width="232dp"
@@ -41,60 +53,33 @@
         android:inputType="textPassword"
         android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/dangky_edt_mk"
-        android:layout_width="232dp"
-        android:layout_height="45dp"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:hint="Mật khẩu"
-        android:layout_gravity="center"
-        android:inputType="textPassword"
-        android:textAlignment="center" />
-
-    <RadioGroup
-        android:id="@+id/dangky_rdogr"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:text="Loại: "
-            android:textSize="18dp" />
-
-        <RadioButton
-            android:id="@+id/dangky_rdo_customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="Khách"
-            android:textSize="15dp" />
-
-        <RadioButton
-            android:id="@+id/dangky_rdo_manager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quản lý"
-            android:textSize="15dp" />
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/dangky_btn_dangky"
-        android:layout_width="148dp"
-        android:layout_height="52dp"
-        android:text="Đăng ký"
-        android:layout_gravity="center"
-        android:textColor="#01FF11"
         android:layout_marginTop="25dp"
-        android:textSize="18dp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/dangky_btn_huy"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:layout_gravity="center"
+            android:textColor="#01FF11"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/dangky_btn_dangky"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Đăng ký"
+            android:layout_gravity="center"
+            android:textColor="#01FF11"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

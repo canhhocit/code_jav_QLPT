@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
-    android:background="@color/pink">
+    android:background="#ffe5e5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#ffe5e5"
             android:paddingBottom="16dp"
             android:orientation="horizontal">
 
@@ -28,14 +29,14 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple"
-                android:textSize="30dp"
-                android:gravity="center"
+                android:text="Xem hóa đơn"
                 android:textStyle="bold"
-                android:text="Xem hóa đơn" />
+                android:gravity="center"
+                android:textColor="@color/darkpurple"
+                android:textSize="36dp"/>
             <Space
-                android:layout_width="20sp"
-                android:layout_height="20sp"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"/>
         </LinearLayout>
 
     <LinearLayout
@@ -483,8 +484,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#099578"
-                android:text="Trang chủ"/>
+                android:text="Trang chủ"
+                android:backgroundTint="#099578"/>
 
             <Button
                 android:id="@+id/btn_pay_billRoom"

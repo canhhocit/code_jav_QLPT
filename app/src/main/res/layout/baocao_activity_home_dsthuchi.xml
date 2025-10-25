@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="15dp"
     tools:context=".ui.QLbaocao_canh.baocao_activity_homedsthuchi"
-    android:background="#E1E6E9">
+    android:background="#ffe5e5">
 
     <TextView
         android:id="@+id/baocao_dsthuchi_tvTitle"
@@ -17,7 +17,7 @@
         android:text="Danh sách thu/chi"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textColor="#867189"
+        android:textColor="@color/darkpurple"
         android:textSize="29dp"
         android:layout_marginTop="8dp"
         android:drawableStart="@drawable/arrow_back"
@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/bg_border_green_circle"
         android:orientation="horizontal">
 
         <TextView
@@ -41,7 +42,6 @@
             android:layout_width="260dp"
             android:layout_height="42dp"
             android:layout_marginLeft="75dp"
-            android:background="@drawable/white_bg"
             android:drawableEnd="@drawable/search_icon"
             android:ems="10"
             android:hint="Nhập tên/ngày..."
@@ -55,6 +55,7 @@
         android:id="@+id/layout_baocao_dsthuchi_loc_sapxep"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
+        android:background="@drawable/bg_border_green_circle"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -63,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -79,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Thu" />
 
@@ -88,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="18dp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Chi" />
         </RadioGroup>
@@ -98,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="16dp"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:text="Sắp xếp:" />
@@ -113,6 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="↑ Số tiền" />
 
@@ -120,9 +126,10 @@
                 android:id="@+id/baocao_dsthuchi_rdo_moneyDSC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:text="↓ Số tiền"
+                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="↓ Số tiền" />
+                android:textSize="18dp" />
         </RadioGroup>
 
         <RadioGroup
@@ -136,6 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="↑ Ngày" />
 
@@ -143,6 +151,7 @@
                 android:id="@+id/baocao_dsthuchi_rdo_dateDSC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:textSize="18dp"
                 android:textColor="@color/black"
                 android:text="↓ Ngày" />
@@ -154,7 +163,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#3EB2C1"
+        android:background="@drawable/bg_border_green_circle"
         android:orientation="horizontal"
         android:weightSum="6">
 
