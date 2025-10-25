@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFE5E5"
     tools:context=".ui.QLbaocao_canh.baocao_activiity_bieudothuchi">
 
     <TextView
@@ -76,7 +76,7 @@
         android:layout_width="248dp"
         android:layout_height="126dp"
         android:layout_marginTop="52dp"
-        android:background="@color/lightpurple"
+        android:background="@drawable/bg_border_green_circle"
         android:dividerHeight="1dp"
         android:divider="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
