@@ -35,7 +35,7 @@
             android:autofillHints="name"
             android:background="@drawable/bg_border_green_circle"
             android:hint="Tên phòng"
-            android:textColor="@android:color/white"
+            android:textColor="@color/black"
             android:inputType="textCapWords"
             android:minHeight="48dp"
             android:padding="10dp" />
