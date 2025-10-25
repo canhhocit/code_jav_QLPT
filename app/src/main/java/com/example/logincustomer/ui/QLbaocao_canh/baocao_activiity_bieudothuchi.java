@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -51,10 +50,10 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
 
         anhXa();
         menu();
-        loadDataAndDisplay();
+        loadData();
     }
 
-    private void loadDataAndDisplay() {
+    private void loadData() {
         dtDAO = new baocao_doanhthuDAO(context);
 
         // listview năm
@@ -64,15 +63,15 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
 
         // show bieu do nam hientai
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        displayChartForYear(String.valueOf(currentYear));
+        showbarchart(String.valueOf(currentYear));
 
         lvNam.setOnItemClickListener((parent, view, position, id) -> {
             String selectedYear = years.get(position).toString();
-            displayChartForYear(selectedYear);
+            showbarchart(selectedYear);
         });
     }
 
-    private void displayChartForYear(String year) {
+    private void showbarchart(String year) {
         List<baocao_doanhthu> thuList = dtDAO.getThubyYear(year);
         List<baocao_doanhthu> chiList = dtDAO.getChibyYear(year);
 
@@ -81,7 +80,7 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
     }
 
     private void showBarchart(BarChart chart, List<baocao_doanhthu> listBC, String loai, String year, int mainColor) {
-        double[] cot_thang = new double[12];
+        double[] data_thang = new double[12];
 
         // gan dl cho thang
         for (baocao_doanhthu item : listBC) {
@@ -89,23 +88,25 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
 
             if (thang >= 1 && thang <= 12) {
                 double giaTri = loai.equalsIgnoreCase("Thu") ? item.getTongthu() : item.getTongchi();
-                cot_thang[thang - 1] = giaTri;
+                data_thang[thang - 1] = giaTri;
             }
         }
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            entries.add(new BarEntry(i + 1, (float) cot_thang[i]));
+            entries.add(new BarEntry(i + 1, (float) data_thang[i]));
         }
 
 
         BarDataSet dataSet = new BarDataSet(entries, loai + " năm " + year);
 
         // Màu
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int year_int = Integer.parseInt(year);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         ArrayList<Integer> colors = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            if (i == currentMonth) {
+            if (i == currentMonth && year_int == currentYear) {
                 colors.add(Color.parseColor("#2196F3"));
             } else {
                 colors.add(mainColor);
@@ -169,7 +170,7 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
         chart.getLegend().setTextSize(12f);
         chart.setDrawGridBackground(false);
         chart.setDrawBorders(false);
-        chart.animateY(800);
+        chart.animateY(1000);
 
         // Refresh chart
         chart.invalidate();
@@ -213,6 +214,6 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadDataAndDisplay();
+        loadData();
     }
 }

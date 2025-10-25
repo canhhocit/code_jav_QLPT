@@ -237,7 +237,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         barChartDT.getLegend().setTextSize(12f);
         barChartDT.setDrawGridBackground(false);
         barChartDT.setDrawBorders(false);
-        barChartDT.animateY(800);
+        barChartDT.animateY(1000);
         barChartDT.setExtraBottomOffset(10f);
 
 
@@ -319,9 +319,9 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
     private void saveReportToFile() {
         try {
-            String suggestedName = "baocao_doanhthu_" + selectedYear + ".txt";
+            String tenbaocao = "baocao_doanhthu_" + selectedYear + ".txt";
             final EditText input = new EditText(context);
-            input.setText(suggestedName);
+            input.setText(tenbaocao);
 
             new androidx.appcompat.app.AlertDialog.Builder(context)
                     .setTitle("Đặt tên file báo cáo")
