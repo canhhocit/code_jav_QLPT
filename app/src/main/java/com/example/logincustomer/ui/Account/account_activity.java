@@ -40,14 +40,11 @@ public class account_activity extends AppCompatActivity {
 
         accountDao = new account_DAO(this);
 
-        // 🔹 Lấy toàn bộ tài khoản từ DB
         accountList = new ArrayList<>(accountDao.getAllAccount());
 
-        // 🔹 Gắn adapter vào ListView
         adapter = new AccountAdapter(this, R.layout.layout_account_item, accountList, this);
         lvUser.setAdapter(adapter);
 
-        // 🔹 Xử lý khi nhấn nút "Thêm" hoặc "Lưu sửa"
         btnThem.setOnClickListener(v -> {
             String username = edtUsername.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
@@ -58,28 +55,44 @@ public class account_activity extends AppCompatActivity {
             }
 
             if (isEditing) {
-                // ✅ Cập nhật tài khoản
-                Account acc = new Account(editingId, username, password);
-                accountDao.updateAccount(acc);
+                List<Account> list = accountDao.getAllAccount();
+                boolean tonTai = false;
+                for (Account acc : list) {
+                    if (username.equalsIgnoreCase(acc.getUsername())) {
+                        tonTai = true;
+                        break;
+                    }
+                }
+                if(tonTai){
+                    Account acc = new Account(editingId, username, password);
+                    accountDao.updateAccount(acc);
 
-                Toast.makeText(this, "Đã cập nhật tài khoản", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Đã cập nhật tài khoản", Toast.LENGTH_SHORT).show();
 
-                // Reset trạng thái
-                isEditing = false;
-                editPosition = -1;
-                editingId = -1;
-                btnThem.setText("Xác nhận");
+                    isEditing = false;
+                    editPosition = -1;
+                    editingId = -1;
+                    btnThem.setText("Xác nhận");
+                }
+                else{
+                    Toast.makeText(this, "Tên tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
+                }
+
             } else {
-                // ✅ Thêm tài khoản mới
+                List<Account> list = accountDao.getAllAccount();
+                for (Account acc : list) {
+                    if (acc.getUsername().equalsIgnoreCase(username)) {
+                        Toast.makeText(this, "Tên tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
                 Account acc = new Account(0, username, password);
                 accountDao.insertAccount(acc);
                 Toast.makeText(this, "Đã thêm tài khoản: " + username, Toast.LENGTH_SHORT).show();
             }
 
-            // 🔹 Cập nhật lại danh sách sau khi thêm/sửa
             refreshList();
 
-            // 🔹 Xóa dữ liệu nhập
             edtUsername.setText("");
             edtPassword.setText("");
 
@@ -97,17 +110,17 @@ public class account_activity extends AppCompatActivity {
         imgback = findViewById(R.id.img_arrowback_account);
     }
 
-    // 🔹 Hàm được Adapter gọi khi chọn "Sửa"
+
     public void loadDataToEdit(Account account, int position) {
         edtUsername.setText(account.getUsername());
         edtPassword.setText(account.getPass());
         isEditing = true;
         editPosition = position;
         editingId = account.getId(); // lưu id để update DB
-        btnThem.setText("Lưu sửa");
+        btnThem.setText("Cập nhật");
     }
 
-    // 🔹 Hàm load lại dữ liệu sau khi thêm / sửa / xóa
+
     private void refreshList() {
         accountList.clear();
         accountList.addAll(accountDao.getAllAccount());
