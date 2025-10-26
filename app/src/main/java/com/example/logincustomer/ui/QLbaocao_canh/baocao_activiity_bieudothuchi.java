@@ -62,6 +62,11 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
         List<Integer> years = dtDAO.getYears();
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, years);
         lvNam.setAdapter(adapter);
+        if(years.size()>1){
+            lnNam.setVisibility(View.VISIBLE);
+        }else{
+            lnNam.setVisibility(View.INVISIBLE);
+        }
 
         // show bieu do nam hientai
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);

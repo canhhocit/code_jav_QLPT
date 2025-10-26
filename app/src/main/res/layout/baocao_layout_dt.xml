@@ -56,14 +56,45 @@
         </androidx.cardview.widget.CardView>
 
         <!-- Year List Card -->
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="16dp">
+            android:background="@color/mint_cream"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/baocao_btn_thuchi"
+                android:layout_width="150dp"
+                android:layout_height="56dp"
+                android:backgroundTint="@color/emerald"
+                android:elevation="0dp"
+                android:text="Thu/chi"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/baocao_btn_file"
+                android:layout_width="150dp"
+                android:layout_height="56dp"
+                android:backgroundTint="@color/primary_green"
+                android:elevation="0dp"
+                android:text="File"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
 
             <LinearLayout
+                android:id="@+id/baocao_doanhthu_lnNam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -73,7 +104,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Doanh thu theo năm"
+                    android:text="Danh sách các năm"
                     android:textColor="@color/text_primary"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -89,45 +120,13 @@
                 <ListView
                     android:id="@+id/baocao_doanhthu_listnamdt"
                     android:layout_width="match_parent"
-                    android:layout_height="114dp"
+                    android:layout_height="115dp"
                     android:background="@color/surface_white"
                     android:divider="@color/divider_green"
                     android:dividerHeight="1dp"
                     android:padding="8dp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/mint_cream"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <Button
-                android:id="@+id/baocao_btn_thuchi"
-                android:layout_width="150dp"
-                android:layout_height="56dp"
-                android:backgroundTint="@color/emerald"
-                android:elevation="0dp"
-                android:text="Thu/chi"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/baocao_btn_file"
-                android:layout_width="150dp"
-                android:layout_height="56dp"
-                android:backgroundTint="@color/primary_green"
-                android:elevation="0dp"
-                android:text="File"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

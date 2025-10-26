@@ -7,9 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TabHost;
@@ -49,6 +51,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
     private Context context = baocao_activity_homeBC.this;
 
     // Doanh thu
+    private LinearLayout linearNam;
     private BarChart barChartDT;
     private ListView lv_namDT;
     private Button btnThuChi, btnFile;
@@ -90,6 +93,11 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         List<Integer> years = dtDAO.getYears();
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, years);
         lv_namDT.setAdapter(adapter);
+        if(years.size()>1){
+            linearNam.setVisibility(View.VISIBLE);
+        }else{
+            linearNam.setVisibility(View.INVISIBLE);
+        }
 
        //hien thi bieu do mac dinh nam hientai
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -490,6 +498,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         lv_namDT = findViewById(R.id.baocao_doanhthu_listnamdt);
         btnThuChi = findViewById(R.id.baocao_btn_thuchi);
         btnFile = findViewById(R.id.baocao_btn_file);
+        linearNam = findViewById(R.id.baocao_doanhthu_lnNam);
 
         // Tab Hợp đồng
         lv_Hopdong = findViewById(R.id.baocao_hopdong_listview);
@@ -504,7 +513,11 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         List<Integer> years = dtDAO.getYears();
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, years);
         lv_namDT.setAdapter(adapter);
-
+        if(years.size()>1){
+            linearNam.setVisibility(View.VISIBLE);
+        }else{
+            linearNam.setVisibility(View.INVISIBLE);
+        }
         // Hiển thị lại biểu đồ
         if (selectedYear.isEmpty()) {
             selectedYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
