@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/mint_cream"
     android:padding="25dp"
     tools:context=".ui.Login.login_activity_dangky">
 
@@ -25,6 +26,8 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:textColor="@color/text_primary"
+        android:background="@color/chart_green_1"
         android:ems="20"
         android:hint="User Name"
         android:inputType="text"
@@ -37,6 +40,8 @@
         android:layout_height="45dp"
         android:ems="10"
         android:layout_marginTop="20dp"
+        android:textColor="@color/text_primary"
+        android:background="@color/chart_green_1"
         android:hint="Mật khẩu"
         android:layout_gravity="center"
         android:inputType="textPassword"
@@ -48,6 +53,8 @@
         android:layout_height="45dp"
         android:ems="10"
         android:layout_marginTop="20dp"
+        android:textColor="@color/text_primary"
+        android:background="@color/chart_green_1"
         android:layout_gravity="center"
         android:hint="Xác nhận mật khẩu"
         android:inputType="textPassword"
@@ -65,9 +72,13 @@
             android:layout_height="wrap_content"
             android:text="Hủy"
             android:layout_gravity="center"
-            android:textColor="#01FF11"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/text_secondary"
             android:textSize="18dp"
             android:textStyle="bold" />
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/dangky_btn_dangky"
             android:layout_width="0dp"
@@ -75,7 +86,8 @@
             android:layout_height="wrap_content"
             android:text="Đăng ký"
             android:layout_gravity="center"
-            android:textColor="#01FF11"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary_green_dark"
             android:textSize="18dp"
             android:textStyle="bold" />
 
