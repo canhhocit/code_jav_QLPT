@@ -79,6 +79,7 @@ public class baocao_hopdongAdapter extends BaseAdapter {
                 public void onClick(DialogInterface dialog, int which) {
                     qlhopdong_hopdongDAO dao = new qlhopdong_hopdongDAO(context);
                     dao.deleteHD(bchd.getIdhopdong());
+                    dao.deleteKhachThue(bchd.getIdp());
                     list.remove(position);
                     notifyDataSetChanged();
                 }

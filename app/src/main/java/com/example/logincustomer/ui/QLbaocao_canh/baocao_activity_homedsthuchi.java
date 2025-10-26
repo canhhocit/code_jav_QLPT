@@ -37,7 +37,7 @@
 
     public class baocao_activity_homedsthuchi extends AppCompatActivity {
 
-        private TextView tvTitle, tvMenu;
+        private TextView tvTitle, tvMenu,tvLoai,tvSx;
         private EditText edt_timkiem;
         private ListView lv_thuchi;
         private LinearLayout lnLoc;
@@ -236,6 +236,7 @@
                     intent.putExtra("loai", thuchi.getLoaithuchi());
 
                     startActivity(intent);
+                    edt_timkiem.setText("");
                 }
             });
         }
@@ -312,6 +313,24 @@
         private void anhxaID() {
             tvTitle = findViewById(R.id.baocao_dsthuchi_tvTitle);
             tvMenu = findViewById(R.id.baocao_dsthuchi_tvmenu);
+            tvLoai = findViewById(R.id.baocao_dsthuchi_tvLoai);
+            tvSx = findViewById(R.id.baocao_dsthuchi_tvSx);
+
+            tvLoai.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(rdogrLoai!=null) rdogrLoai.clearCheck();}
+            });
+
+
+            tvSx.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(rdogrMoney!=null ) rdogrMoney.clearCheck();
+                    if(rdogrDate!=null) rdogrDate.clearCheck();
+                }
+            });
+
             edt_timkiem = findViewById(R.id.baocao_dsthuchi_edt_timkiem);
             lv_thuchi = findViewById(R.id.baocao_listv_dsthuchi);
 
