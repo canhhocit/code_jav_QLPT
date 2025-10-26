@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Login&amp;Customer</string>
+    <string name="app_name">Quản lý phòng trọ</string>
     <string name="xemDetail"><u>Xem</u></string>
     <string name="decrip"><i>Chọn chức năng quản lý bên dưới</i></string>
     <string name="billRoom_xemchitiet"><u>Xem chi tiết</u></string>
