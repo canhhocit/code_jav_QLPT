@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Legacy Colors (giữ nguyên cho các phần khác) -->
     <color name="purple">#9868d3</color>
     <color name="lightgrey">#e9e9e9</color>
     <color name="grey">#acacac</color>
@@ -23,4 +26,45 @@
     <color name="ng10">#90f3c9</color>
     <color name="pink">#ffe5e5</color>
 
+    <!-- Primary Green Theme (màu xanh chính) -->
+    <color name="primary_green">#00A86B</color>
+    <color name="primary_green_dark">#008755</color>
+    <color name="primary_green_light">#33BA8A</color>
+
+    <!-- Secondary Green Shades -->
+    <color name="mint_cream">#F0FFF4</color>
+    <color name="light_mint">#E6FAF0</color>
+    <color name="soft_green">#B8F1D8</color>
+    <color name="medium_green">#7AE4B6</color>
+    <color name="emerald">#099578</color>
+    <color name="forest_green">#006B4E</color>
+
+    <!-- Accent Colors -->
+    <color name="teal_accent">#20C997</color>
+    <color name="jade">#00D084</color>
+
+    <!-- Neutral Colors -->
+    <color name="background_light">#F8FFFE</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="border_green">#C8E6DB</color>
+    <color name="divider_green">#D4F1E6</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1A3D32</color>
+    <color name="text_secondary">#2D5F4F</color>
+    <color name="text_hint">#6B9B8A</color>
+    <color name="text_disabled">#A5C9BC</color>
+
+    <!-- Status Colors -->
+    <color name="success">#28A745</color>
+    <color name="warning">#FFC107</color>
+    <color name="error">#DC3545</color>
+    <color name="info">#17A2B8</color>
+
+    <!-- Chart Colors -->
+    <color name="chart_green_1">#A8E6CF</color>
+    <color name="chart_green_2">#7FCDA3</color>
+    <color name="chart_green_3">#56B476</color>
+    <color name="chart_green_4">#2D9B49</color>
+    <color name="chart_green_5">#00823C</color>
 </resources>

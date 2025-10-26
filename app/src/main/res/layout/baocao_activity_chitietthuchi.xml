@@ -1,139 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainbaocao_chitietthuchi"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="#FFE5E5"
+    android:background="@color/mint_cream"
     tools:context=".ui.QLbaocao_canh.baocao_activity_chitietthuchi">
 
-    <TextView
-        android:id="@+id/baocao_chitietthuchi_tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chi tiết phiếu thu/chi"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/purple"
-        android:textSize="29dp"
-        android:drawableStart="@drawable/arrow_back"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:id="@+id/baocao_edt_tenthuchi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:inputType="text"
-        android:textColor="#37474F"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:hint="Tên khoản thu/chi"
-        android:background="@drawable/bg_border_green_circle"
-        android:padding="12dp"
-        android:drawableLeft="@drawable/khoanchi"
-        />
-
-    <EditText
-        android:id="@+id/baocao_edt_sotien"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:textColor="#37474F"
-        android:inputType="number"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:hint="Số tiền"
-        android:background="@drawable/bg_border_green_circle"
-        android:padding="12dp"
-        android:drawableStart="@drawable/money"/>
-
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_border_green_circle"
-        android:layout_marginTop="18dp">
+        android:background="@color/primary_green"
+        android:orientation="vertical"
+        android:elevation="4dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="12dp"
-            android:text="Loại:"
-            android:textColor="#455A64"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:id="@+id/baocao_rdogroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/baocao_rdo_thu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="Thu"
-                android:textColor="#37474F"/>
-
-            <RadioButton
-                android:id="@+id/baocao_rdo_chi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginStart="20dp"
-                android:text="Chi"
-                android:textColor="#37474F"/>
-
-        </RadioGroup>
-    </LinearLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="dd/mm/yyy">
-
-        <EditText
-            android:id="@+id/baocao_edt_ngaythuchi"
+            android:id="@+id/baocao_chitietthuchi_tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="false"
-            android:textColor="@color/black"
-            android:background="@drawable/bg_border_green_circle"
+            android:text="Chi tiết phiếu thu/chi"
             android:textAlignment="center"
-            android:padding="12dp"
-            android:drawableStart="@drawable/calender"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:drawableStart="@drawable/arrow_back"
+            android:drawablePadding="16dp"
+            android:letterSpacing="0.03" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/baocao_thuchi_btnsua"
-            android:layout_width="150dp"
+    <!-- Form Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sửa"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="#099578"
-            android:layout_gravity="center"
-            android:textSize="18dp"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            />
+            <!-- Tên khoản thu/chi -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                android:layout_marginTop="24dp">
 
-        <Button
-            android:id="@+id/baocao_thuchi_btnthem"
-            android:layout_width="150dp"
-            android:backgroundTint="#099578"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+                <EditText
+                    android:id="@+id/baocao_edt_tenthuchi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:hint="Tên khoản thu/chi"
+                    android:textColorHint="@color/text_hint"
+                    android:background="@color/surface_white"
+                    android:padding="16dp"
+                    android:drawableLeft="@drawable/khoanchi"
+                    android:drawablePadding="12dp"
+                    android:drawableTint="@color/primary_green" />
+            </androidx.cardview.widget.CardView>
 
-            android:text="Thêm"
-            android:textSize="18dp" />
+            <!-- Số tiền -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/baocao_edt_sotien"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:inputType="number"
+                    android:textSize="17sp"
+                    android:hint="Số tiền"
+                    android:textColorHint="@color/text_hint"
+                    android:background="@color/surface_white"
+                    android:padding="16dp"
+                    android:drawableStart="@drawable/money"
+                    android:drawablePadding="12dp"
+                    android:drawableTint="@color/primary_green" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Loại thu/chi -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/light_mint"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="Loại:"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"
+                        android:textSize="17sp" />
+
+                    <RadioGroup
+                        android:id="@+id/baocao_rdogroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/baocao_rdo_thu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="Thu"
+                            android:buttonTint="@color/primary_green"
+                            android:textColor="@color/text_secondary"
+                            android:layout_marginEnd="24dp" />
+
+                        <RadioButton
+                            android:id="@+id/baocao_rdo_chi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="Chi"
+                            android:buttonTint="@color/primary_green"
+                            android:textColor="@color/text_secondary" />
+                    </RadioGroup>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Ngày thu/chi -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="dd/mm/yyyy"
+                    app:hintTextColor="@color/text_hint"
+                    android:background="@color/mint_cream"
+                    app:boxBackgroundColor="@color/surface_white"
+                    app:boxStrokeColor="@color/primary_green">
+
+                    <EditText
+                        android:id="@+id/baocao_edt_ngaythuchi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:padding="16dp"
+                        android:drawableStart="@drawable/calender"
+                        android:drawablePadding="12dp"
+                        android:drawableTint="@color/primary_green" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:background="@color/mint_cream"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/baocao_thuchi_btnsua"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:backgroundTint="@color/emerald"
+                    android:elevation="0dp"
+                    android:text="Sửa"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
+                <Button
+                    android:id="@+id/baocao_thuchi_btnthem"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:backgroundTint="@color/primary_green"
+                    android:elevation="0dp"
+                    android:text="Thêm"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

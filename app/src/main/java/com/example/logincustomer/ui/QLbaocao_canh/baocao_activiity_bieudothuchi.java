@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
     private TextView tvMenu;
     private BarChart chartThu, chartChi;
     private ListView lvNam;
+    private LinearLayout lnNam;
     private baocao_doanhthuDAO dtDAO;
 
     @Override
@@ -190,10 +192,10 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (itemId == R.id.menu_bieudothuchi_chonnam) {
-                    if (lvNam.getVisibility() == View.INVISIBLE) {
-                        lvNam.setVisibility(View.VISIBLE);
+                    if (lnNam.getVisibility() == View.INVISIBLE) {
+                        lnNam.setVisibility(View.VISIBLE);
                     } else {
-                        lvNam.setVisibility(View.INVISIBLE);
+                        lnNam.setVisibility(View.INVISIBLE);
                     }
                     return true;
                 }
@@ -208,7 +210,8 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
         chartChi = findViewById(R.id.baocao_bieudochi);
         chartThu = findViewById(R.id.baocao_bieudothu);
         lvNam = findViewById(R.id.baocao_bieudothuchi_listviewnam);
-        lvNam.setVisibility(View.INVISIBLE);
+        lnNam = findViewById(R.id.baocao_bieudothuchi_lnnam);
+        lnNam.setVisibility(View.INVISIBLE);
     }
 
     @Override
