@@ -87,8 +87,12 @@ public class account_activity extends AppCompatActivity {
                     }
                 }
                 Account acc = new Account(0, username, password);
-                accountDao.insertAccount(acc);
-                Toast.makeText(this, "Đã thêm tài khoản: " + username, Toast.LENGTH_SHORT).show();
+                if(accountDao.insertAccount(acc)>0){
+                    Toast.makeText(this, "Đã thêm tài khoản: " + username, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             refreshList();

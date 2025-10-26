@@ -19,11 +19,11 @@ public class account_DAO {
         db = databaseHelper.getWritableDatabase();
     }
 
-    public void insertAccount(Account account){
+    public long insertAccount(Account account){
         ContentValues vlu = new ContentValues();
         vlu.put("username", account.getUsername());
         vlu.put("password",account.getPass());
-        db.insert("TaiKhoan",null,vlu);
+        return db.insert("TaiKhoan",null,vlu);
     }
     public void updateAccount(Account account){
         ContentValues vlu = new ContentValues();

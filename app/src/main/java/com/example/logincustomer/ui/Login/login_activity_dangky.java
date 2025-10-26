@@ -65,16 +65,19 @@ public class login_activity_dangky extends AppCompatActivity {
                     }
                 }
 
-                Account newAcc = new Account();
-                newAcc.setUsername(username);
-                newAcc.setPass(pass);
-                accDAO.insertAccount(newAcc);
+                Account newAcc = new Account(username,pass);
+                if( accDAO.insertAccount(newAcc)>0){
+                    Toast.makeText(context, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                    finish();
+                    edt_name.setText("");
+                    edt_pass.setText("");
+                    edt_acp_pass.setText("");
+                }else{
+                    Toast.makeText(context, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                }
 
-                Toast.makeText(context, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                finish();
-                edt_name.setText("");
-                edt_pass.setText("");
-                edt_acp_pass.setText("");
+
+
             }
         });
         btn_huy.setOnClickListener(new View.OnClickListener() {
