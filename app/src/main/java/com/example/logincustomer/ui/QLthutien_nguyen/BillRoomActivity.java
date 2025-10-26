@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ import com.example.logincustomer.data.Model.qlthutien_DichVuCon;
 import com.example.logincustomer.data.Model.qlthutien_HoaDon;
 import com.example.logincustomer.data.Model.qlphongtro_PhongTro;
 import com.example.logincustomer.ui.Manager_Home.activity_manager;
+import com.example.logincustomer.ui.QLphong_tam.qlphong_activity_home;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.InputStream;
@@ -113,6 +115,7 @@ public class BillRoomActivity extends AppCompatActivity {
 
         hienThiHoaDon(idHoaDon);
 
+        setupBackHandler();
         quaytrove();
 
         btnPayBillRoom.setOnClickListener(v -> {
@@ -254,12 +257,14 @@ public class BillRoomActivity extends AppCompatActivity {
         btnPayBillRoom = findViewById(R.id.btn_pay_billRoom);
     }
     private void quaytrove(){
-        imgBackBillRoom.setOnClickListener(v -> {
-            finish();
-        });
+
+            imgBackBillRoom.setOnClickListener(v -> {
+                finish();
+            });
+
         btnBackBillRoom.setOnClickListener(v -> {
             Intent intent = new Intent(BillRoomActivity.this, activity_manager.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
 
@@ -372,6 +377,27 @@ public class BillRoomActivity extends AppCompatActivity {
         }
 
     }
+
+    private void setupBackHandler() {
+        int checkback = getIntent().getIntExtra("checkback", -1);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (checkback == 1) {
+                    Intent intent = new Intent(BillRoomActivity.this, qlphong_activity_home.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    finish();
+                }
+            }
+        };
+
+        getOnBackPressedDispatcher().addCallback(this, callback);
+    }
+
 
 }
 

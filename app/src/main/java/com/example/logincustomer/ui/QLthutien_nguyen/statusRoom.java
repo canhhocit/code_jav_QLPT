@@ -127,11 +127,13 @@ public class statusRoom extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        hoaDonList = hoaDonDAO.getAllHoaDon(); // lấy tất cả hóa đơn ban đầu
-        adapter = new qlthutien_StatusRoomAdapter(this, hoaDonList);
-        recyclerView.setAdapter(adapter);
+        if (hoaDonDAO != null && adapter != null) {
+            hoaDonList = hoaDonDAO.getAllHoaDon();
+            adapter.setHoaDonList(hoaDonList);
+            adapter.notifyDataSetChanged();
+        }
     }
+
     private void filter() {
         String fromDate = convertToDbDate(edtFromDate.getText().toString().trim());
         String toDate = convertToDbDate(edtToDate.getText().toString().trim());
@@ -148,44 +150,44 @@ public class statusRoom extends AppCompatActivity {
         adapter.setHoaDonList(hoaDonList);
         adapter.notifyDataSetChanged();
     }
-//  Hàm hiển thị DatePicker
-private void showDatePickerDialog(EditText target) {
-    Calendar calendar = Calendar.getInstance();
-    DatePickerDialog dialog = new DatePickerDialog(
-            this,
-            (view, year, month, dayOfMonth) -> {
-                String selected = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
-                target.setText(selected);
-                filter();
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-    );
+    //  Hàm hiển thị DatePicker
+    private void showDatePickerDialog(EditText target) {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                (view, year, month, dayOfMonth) -> {
+                    String selected = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+                    target.setText(selected);
+                    filter();
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
 
-    //ngày chọn không được vượt quá ngày hiện tại
-    dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        //ngày chọn không được vượt quá ngày hiện tại
+        dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
-    //chọn ngày kết thúc (toDate)
-    if (target.getId() == R.id.edt_denDate_statusRoom) {
-        String fromDateString = edtFromDate.getText().toString().trim();
-        //ngày bắt đầu (fromDate) đã được chọn
-        if (!fromDateString.isEmpty()) {
-            try {
-                // Chuyển chuỗi ngày sang dạng Date
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                Date fromDate = sdf.parse(fromDateString);
-                // không thể chọn ngày nào trước fromDate
-                if (fromDate != null) {
-                    dialog.getDatePicker().setMinDate(fromDate.getTime());
+        //chọn ngày kết thúc (toDate)
+        if (target.getId() == R.id.edt_denDate_statusRoom) {
+            String fromDateString = edtFromDate.getText().toString().trim();
+            //ngày bắt đầu (fromDate) đã được chọn
+            if (!fromDateString.isEmpty()) {
+                try {
+                    // Chuyển chuỗi ngày sang dạng Date
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    Date fromDate = sdf.parse(fromDateString);
+                    // không thể chọn ngày nào trước fromDate
+                    if (fromDate != null) {
+                        dialog.getDatePicker().setMinDate(fromDate.getTime());
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
         }
+        dialog.show();
     }
-    dialog.show();
-}
     private String convertToDbDate(String date) {
         try {
             SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

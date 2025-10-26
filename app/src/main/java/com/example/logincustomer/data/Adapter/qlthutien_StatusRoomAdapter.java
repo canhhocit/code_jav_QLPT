@@ -76,7 +76,7 @@ public class qlthutien_StatusRoomAdapter extends RecyclerView.Adapter<qlthutien_
             PopupMenu popup = new PopupMenu(context, v);
             popup.getMenuInflater().inflate(R.menu.menu_item_dshoadon, popup.getMenu());
 
-            int check = qlthutienHoaDonDAO.kiemTraTinhTrangHoaDon(hoaDon.getIdphong());
+            //int check = qlthutienHoaDonDAO.kiemTraTinhTrangHoaDon(hoaDon.getIdphong());
 
             popup.setOnMenuItemClickListener(item -> {
                 int itemId = item.getItemId();

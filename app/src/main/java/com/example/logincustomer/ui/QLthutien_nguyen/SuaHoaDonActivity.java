@@ -197,6 +197,8 @@ public class SuaHoaDonActivity extends AppCompatActivity {
             capNhatHoaDon(idhoadon, idphong);
             finish();
         });
+
+        imgBack.setOnClickListener(v -> {finish();});
     }
 
     @Override

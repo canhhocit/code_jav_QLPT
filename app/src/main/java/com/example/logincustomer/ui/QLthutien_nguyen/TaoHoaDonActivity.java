@@ -260,7 +260,6 @@ public class TaoHoaDonActivity extends AppCompatActivity {
             builder.setNegativeButton("Quay về", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // Đóng activity hiện tại
                     finish();
                 }
             });
@@ -269,11 +268,14 @@ public class TaoHoaDonActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(TaoHoaDonActivity.this, BillRoomActivity.class);
+                    intent.putExtra("checkback", 1);
                     intent.putExtra("idhoadon", (int) result);
                     startActivity(intent);
                 }
             });
-            builder.show();
+            AlertDialog dialog = builder.create();
+            dialog.setCancelable(false);
+            dialog.show();
         });
     }
 

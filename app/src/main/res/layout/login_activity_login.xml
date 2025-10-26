@@ -6,85 +6,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_dn"
+    android:orientation="vertical"
     tools:context=".ui.Login.login_activity_login">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="0dp"
+        android:layout_weight="0.8">
+        <!-- phần trên -->
+    </FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/login_tv0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:text="Đăng nhập"
             android:textAlignment="center"
-            android:textSize="30dp"
-            android:textStyle="bold|italic"
+            android:textColor="#111"
+            android:textSize="36dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/login_edt_username"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_dk"
-            android:ems="20"
-            android:hint="User Name"
-            android:inputType="text"
-            android:textAlignment="center"
-
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_login"
+            android:orientation="vertical"
+            android:padding="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_tv0" />
+            app:layout_constraintTop_toBottomOf="@+id/login_tv0">
 
-        <EditText
-            android:id="@+id/login_edt_pass"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_dk"
-            android:ems="20"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/login_tv_quenmk"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_edt_username"
-            app:layout_constraintVertical_bias="0.451" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_edt_username"
+                    android:layout_width="300dp"
+                    android:layout_height="48dp"
+                    android:ems="20"
+                    android:hint="Username"
+                    android:minWidth="250dp"
+                    android:textAlignment="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_edt_pass"
+                    android:layout_width="300dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:ems="20"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:minWidth="250dp"
+                    android:textAlignment="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/login_btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/ng5"
+
             android:text="Đăng nhập"
+            android:textColor="#111"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_edt_pass" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_btnLogin">
 
             <TextView
                 android:id="@+id/login_tv_quenmk"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:background="@drawable/bg_dk"
                 android:text="Quên mật khẩu?"
                 android:textColor="#412147"
@@ -94,11 +125,12 @@
 
             <TextView
                 android:id="@+id/login_tv_dangky"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="Đăng ký"
+                android:gravity="center"
                 android:textColor="#412147"
                 android:textStyle="italic|bold"
                 app:layout_constraintBottom_toTopOf="@+id/quenmk_btn_guima"
@@ -107,5 +139,5 @@
                 app:layout_constraintStart_toEndOf="@+id/login_tv_quenmk" />
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
