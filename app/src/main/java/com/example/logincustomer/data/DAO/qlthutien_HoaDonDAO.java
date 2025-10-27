@@ -103,29 +103,7 @@ public class qlthutien_HoaDonDAO {
         c.close();
         return list;
     }
-    // Lấy hóa đơn theo Id phòng
-    public qlthutien_HoaDon getHoaDonByIdPhong(int idPhong) {
-        Cursor c = db.rawQuery("SELECT * FROM HoaDon WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
-        if (c.moveToFirst()) {
-            qlthutien_HoaDon hd = new qlthutien_HoaDon();
-            hd.setIdhoadon(c.getInt(c.getColumnIndexOrThrow("idhoadon")));
-            hd.setIdphong(c.getInt(c.getColumnIndexOrThrow("idphong")));
-            hd.setNgaytaohdon(c.getString(c.getColumnIndexOrThrow("ngaytaohdon")));
-            hd.setTrangthai(c.getInt(c.getColumnIndexOrThrow("trangthai")) == 1);
-            hd.setGhichu(c.getString(c.getColumnIndexOrThrow("ghichu")));
-            hd.setTongtien(c.getDouble(c.getColumnIndexOrThrow("tongtien")));
 
-            hd.setImgDienCu(c.getString(c.getColumnIndexOrThrow("image_diencu")));
-            hd.setImgDienMoi(c.getString(c.getColumnIndexOrThrow("image_dienmoi")));
-            hd.setImgNuocCu(c.getString(c.getColumnIndexOrThrow("image_nuoccu")));
-            hd.setImgNuocMoi(c.getString(c.getColumnIndexOrThrow("image_nuocmoi")));
-
-            c.close();
-            return hd;
-        }
-        c.close();
-        return null;
-    }
     // Kiểm tra phòng có hóa đơn chưa
     public boolean coHoaDonChoPhong(int idPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();

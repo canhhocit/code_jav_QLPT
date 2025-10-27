@@ -32,34 +32,6 @@ public class qlthutien_ChiTietHoaDonDAO {
         values.put("thanhtien", ct.getThanhtien());
         return db.insert("ChiTietHoaDon", null, values);
     }
-
-    // Lấy danh sách chi tiết theo idhoadon
-    public ArrayList<qlthutien_ChiTietHoaDon> getChiTietByHoaDonId(int idHoaDon) {
-        ArrayList<qlthutien_ChiTietHoaDon> list = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT * FROM ChiTietHoaDon WHERE idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
-        if (c.moveToFirst()) {
-            do {
-                qlthutien_ChiTietHoaDon ct = new qlthutien_ChiTietHoaDon();
-                ct.setIdchitiethoadon(c.getInt(c.getColumnIndexOrThrow("idchitiethoadon")));
-                ct.setIdhoadon(c.getInt(c.getColumnIndexOrThrow("idhoadon")));
-                ct.setTendichvu(c.getString(c.getColumnIndexOrThrow("tendichvu")));
-                ct.setSodiencu(c.getInt(c.getColumnIndexOrThrow("sodiencu")));
-                ct.setSodienmoi(c.getInt(c.getColumnIndexOrThrow("sodienmoi")));
-                ct.setSonuoccu(c.getInt(c.getColumnIndexOrThrow("sonuoccu")));
-                ct.setSonuocmoi(c.getInt(c.getColumnIndexOrThrow("sonuocmoi")));
-                ct.setSosudung(c.getInt(c.getColumnIndexOrThrow("sosudung")));
-                ct.setThanhtien(c.getDouble(c.getColumnIndexOrThrow("thanhtien")));
-                list.add(ct);
-            } while (c.moveToNext());
-        }
-        c.close();
-        return list;
-    }
-
-    // Xóa theo idhoadon (nếu cần)
-    public int deleteByHoaDonId(int idHoaDon) {
-        return db.delete("ChiTietHoaDon", "idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
-    }
     public List<qlthutien_ChiTietHoaDon> getByHoaDonId(int idHoaDon) {
         List<qlthutien_ChiTietHoaDon> list = new ArrayList<>();
         db = dbHelper.getReadableDatabase();
