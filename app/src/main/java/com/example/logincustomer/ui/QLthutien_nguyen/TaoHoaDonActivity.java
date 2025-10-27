@@ -105,7 +105,10 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
         //show thông tin điện nươớc
         checkdiennuoc = new qlthutien_GiaMacDinhDienNuocDAO(TaoHoaDonActivity.this);
-        if(!checkdiennuoc.hasGiaMacDinh()){
+        giaDien = checkdiennuoc.getGiaDien();
+        giaNuoc = checkdiennuoc.getGiaNuoc();
+
+        if(giaDien == 0 || giaNuoc ==0){
             showNoGiaMacDinhDialog();
         }
         // Lấy giá điện nước từ database
@@ -297,20 +300,19 @@ public class TaoHoaDonActivity extends AppCompatActivity {
 
     //nếu có thì dùng, không có thì dùng mặc định
     private void layGiaMacDinhTuDatabase() {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        giaDien = checkdiennuoc.getGiaDien();
+        giaNuoc = checkdiennuoc.getGiaNuoc();
 
-        Cursor cursor = db.rawQuery("SELECT giadien, gianuoc FROM GiaMacDinh WHERE id = 1", null);
-
-        if (cursor.moveToFirst()) {
-            giaDien = cursor.getDouble(0);
-            giaNuoc = cursor.getDouble(1);
-        } else {
-            giaDien = GIA_DIEN_MACDINH;
-            giaNuoc = GIA_NUOC_MACDINH;
+        if(giaDien == 0 || giaNuoc ==0){
+            if(giaDien == 0 && giaNuoc == 0){
+                giaDien = GIA_DIEN_MACDINH;
+                giaNuoc = GIA_NUOC_MACDINH;
+            } else if (giaDien == 0) {
+                giaDien = GIA_DIEN_MACDINH;
+            }else {
+                giaNuoc = GIA_NUOC_MACDINH;
+            }
         }
-
-        cursor.close();
     }
 
     private void calculateTotalOtherServices() {
@@ -389,9 +391,17 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         });
     }
     private void showNoGiaMacDinhDialog() {
+        String message;
+        if(giaDien == 0 && giaNuoc == 0){
+            message = "Chưa thiết lập giá điện và nước mặc định.\nMặc định sẽ dùng giá điện và nước lần lượt là 3.500 và 20.000\nMuốn thay đổi vui lòng vào phần 'Thiết lập mặc định'.";
+        } else if (giaDien == 0) {
+            message = "Giá điện chưa thiết lập, mặc định sẽ là 3.500đ.";
+        }else {
+            message = "Giá nước chưa thiết lập, mặc định sẽ là 20.000đ.";
+        }
         new AlertDialog.Builder(this)
                 .setTitle("Thông báo")
-                .setMessage("Chưa thiết lập giá điện và nước mặc định.\nMặc định sẽ dùng giá điện và nước lần lượt là 3.500 và 20.000\nMuốn thay đổi vui lòng vào phần 'Thiết lập mặc định'.")
+                .setMessage(message)
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.dismiss();
                 })
