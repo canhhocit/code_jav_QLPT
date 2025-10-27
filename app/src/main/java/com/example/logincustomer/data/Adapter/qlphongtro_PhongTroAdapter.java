@@ -132,7 +132,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                                 .setTitle("Thông báo")
                                 .setMessage("Hóa đơn phòng \""+pt.getTenphong()+"\" tháng này đã được tạo, có muốn xem?")
                                 .setPositiveButton("Xem", (dialog, which) -> {
-                                    int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                                    int idhoadon = qlthutienHoaDonDAO.getNewestHoaDonIdByPhong(pt.getIdphong());
                                     Intent intent = new Intent(context, BillRoomActivity.class);
                                     intent.putExtra("idhoadon", idhoadon);
                                     context.startActivity(intent);
@@ -145,7 +145,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                                 .setTitle("Thông báo")
                                 .setMessage("Phòng \""+pt.getTenphong()+"\" tháng này đã thanh toán, có muốn xem?")
                                 .setPositiveButton("Xem", (dialog, which) -> {
-                                    int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                                    int idhoadon = qlthutienHoaDonDAO.getNewestHoaDonIdByPhong(pt.getIdphong());
                                     Intent intent = new Intent(context, BillRoomActivity.class);
                                     intent.putExtra("idhoadon", idhoadon);
                                     context.startActivity(intent);
@@ -188,7 +188,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                 } else if (itemId == R.id.menu_xem) {
                     //  xem hóa đơn (nếu có)
                     if (qlthutienHoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
-                        int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                        int idhoadon = qlthutienHoaDonDAO.getNewestHoaDonIdByPhong(pt.getIdphong());
                         Intent intent = new Intent(context, BillRoomActivity.class);
                         intent.putExtra("idhoadon", idhoadon);
                         context.startActivity(intent);

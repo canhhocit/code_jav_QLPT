@@ -212,20 +212,21 @@ public class qlthutien_HoaDonDAO {
         cursor.close();
         return hoaDon;
     }
-    public int getIdHoaDonByIdPhong(int idPhong) {
+    // Lấy idhoadon của hóa đơn mới nhất theo idphong
+    public int getNewestHoaDonIdByPhong(int idPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        int idHoaDon = -1; // mặc định nếu không tìm thấy
+        int idHoaDon = -1; // mặc định -1 nếu không có hóa đơn
 
-        Cursor cursor = db.rawQuery(
-                "SELECT idhoadon FROM HoaDon WHERE idphong = ? ORDER BY idhoadon DESC LIMIT 1",
+        Cursor c = db.rawQuery(
+                "SELECT idhoadon FROM HoaDon WHERE idphong = ? ORDER BY datetime(ngaytaohdon) DESC LIMIT 1",
                 new String[]{String.valueOf(idPhong)}
         );
 
-        if (cursor.moveToFirst()) {
-            idHoaDon = cursor.getInt(0);
+        if (c.moveToFirst()) {
+            idHoaDon = c.getInt(c.getColumnIndexOrThrow("idhoadon"));
         }
 
-        cursor.close();
+        c.close();
         return idHoaDon;
     }
     public int getIdPhongByIdHoaDon(int idHoaDon) {
@@ -282,23 +283,7 @@ public class qlthutien_HoaDonDAO {
 
         return hasUnpaid;
     }
-    // Lấy idhoadon của hóa đơn mới nhất theo idphong
-    public int getNewestHoaDonIdByPhong(int idPhong) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        int idHoaDon = -1; // mặc định -1 nếu không có hóa đơn
 
-        Cursor c = db.rawQuery(
-                "SELECT idhoadon FROM HoaDon WHERE idphong = ? ORDER BY datetime(ngaytaohdon) DESC LIMIT 1",
-                new String[]{String.valueOf(idPhong)}
-        );
-
-        if (c.moveToFirst()) {
-            idHoaDon = c.getInt(c.getColumnIndexOrThrow("idhoadon"));
-        }
-
-        c.close();
-        return idHoaDon;
-    }
     public List<qlthutien_HoaDon> filterHoaDon(String fromDate, String toDate, String tenPhong, Boolean trangThai, boolean showAll) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<qlthutien_HoaDon> list = new ArrayList<>();
