@@ -115,8 +115,10 @@ public class BillRoomActivity extends AppCompatActivity {
 
         hienThiHoaDon(idHoaDon);
 
-        setupBackHandler();
-        quaytrove();
+        int checkback = getIntent().getIntExtra("checkback", -1);
+
+        setupBackHandler(checkback);
+        quaytrove(checkback);
 
         btnPayBillRoom.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -256,11 +258,17 @@ public class BillRoomActivity extends AppCompatActivity {
         btnBackBillRoom = findViewById(R.id.btn_back_billRoom);
         btnPayBillRoom = findViewById(R.id.btn_pay_billRoom);
     }
-    private void quaytrove(){
-
-            imgBackBillRoom.setOnClickListener(v -> {
+    private void quaytrove(int checkback){
+        imgBackBillRoom.setOnClickListener(v -> {
+            if (checkback == 1) {
+                Intent intent = new Intent(BillRoomActivity.this, qlphong_activity_home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
-            });
+            } else {
+                finish();
+            }
+        });
 
         btnBackBillRoom.setOnClickListener(v -> {
             Intent intent = new Intent(BillRoomActivity.this, activity_manager.class);
@@ -378,9 +386,7 @@ public class BillRoomActivity extends AppCompatActivity {
 
     }
 
-    private void setupBackHandler() {
-        int checkback = getIntent().getIntExtra("checkback", -1);
-
+    private void setupBackHandler(int checkback) {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

@@ -38,7 +38,7 @@ public class qlthutien_DichVuConDAO {
         return db.delete("DichVuCon", "iddichvucon = ?", new String[]{String.valueOf(id)});
     }
 
-    // 🔹 Xoá toàn bộ bảng qlthutien_DichVuCon
+    // Xoá toàn bộ bảng qlthutien_DichVuCon
     public void deleteAll() {
         db.delete("DichVuCon", null, null);
     }

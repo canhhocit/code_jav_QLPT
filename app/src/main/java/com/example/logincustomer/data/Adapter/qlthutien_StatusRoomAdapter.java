@@ -28,16 +28,8 @@ public class qlthutien_StatusRoomAdapter extends RecyclerView.Adapter<qlthutien_
 
     private Context context;
     private List<qlthutien_HoaDon> hoaDonList;
-    private OnItemClickListener listener;
     private qlphongtro_PhongTroDAO phongTroDAO;
     private qlthutien_HoaDonDAO qlthutienHoaDonDAO;
-
-
-    // Interface để truyền sự kiện click
-    public interface OnItemClickListener {
-        void onItemClick(qlthutien_HoaDon hoaDon);
-        void onMenuClick(qlthutien_HoaDon hoaDon, View view);
-    }
 
     public qlthutien_StatusRoomAdapter(Context context, List<qlthutien_HoaDon> hoaDonList) {
         this.context = context;
@@ -169,7 +161,5 @@ public class qlthutien_StatusRoomAdapter extends RecyclerView.Adapter<qlthutien_
         this.hoaDonList.addAll(list);
         notifyDataSetChanged();
     }
-
-
 }
 

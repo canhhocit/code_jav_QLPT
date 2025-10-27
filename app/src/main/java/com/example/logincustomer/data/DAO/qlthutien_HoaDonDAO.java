@@ -25,7 +25,7 @@ public class qlthutien_HoaDonDAO {
         dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
     }
-    // ✅ Thêm hóa đơn mới
+    //Thêm hóa đơn mới
     public long insertHoaDon(qlthutien_HoaDon hd) {
         ContentValues values = new ContentValues();
         values.put("idphong", hd.getIdphong());
@@ -49,7 +49,7 @@ public class qlthutien_HoaDonDAO {
         values.put("trangthai", hd.isTrangthai() ? 1 : 0);
         values.put("ghichu", hd.getGhichu());
         values.put("tongtien", hd.getTongtien());
-        // ✅ 4 ảnh điện nước cũ mới
+        // 4 ảnh điện nước cũ mới
         values.put("image_diencu", hd.getImgDienCu());
         values.put("image_dienmoi", hd.getImgDienMoi());
         values.put("image_nuoccu", hd.getImgNuocCu());
@@ -57,7 +57,7 @@ public class qlthutien_HoaDonDAO {
         return db.insert("HoaDon", null, values);
     }
 
-    // ✅ Cập nhật hóa đơn
+    // Cập nhật hóa đơn
     public int updateHoaDon(qlthutien_HoaDon hd) {
         ContentValues values = new ContentValues();
         values.put("idphong", hd.getIdphong());
@@ -73,12 +73,12 @@ public class qlthutien_HoaDonDAO {
         return db.update("HoaDon", values, "idhoadon = ?", new String[]{String.valueOf(hd.getIdhoadon())});
     }
 
-    // ✅ Xóa hóa đơn
+    //Xóa hóa đơn
     public int deleteHoaDon(int idhoadon) {
         return db.delete("HoaDon", "idhoadon = ?", new String[]{String.valueOf(idhoadon)});
     }
 
-    // ✅ Lấy toàn bộ danh sách hóa đơn
+    // Lấy toàn bộ danh sách hóa đơn
     public ArrayList<qlthutien_HoaDon> getAllHoaDon() {
         ArrayList<qlthutien_HoaDon> list = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM HoaDon", null);
@@ -103,7 +103,7 @@ public class qlthutien_HoaDonDAO {
         c.close();
         return list;
     }
-    // ✅ Lấy hóa đơn theo Id phòng
+    // Lấy hóa đơn theo Id phòng
     public qlthutien_HoaDon getHoaDonByIdPhong(int idPhong) {
         Cursor c = db.rawQuery("SELECT * FROM HoaDon WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
         if (c.moveToFirst()) {
@@ -126,7 +126,7 @@ public class qlthutien_HoaDonDAO {
         c.close();
         return null;
     }
-    // ✅ Kiểm tra phòng có hóa đơn chưa
+    // Kiểm tra phòng có hóa đơn chưa
     public boolean coHoaDonChoPhong(int idPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT idhoadon FROM HoaDon WHERE idphong = ?", new String[]{String.valueOf(idPhong)});
@@ -137,7 +137,7 @@ public class qlthutien_HoaDonDAO {
 
     public int kiemTraTinhTrangHoaDon(int idPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        // 1️⃣ Kiểm tra có hóa đơn chưa thanh toán không
+        // Kiểm tra có hóa đơn chưa thanh toán không
         Cursor c1 = db.rawQuery(
                 "SELECT idhoadon FROM HoaDon WHERE idphong = ? AND trangthai = 0",
                 new String[]{String.valueOf(idPhong)}
@@ -148,7 +148,7 @@ public class qlthutien_HoaDonDAO {
         }
         c1.close();
 
-        // 2️⃣ Kiểm tra xem tháng hiện tại đã có hóa đơn thanh toán chưa
+        //Kiểm tra xem tháng hiện tại đã có hóa đơn thanh toán chưa
         Cursor c2 = db.rawQuery(
                 "SELECT idhoadon FROM HoaDon WHERE idphong = ? " +
                         "AND trangthai = 1 " +
@@ -171,29 +171,26 @@ public class qlthutien_HoaDonDAO {
         int ketQua = HOA_DON_CHUA_TON_TAI;
 
         try {
-            // 2. CÂU LỆNH SQL TỐI ƯU
             // Lấy trạng thái hóa đơn của phòng trong tháng và năm hiện tại
             String sqlQuery = "SELECT trangthai FROM HoaDon WHERE idphong = ? " +
                     "AND strftime('%Y-%m', ngaytaohdon) = strftime('%Y-%m', 'now')";
 
             cursor = db.rawQuery(sqlQuery, new String[]{String.valueOf(idPhong)});
 
-            // 3. XỬ LÝ KẾT QUẢ
             // Nếu con trỏ di chuyển được đến bản ghi đầu tiên (tức là tìm thấy hóa đơn)
             if (cursor.moveToFirst()) {
                 // Lấy giá trị của cột 'trangthai' (cột đầu tiên, index = 0)
                 int trangThaiDb = cursor.getInt(0);
 
-                if (trangThaiDb == 1) { // Giả sử 1 là "đã thanh toán"
+                if (trangThaiDb == 1) {
                     ketQua = HOA_DON_DA_THANH_TOAN;
-                } else { // Ngược lại (trạng thái là 0) là "chưa thanh toán"
+                } else {
                     ketQua = HOA_DON_CHUA_THANH_TOAN;
                 }
             }
         } catch (Exception e) {
             Log.e("HoaDonDAO", "Lỗi khi kiểm tra hóa đơn tháng hiện tại", e);
         } finally {
-            // 4. ĐÓNG CURSOR ĐỂ TRÁNH RÒ RỈ BỘ NHỚ
             if (cursor != null) {
                 cursor.close();
             }
@@ -204,7 +201,6 @@ public class qlthutien_HoaDonDAO {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
         try {
-            // Câu lệnh SQL không cần lấy 'trangthai' nữa, chỉ cần kiểm tra sự tồn tại.
             // Dùng "SELECT 1" sẽ hiệu quả hơn một chút.
             String sqlQuery = "SELECT 1 FROM HoaDon WHERE idphong = ? " +
                     "AND strftime('%Y-%m', ngaytaohdon) = ? LIMIT 1";
@@ -225,13 +221,13 @@ public class qlthutien_HoaDonDAO {
         // Mặc định trả về false nếu không tìm thấy hoặc có lỗi
         return false;
     }
-    // ✅ Cập nhật trạng thái thanh toán riêng
+    // Cập nhật trạng thái thanh toán riêng
     public int updateTrangThai(int idHoaDon, boolean trangThai) {
         ContentValues values = new ContentValues();
         values.put("trangthai", trangThai ? 1 : 0);
         return db.update("HoaDon", values, "idhoadon = ?", new String[]{String.valueOf(idHoaDon)});
     }
-    // ✅ Kiểm tra xem hóa đơn có thể sửa không (chưa thanh toán thì mới được)
+    // Kiểm tra xem hóa đơn có thể sửa không (chưa thanh toán thì mới được)
     public boolean coTheSuaHoaDon(int idPhong) {
         Cursor c = db.rawQuery(
                 "SELECT trangthai FROM HoaDon WHERE idPhong = ?",
@@ -318,7 +314,7 @@ public class qlthutien_HoaDonDAO {
 
         return result; // false nếu chưa thanh toán hoặc không tồn tại
     }
-    // ✅ Kiểm tra xem phòng có hóa đơn nào CHƯA thanh toán không
+    // Kiểm tra xem phòng có hóa đơn nào ch thanh toán không
     public boolean hasUnpaidHoaDonByPhong(int idPhong) {
         boolean hasUnpaid = false;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -338,7 +334,7 @@ public class qlthutien_HoaDonDAO {
 
         return hasUnpaid;
     }
-    // ✅ Lấy idhoadon của hóa đơn mới nhất theo idphong
+    // Lấy idhoadon của hóa đơn mới nhất theo idphong
     public int getNewestHoaDonIdByPhong(int idPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         int idHoaDon = -1; // mặc định -1 nếu không có hóa đơn
@@ -395,6 +391,4 @@ public class qlthutien_HoaDonDAO {
         c.close();
         return list;
     }
-
-
 }

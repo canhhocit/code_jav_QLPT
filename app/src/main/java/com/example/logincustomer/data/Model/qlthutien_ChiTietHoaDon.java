@@ -1,19 +1,14 @@
 package com.example.logincustomer.data.Model;
 
 public class qlthutien_ChiTietHoaDon {
-    private int idchitiethoadon;
-    private int idhoadon;
+    private int idchitiethoadon, idhoadon;
     private String tendichvu;
-    private int sodiencu;
-    private int sodienmoi;
-    private int sonuoccu;
-    private int sonuocmoi;
+    private int sodiencu, sodienmoi, sonuoccu, sonuocmoi;
     private int sosudung;
     private double thanhtien;
 
     public qlthutien_ChiTietHoaDon() {}
 
-    // full constructor
     public qlthutien_ChiTietHoaDon(int idhoadon, String tendichvu, int sodiencu, int sodienmoi,
                                    int sonuoccu, int sonuocmoi, int sosudung, double thanhtien) {
         this.idhoadon = idhoadon;
@@ -26,7 +21,6 @@ public class qlthutien_ChiTietHoaDon {
         this.thanhtien = thanhtien;
     }
 
-    // getters / setters
     public int getIdchitiethoadon() { return idchitiethoadon; }
     public void setIdchitiethoadon(int idchitiethoadon) { this.idchitiethoadon = idchitiethoadon; }
 

@@ -13,23 +13,8 @@ public class qlthutien_GiaMacDinhDienNuocDAO {
     public qlthutien_GiaMacDinhDienNuocDAO(Context context) {
         DatabaseHelper helper = new DatabaseHelper(context);
         db = helper.getWritableDatabase();
-        //ensureRecordExists();
     }
 
-    // Tạo dòng dữ liệu mặc định nếu chưa có
-    private void ensureRecordExists() {
-        Cursor c = db.rawQuery("SELECT COUNT(*) FROM GiaMacDinh", null);
-        if (c.moveToFirst() && c.getInt(0) == 0) {
-            ContentValues values = new ContentValues();
-            values.put("id", 1);
-            values.put("giadien", 3500);
-            values.put("gianuoc", 20000);
-            db.insert("GiaMacDinh", null, values);
-        }
-        c.close();
-    }
-
-    // có rồi thì update, k có thì thêm
     public boolean insertGiaMacDinh(double giaDien, double giaNuoc) {
         if (hasGiaMacDinh()) {
             updateGiaMacDinh(giaDien, giaNuoc);
