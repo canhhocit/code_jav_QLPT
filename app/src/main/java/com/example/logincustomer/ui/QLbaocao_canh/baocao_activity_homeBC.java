@@ -253,7 +253,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
     }
 
-    // ==================== PHẦN HỢP ĐỒNG ====================
+    //--Hop Dong_BC
 
     private void listHDcontrol() {
         lv_Hopdong.setOnItemClickListener((parent, view, position, id) -> {

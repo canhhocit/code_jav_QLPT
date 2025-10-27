@@ -107,7 +107,7 @@ public class baocao_activiity_bieudothuchi extends AppCompatActivity {
 
         BarDataSet dataSet = new BarDataSet(entries, loai + " năm " + year);
 
-        // Màu
+        // color
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int year_int = Integer.parseInt(year);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
