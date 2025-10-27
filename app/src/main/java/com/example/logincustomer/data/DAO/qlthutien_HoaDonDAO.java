@@ -113,35 +113,6 @@ public class qlthutien_HoaDonDAO {
         return co;
     }
 
-    public int kiemTraTinhTrangHoaDon(int idPhong) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        // Kiểm tra có hóa đơn chưa thanh toán không
-        Cursor c1 = db.rawQuery(
-                "SELECT idhoadon FROM HoaDon WHERE idphong = ? AND trangthai = 0",
-                new String[]{String.valueOf(idPhong)}
-        );
-        if (c1.moveToFirst()) {
-            c1.close();
-            return 1; // có hóa đơn chưa thanh toán
-        }
-        c1.close();
-
-        //Kiểm tra xem tháng hiện tại đã có hóa đơn thanh toán chưa
-        Cursor c2 = db.rawQuery(
-                "SELECT idhoadon FROM HoaDon WHERE idphong = ? " +
-                        "AND trangthai = 1 " +
-                        "AND strftime('%m', ngaytaohdon) = strftime('%m', 'now') " +
-                        "AND strftime('%Y', ngaytaohdon) = strftime('%Y', 'now')",
-                new String[]{String.valueOf(idPhong)}
-        );
-        boolean coHoaDonThangNay = c2.moveToFirst();
-        c2.close();
-
-        if (coHoaDonThangNay) {
-            return 2; // có hóa đơn đã thanh toán trong tháng này
-        }
-        return 0; // có thể tạo mới
-    }
     public int kiemTraHoaDonThangHienTai(int idPhong) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
@@ -179,7 +150,6 @@ public class qlthutien_HoaDonDAO {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
         try {
-            // Dùng "SELECT 1" sẽ hiệu quả hơn một chút.
             String sqlQuery = "SELECT 1 FROM HoaDon WHERE idphong = ? " +
                     "AND strftime('%Y-%m', ngaytaohdon) = ? LIMIT 1";
 
