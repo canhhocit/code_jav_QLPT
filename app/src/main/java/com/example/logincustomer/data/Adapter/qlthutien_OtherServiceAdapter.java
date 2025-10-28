@@ -52,7 +52,7 @@ public class qlthutien_OtherServiceAdapter extends RecyclerView.Adapter<qlthutie
                     .setTitle("Xác nhận xoá")
                     .setMessage("Bạn có chắc muốn xoá dịch vụ \"" + service.getTendichvu() + "\" không?")
                     .setPositiveButton("Xoá", (dialog, which) -> {
-                        listener.onDelete(service); // Gọi hàm xoá thật sự
+                        listener.onDelete(service);
                     })
                     .setNegativeButton("Huỷ", (dialog, which) -> dialog.dismiss())
                     .show();

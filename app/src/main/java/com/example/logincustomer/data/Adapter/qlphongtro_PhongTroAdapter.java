@@ -120,7 +120,6 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
             PopupMenu popup = new PopupMenu(context, v);
             popup.getMenuInflater().inflate(R.menu.menu_item_dsphong, popup.getMenu());
 
-            int check = qlthutienHoaDonDAO.kiemTraTinhTrangHoaDon(pt.getIdphong());
             int checkStateInMonth = qlthutienHoaDonDAO.kiemTraHoaDonThangHienTai(pt.getIdphong());
 
             popup.setOnMenuItemClickListener(item -> {
@@ -133,7 +132,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                                 .setTitle("Thông báo")
                                 .setMessage("Hóa đơn phòng \""+pt.getTenphong()+"\" tháng này đã được tạo, có muốn xem?")
                                 .setPositiveButton("Xem", (dialog, which) -> {
-                                    int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                                    int idhoadon = qlthutienHoaDonDAO.getNewestHoaDonIdByPhong(pt.getIdphong());
                                     Intent intent = new Intent(context, BillRoomActivity.class);
                                     intent.putExtra("idhoadon", idhoadon);
                                     context.startActivity(intent);
@@ -146,7 +145,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                                 .setTitle("Thông báo")
                                 .setMessage("Phòng \""+pt.getTenphong()+"\" tháng này đã thanh toán, có muốn xem?")
                                 .setPositiveButton("Xem", (dialog, which) -> {
-                                    int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                                    int idhoadon = qlthutienHoaDonDAO.getNewestHoaDonIdByPhong(pt.getIdphong());
                                     Intent intent = new Intent(context, BillRoomActivity.class);
                                     intent.putExtra("idhoadon", idhoadon);
                                     context.startActivity(intent);
@@ -170,7 +169,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
 
                 } else if (itemId == R.id.menu_edit) {
                     // ✏️ Sửa hóa đơn (nếu có)
-                    if (check == 0) {
+                    if (!qlthutienHoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
                         Toast.makeText(context, "Phòng này chưa có hóa đơn để sửa!", Toast.LENGTH_SHORT).show();
                         return true;
                     } else if (!qlthutienHoaDonDAO.coTheSuaHoaDon(pt.getIdphong())) {
@@ -189,7 +188,7 @@ public class qlphongtro_PhongTroAdapter extends BaseAdapter {
                 } else if (itemId == R.id.menu_xem) {
                     //  xem hóa đơn (nếu có)
                     if (qlthutienHoaDonDAO.coHoaDonChoPhong(pt.getIdphong())) {
-                        int idhoadon = qlthutienHoaDonDAO.getIdHoaDonByIdPhong(pt.getIdphong());
+                        int idhoadon = qlthutienHoaDonDAO.getNewestHoaDonIdByPhong(pt.getIdphong());
                         Intent intent = new Intent(context, BillRoomActivity.class);
                         intent.putExtra("idhoadon", idhoadon);
                         context.startActivity(intent);

@@ -1,8 +1,7 @@
 package com.example.logincustomer.data.Model;
 
 public class qlthutien_DichVuCon {
-    private int iddichvucon;
-    private int idchitiethoadon;
+    private int iddichvucon,idchitiethoadon;
     private String tendichvu;
     private double giatien;
 

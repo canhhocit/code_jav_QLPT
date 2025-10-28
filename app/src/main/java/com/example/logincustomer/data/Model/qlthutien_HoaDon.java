@@ -1,15 +1,11 @@
 package com.example.logincustomer.data.Model;
 public class qlthutien_HoaDon {
-    private int idhoadon;
-    private int idphong;
+    private int idhoadon, idphong;
     private String ngaytaohdon;
     private boolean trangthai = false; // false = chưa
     private String ghichu;
     private double tongtien;
-    private String imgDienCu;
-    private String imgDienMoi;
-    private String imgNuocCu;
-    private String imgNuocMoi;
+    private String imgDienCu, imgDienMoi, imgNuocCu, imgNuocMoi;
     public qlthutien_HoaDon() {}
     public qlthutien_HoaDon(int idhoadon, int idphong, String ngaytaohdon, boolean trangthai,
                             String ghichu, double tongtien,
@@ -25,7 +21,6 @@ public class qlthutien_HoaDon {
         this.imgNuocCu = imgNuocCu;
         this.imgNuocMoi = imgNuocMoi;
     }
-    // Constructor rút gọn khi tạo mới (trạng thái mặc định là chưa thanh toán)
     public qlthutien_HoaDon(int idphong, String ngaytaohdon, String ghichu, double tongtien,
                             String imgDienCu, String imgDienMoi, String imgNuocCu, String imgNuocMoi) {
         this.idphong = idphong;

@@ -78,7 +78,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> galleryLauncher;
     private Uri imageUri;
     private static final double GIA_DIEN_MACDINH = 3500;
-    private static final double GIA_NUOC_MACDINH = 15000;
+    private static final double GIA_NUOC_MACDINH = 20000;
     private final DecimalFormat df = new DecimalFormat("#,###");
     private qlthutien_ChiTietHoaDonDAO qlthutienChiTietHoaDonDAO;
     private qlphongtro_PhongTroDAO phongTroDAO;
@@ -100,6 +100,9 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         dichVuConDAO = new qlthutien_DichVuConDAO(this);
         DefaultValueWE = new qlthutien_GiaMacDinhDienNuocDAO(this);
         phongTroDAO = new qlphongtro_PhongTroDAO(this);
+
+        giaDien = DefaultValueWE.getGiaDien();
+        giaNuoc = DefaultValueWE.getGiaNuoc();
 
         chitiethoadondien = qlthutienChiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonDien(idhoadon);
         chitiethoadonnuoc = qlthutienChiTietHoaDonDAO.getChiTietHoaDonByIdHoaDonNuoc(idhoadon);
@@ -130,7 +133,7 @@ public class SuaHoaDonActivity extends AppCompatActivity {
         edtOldWater.setText(String.valueOf(chitiethoadonnuoc.getSonuoccu()));
         edtNewWater.setText(String.valueOf(chitiethoadonnuoc.getSonuocmoi()));
 
-        // Ảnh cũ (nếu có)
+        // Ảnh cũ
         if (hoaDon.getImgDienCu() != null) imgDienCu.setImageURI(Uri.parse(hoaDon.getImgDienCu()));
         if (hoaDon.getImgDienMoi() != null) imgDienMoi.setImageURI(Uri.parse(hoaDon.getImgDienMoi()));
         if (hoaDon.getImgNuocCu() != null) imgNuocCu.setImageURI(Uri.parse(hoaDon.getImgNuocCu()));
@@ -219,20 +222,19 @@ public class SuaHoaDonActivity extends AppCompatActivity {
 
     //nếu có thì dùng, không có thì dùng mặc định
     private void layGiaMacDinhTuDatabase() {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        giaDien = DefaultValueWE.getGiaDien();
+        giaNuoc = DefaultValueWE.getGiaNuoc();
 
-        Cursor cursor = db.rawQuery("SELECT giadien, gianuoc FROM GiaMacDinh WHERE id = 1", null);
-
-        if (cursor.moveToFirst()) {
-            giaDien = cursor.getDouble(0);
-            giaNuoc = cursor.getDouble(1);
-        } else {
-            giaDien = GIA_DIEN_MACDINH;
-            giaNuoc = GIA_NUOC_MACDINH;
+        if(giaDien == 0 || giaNuoc ==0){
+            if(giaDien == 0 && giaNuoc == 0){
+                giaDien = GIA_DIEN_MACDINH;
+                giaNuoc = GIA_NUOC_MACDINH;
+            } else if (giaDien == 0) {
+                giaDien = GIA_DIEN_MACDINH;
+            }else {
+                giaNuoc = GIA_NUOC_MACDINH;
+            }
         }
-
-        cursor.close();
     }
 
     private void calculateTotalOtherServices() {

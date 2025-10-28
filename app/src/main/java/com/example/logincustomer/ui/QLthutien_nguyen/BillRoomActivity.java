@@ -65,7 +65,7 @@ public class BillRoomActivity extends AppCompatActivity {
     private double giaDien;
     private double giaNuoc;
     private static final double GIA_DIEN_MACDINH = 3500;
-    private static final double GIA_NUOC_MACDINH = 15000;
+    private static final double GIA_NUOC_MACDINH = 20000;
     private final DecimalFormat df = new DecimalFormat("#,###");
     private int idHoaDon;
     private qlthutien_HoaDonDAO hoaDonDAO;
@@ -79,8 +79,12 @@ public class BillRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.qlthutien_layout_billroom);
-
         anhxa();
+
+        hoaDonDAO = new qlthutien_HoaDonDAO(this);
+        qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(this);
+        phongTroDAO = new qlphongtro_PhongTroDAO(this);
+        dienNuocDAO = new qlthutien_GiaMacDinhDienNuocDAO(this);
 
         layGiaMacDinhTuDatabase();
         // --- SETUP "Tiền dịch vụ khác" (RecyclerView con, adapter, DAO) ---
@@ -108,15 +112,12 @@ public class BillRoomActivity extends AppCompatActivity {
             return;
         }
 
-        hoaDonDAO = new qlthutien_HoaDonDAO(this);
-        qlthutienChiTietHoaDonDAO = new qlthutien_ChiTietHoaDonDAO(this);
-        phongTroDAO = new qlphongtro_PhongTroDAO(this);
-        dienNuocDAO = new qlthutien_GiaMacDinhDienNuocDAO(this);
-
         hienThiHoaDon(idHoaDon);
 
-        setupBackHandler();
-        quaytrove();
+        int checkback = getIntent().getIntExtra("checkback", -1);
+
+        setupBackHandler(checkback);
+        quaytrove(checkback);
 
         btnPayBillRoom.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -213,16 +214,15 @@ public class BillRoomActivity extends AppCompatActivity {
                 txtOldElectricBillRoom.setText(String.valueOf(ct.getSodiencu()));
                 txtNewElectricBillRoom.setText(String.valueOf(ct.getSodienmoi()));
                 txtSumServiceElectricBillRoom.setText(String.format("%,.0f đ", (double) ct.getThanhtien()));
-                txtPriceElectricBillRoom.setText(String.format("%,.0f đ", dienNuocDAO.getGiaDien()));
+                txtPriceElectricBillRoom.setText(String.format("%,.0f đ", giaDien));
             } else if (ct.getTendichvu().equalsIgnoreCase("Nước")) {
                 txtOldWaterBillRoom.setText(String.valueOf(ct.getSonuoccu()));
                 txtNewWaterBillRoom.setText(String.valueOf(ct.getSonuocmoi()));
                 txtSumServiceWaterBillRoom.setText(String.format("%,.0f đ", (double) ct.getThanhtien()));
-                txtPriceWaterBillRoom.setText(String.format("%,.0f đ", dienNuocDAO.getGiaNuoc()));
+                txtPriceWaterBillRoom.setText(String.format("%,.0f đ", giaNuoc));
             }
         }
     }
-
     private void anhxa(){
         // Ánh xạ
         imgBackBillRoom = findViewById(R.id.img_back_billRoom);
@@ -256,11 +256,17 @@ public class BillRoomActivity extends AppCompatActivity {
         btnBackBillRoom = findViewById(R.id.btn_back_billRoom);
         btnPayBillRoom = findViewById(R.id.btn_pay_billRoom);
     }
-    private void quaytrove(){
-
-            imgBackBillRoom.setOnClickListener(v -> {
+    private void quaytrove(int checkback){
+        imgBackBillRoom.setOnClickListener(v -> {
+            if (checkback == 1) {
+                Intent intent = new Intent(BillRoomActivity.this, qlphong_activity_home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
-            });
+            } else {
+                finish();
+            }
+        });
 
         btnBackBillRoom.setOnClickListener(v -> {
             Intent intent = new Intent(BillRoomActivity.this, activity_manager.class);
@@ -283,21 +289,19 @@ public class BillRoomActivity extends AppCompatActivity {
 
     //nếu có thì dùng, không có thì dùng mặc định
     private void layGiaMacDinhTuDatabase() {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        giaDien = dienNuocDAO.getGiaDien();
+        giaNuoc = dienNuocDAO.getGiaNuoc();
 
-        Cursor cursor = db.rawQuery("SELECT giadien, gianuoc FROM GiaMacDinh WHERE id = 1", null);
-
-        if (cursor.moveToFirst()) {
-            giaDien = cursor.getDouble(0);
-            giaNuoc = cursor.getDouble(1);
-        } else {
-            giaDien = GIA_DIEN_MACDINH;
-            giaNuoc = GIA_NUOC_MACDINH;
+        if(giaDien == 0 || giaNuoc ==0){
+            if(giaDien == 0 && giaNuoc == 0){
+                giaDien = GIA_DIEN_MACDINH;
+                giaNuoc = GIA_NUOC_MACDINH;
+            } else if (giaDien == 0) {
+                giaDien = GIA_DIEN_MACDINH;
+            }else {
+                giaNuoc = GIA_NUOC_MACDINH;
+            }
         }
-
-        cursor.close();
-        db.close();
     }
 
     private void calculateTotalOtherServices() {
@@ -378,9 +382,7 @@ public class BillRoomActivity extends AppCompatActivity {
 
     }
 
-    private void setupBackHandler() {
-        int checkback = getIntent().getIntExtra("checkback", -1);
-
+    private void setupBackHandler(int checkback) {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
