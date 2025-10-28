@@ -120,9 +120,9 @@
                 <ListView
                     android:id="@+id/baocao_doanhthu_listnamdt"
                     android:layout_width="match_parent"
-                    android:layout_height="115dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/surface_white"
-                    android:divider="@color/divider_green"
+                    android:divider="@color/primary_green_dark"
                     android:dividerHeight="1dp"
                     android:padding="8dp" />
             </LinearLayout>

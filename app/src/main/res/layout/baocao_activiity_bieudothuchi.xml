@@ -167,7 +167,7 @@
                     <ListView
                         android:id="@+id/baocao_bieudothuchi_listviewnam"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="350dp"
                         android:background="@color/surface_white"
                         android:divider="@color/divider_green"
                         android:dividerHeight="1dp"
