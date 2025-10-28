@@ -152,7 +152,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         }
 
         BarDataSet dataSet = new BarDataSet(entries, "Lợi nhuận năm " + year);
-        dataSet.setValueTextSize(9f);
+        dataSet.setValueTextSize(7f);
         dataSet.setValueTextColor(Color.BLACK);
 
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -194,7 +194,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
 
 
         BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.8f);
+        barData.setBarWidth(0.7f);
 
 
         XAxis xAxis = barChartDT.getXAxis();
@@ -242,7 +242,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
         barChartDT.setFitBars(true);
         barChartDT.getDescription().setEnabled(false);
         barChartDT.getLegend().setEnabled(true);
-        barChartDT.getLegend().setTextSize(12f);
+        barChartDT.getLegend().setTextSize(10f);
         barChartDT.setDrawGridBackground(false);
         barChartDT.setDrawBorders(false);
         barChartDT.animateY(1000);
