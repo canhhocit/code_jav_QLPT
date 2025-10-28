@@ -231,7 +231,7 @@ public class baocao_activity_homeBC extends AppCompatActivity {
             if (val > maxValue) maxValue = (float) val;
         }
 
-        // Thêm buffer 10% cho đẹp
+        // Thêm buffer 10% đẹp
         float buffer = Math.abs(maxValue - minValue) * 0.1f;
         barChartDT.getAxisLeft().setAxisMinimum(minValue - buffer);
         barChartDT.getAxisLeft().setAxisMaximum(maxValue + buffer);
