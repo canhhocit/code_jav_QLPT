@@ -100,7 +100,7 @@ public class account_activity extends AppCompatActivity {
             edtUsername.setText("");
             edtPassword.setText("");
 
-            imgback.setOnClickListener(v1 ->{
+            imgback.setOnClickListener(view->{
                 finish();
             });
         });

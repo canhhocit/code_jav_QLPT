@@ -63,11 +63,9 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private qlthutien_TotalPriceAdapter adapter;
     private ArrayList<qlthutien_DichVuCon> listDichVu;
-    private qlthutien_DichVuConDAO dichVuConDAO;
     private ArrayList<qlthutien_DichVuCon> listOtherServices;
     private qlthutien_DichVuConAdapter otherAdapter;
     private double totalOtherServices = 0.0;
-    private qlthutien_HoaDonDAO hoaDonDAO;
     private double giaDien;
     private double giaNuoc;
     private double tong = 0.0;
@@ -84,6 +82,8 @@ public class TaoHoaDonActivity extends AppCompatActivity {
     private final DecimalFormat df = new DecimalFormat("#,###");
     private qlthutien_ChiTietHoaDonDAO qlthutienChiTietHoaDonDAO;
     private qlthutien_GiaMacDinhDienNuocDAO DefaultValueWE, checkdiennuoc;
+    private qlthutien_HoaDonDAO hoaDonDAO;
+    private qlthutien_DichVuConDAO dichVuConDAO;
     private qlthutien_ChiTietHoaDon chiTietDien, chiTietNuoc, chitiethoadon;
     private qlthutien_HoaDon hoaDonintent;
 
@@ -108,7 +108,7 @@ public class TaoHoaDonActivity extends AppCompatActivity {
         giaDien = checkdiennuoc.getGiaDien();
         giaNuoc = checkdiennuoc.getGiaNuoc();
 
-        if(giaDien == 0 || giaNuoc ==0){
+        if(giaDien == 0 || giaNuoc == 0){
             showNoGiaMacDinhDialog();
         }
         // Lấy giá điện nước từ database
